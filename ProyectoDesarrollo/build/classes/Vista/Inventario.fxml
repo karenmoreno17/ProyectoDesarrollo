@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorInventario">
+   <children>
+      <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="Infinity" prefWidth="Infinity" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Vehiculos">
+               <content>
+                   <AnchorPane>
+                       <children>
+                          <TableView fx:id="tvVehiculos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <columns>
+                                <TableColumn fx:id="tcVLinea" prefWidth="150.0" text="Línea" />
+                                <TableColumn fx:id="tcVMarca" prefWidth="75.0" text="Marca" />
+                                <TableColumn fx:id="tcVModelo" prefWidth="75.0" text="Modelo" />
+                                <TableColumn fx:id="tcVPrecio" prefWidth="75.0" text="Precio" />
+                                <TableColumn fx:id="tcVCantidad" prefWidth="75.0" text="Cantidad" />
+                             </columns>
+                          </TableView>
+                       </children>
+                   </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Repuestos">
+               <content>
+                   <AnchorPane>
+                       <children>
+                          <TableView fx:id="tvRepuestos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <columns>
+                                <TableColumn fx:id="tcRLinea" prefWidth="150.0" text="Línea" />
+                                <TableColumn fx:id="tcRMarca" prefWidth="75.0" text="Marca" />
+                                <TableColumn fx:id="tcRModelo" prefWidth="75.0" text="Modelo" />
+                                <TableColumn fx:id="tcRPrecio" prefWidth="75.0" text="Precio" />
+                                <TableColumn fx:id="tcRCantidad" prefWidth="75.0" text="Cantidad" />
+                             </columns>
+                          </TableView>
+                       </children>
+                   </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <Button fx:id="bActualizar" layoutX="457.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#cargarInventario" prefHeight="25.0" prefWidth="75.0" text="Actualizar" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
+   </children>
+</AnchorPane>
