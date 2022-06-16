@@ -7,6 +7,7 @@ package Controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,6 +34,8 @@ import javafx.stage.Stage;
  */
 public class GUIController implements Initializable
 {
+    private ArrayList <AnchorPane> panelesSecundarios;
+    private String[] nombres;
 
     @FXML
     private Pane ventanaPrincipal, ventanaMenu;
@@ -76,8 +79,8 @@ public class GUIController implements Initializable
     private Button boton_cerrar;
     @FXML
     private AnchorPane panelVentas;
-    
-    
+
+
     /**
      * Initializes the controller class.
      * @param url
@@ -87,52 +90,32 @@ public class GUIController implements Initializable
     public void initialize(URL url, ResourceBundle rb) 
     {
 /*
-        Timer temporizador = new Timer();
-        TimerTask tarea = new TimerTask() 
-        {
-            @Override
-            public void run() 
-            {
+        El nombre de cada archivo .fxml (de los paneles secundarios) se guarda en una posicion del array nombres.
+        Con este array que el programa los añade después en su respectivo panel (en la función ingresar).
+
+        Posiciones:
+         - Panel de inicio:             0.
+         - Panel de usuario:            1.
+         - Panel de inventario:         2.
+         - Panel de sedes:              3.
+         - Panel de reportes            4.
+         - Panel de órdenes de trabajo: 5.
+         - Panel de ventas:             6.
 */
-                try {
-                    AnchorPane root1 = FXMLLoader.load(getClass().getResource("/Vista/Inventario.fxml"));
+        nombres = new String[7];
+        nombres[0] = "OrdenTrabajo.fxml";
+        nombres[1] = null;
+        nombres[2] = "Inventario.fxml";
+        nombres[3] = null;
+        nombres[4] = null;
+        nombres[5] = "OrdenTrabajo.fxml";
+        nombres[6] = null;
 
-                    panelInventario.getChildren().add(root1);
-/*
-                    AnchorPane root2 = FXMLLoader.load(getClass().getResource("/Vista/*NOMBRE_ARCHIVO*.fxml"));
+        panelesSecundarios = new ArrayList<>();
 
-                    *NOMBRE_PANEL*.getChildren().add(0, root2);
-*/
+        cargarFXML(nombres);
 
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-/*
-                finally
-                {
-                    cancel();
-                    temporizador.cancel();
-
-                }
-            }
-        };
-        temporizador.schedule(tarea, 0, 10000); 
-*/
-
-        boton_cerrar.setLayoutY(boton_inventario.getLayoutY());
-        boton_orden.setLayoutY(boton_usuario.getLayoutY());
-        boton_inventario.setLayoutY(boton_inicio.getLayoutY());
-        
-        setColor(boton_inventario);
-
-        panelInventario.setVisible(true);
-        panelInicio.setVisible(false);
-
-        boton_inicio.setVisible(false);
-        boton_usuario.setVisible(false);
-        boton_sede.setVisible(false);
-        boton_reporte.setVisible(false);
-        boton_venta.setVisible(false);
+//        ventanaDesarrollador();
 
     }
 
@@ -158,6 +141,21 @@ public class GUIController implements Initializable
     {
         panelPrincipal.setVisible(false);
         ventanaMenu.setVisible(true);
+
+        int j = 0;
+        
+
+        for (int i = 0; i < 7; i++)
+        {
+            System.out.println(panelContenedor.getChildren().get(i).getId());
+            if (nombres[i] != null)
+            {
+                System.out.println(nombres[i]);
+                AnchorPane hijo = (AnchorPane) panelContenedor.getChildren().get(i);
+                hijo.getChildren().add(panelesSecundarios.get(j));
+                j += 1;
+            }
+        }
     }
 
     @FXML
@@ -240,7 +238,37 @@ public class GUIController implements Initializable
         setColor(boton_venta);
         panelVentas.setVisible(true);
     }
-    
+
+    private void cargarFXML(String[] nombres)
+    {
+        Timer temporizador = new Timer();
+        TimerTask tarea = new TimerTask() 
+        {
+            @Override
+            public void run() 
+            {
+                try {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        String nombre = nombres[i];
+
+                        if (nombre != null)
+                        {
+                            panelesSecundarios.add(0, (AnchorPane) FXMLLoader.load(getClass().getResource("/Vista/" + nombre)));
+                        }
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+                } finally
+                {
+                    cancel();
+                    temporizador.cancel();
+                }
+            }
+        };
+        temporizador.schedule(tarea, 0, 10000);
+    }
+
     private void quitarVisibilidad()
     {
         resetColor(boton_inicio);
@@ -251,13 +279,31 @@ public class GUIController implements Initializable
         resetColor(boton_orden);
         resetColor(boton_venta);
 
-        panelInicio.setVisible(false);
+//        panelInicio.setVisible(false);
         panelUsuario.setVisible(false);
         panelInventario.setVisible(false);
         panelSedes.setVisible(false);
         panelReportes.setVisible(false);
         panelOrdenes.setVisible(false);
         panelVentas.setVisible(false);
+    }
+    
+    private void ventanaDesarrollador()
+    {
+        boton_cerrar.setLayoutY(boton_inventario.getLayoutY());
+        boton_orden.setLayoutY(boton_usuario.getLayoutY());
+        boton_inventario.setLayoutY(boton_inicio.getLayoutY());
+        
+        setColor(boton_inventario);
+
+        panelInventario.setVisible(true);
+        panelInicio.setVisible(false);
+
+        boton_inicio.setVisible(false);
+        boton_usuario.setVisible(false);
+        boton_sede.setVisible(false);
+        boton_reporte.setVisible(false);
+        boton_venta.setVisible(false);
     }
 
 }
