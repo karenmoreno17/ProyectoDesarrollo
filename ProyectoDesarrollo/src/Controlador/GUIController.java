@@ -286,11 +286,10 @@ public class GUIController implements Initializable
         panelOrdenes.setVisible(false);
         panelVentas.setVisible(false);
     }
-    
+
     private void ventanaDesarrollador()
     {
-        boton_cerrar.setLayoutY(boton_inventario.getLayoutY());
-        boton_orden.setLayoutY(boton_usuario.getLayoutY());
+        boton_cerrar.setLayoutY(boton_usuario.getLayoutY());
         boton_inventario.setLayoutY(boton_inicio.getLayoutY());
         
         setColor(boton_inventario);
@@ -301,6 +300,7 @@ public class GUIController implements Initializable
         boton_inicio.setVisible(false);
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
+        boton_orden.setVisible(false);
         boton_reporte.setVisible(false);
         boton_venta.setVisible(false);
     }
