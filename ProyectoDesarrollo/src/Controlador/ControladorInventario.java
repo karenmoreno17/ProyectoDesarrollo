@@ -170,8 +170,8 @@ public class ControladorInventario implements Initializable {
 
                     while(rs.next()){
 
-                        datosV.add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), 
-                                                Integer.parseInt(rs.getString(5)), Integer.parseInt(rs.getString(6))));
+                        datosV.add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
+                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
                     }
 
                     sql = "select * from repuesto;";
@@ -179,8 +179,8 @@ public class ControladorInventario implements Initializable {
                     rs = st.executeQuery(sql);
 
                     while(rs.next()){
-                        datosR.add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), 
-                                                Integer.parseInt(rs.getString(5)), Integer.parseInt(rs.getString(6))));
+                        datosR.add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
+                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
                     }
 
                     st.close();
