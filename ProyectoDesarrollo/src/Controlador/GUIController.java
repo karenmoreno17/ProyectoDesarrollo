@@ -35,7 +35,6 @@ import javafx.stage.Stage;
 public class GUIController implements Initializable
 {
     private ArrayList <AnchorPane> panelesSecundarios;
-    private String[] nombres;
 
     @FXML
     private Pane ventanaPrincipal, ventanaMenu;
@@ -102,20 +101,26 @@ public class GUIController implements Initializable
          - Panel de órdenes de trabajo: 5.
          - Panel de ventas:             6.
 */
-        nombres = new String[7];
-        nombres[0] = "OrdenTrabajo.fxml";
+
+        String[] nombres = new String[7];
+        nombres[0] = null;
         nombres[1] = null;
         nombres[2] = "Inventario.fxml";
         nombres[3] = null;
         nombres[4] = null;
-        nombres[5] = "OrdenTrabajo.fxml";
+        nombres[5] = null;
         nombres[6] = null;
 
         panelesSecundarios = new ArrayList<>();
 
+        for (int i = 0; i < nombres.length; i++)
+        {
+            panelesSecundarios.add(null);
+        }
+
         cargarFXML(nombres);
 
-//        ventanaDesarrollador();
+        ventanaDesarrollador();
 
     }
 
@@ -142,18 +147,12 @@ public class GUIController implements Initializable
         panelPrincipal.setVisible(false);
         ventanaMenu.setVisible(true);
 
-        int j = 0;
-        
-
         for (int i = 0; i < 7; i++)
         {
-            System.out.println(panelContenedor.getChildren().get(i).getId());
-            if (nombres[i] != null)
+            if (panelesSecundarios.get(i) != null)
             {
-                System.out.println(nombres[i]);
                 AnchorPane hijo = (AnchorPane) panelContenedor.getChildren().get(i);
-                hijo.getChildren().add(panelesSecundarios.get(j));
-                j += 1;
+                hijo.getChildren().add(panelesSecundarios.get(i));
             }
         }
     }
@@ -241,32 +240,32 @@ public class GUIController implements Initializable
 
     private void cargarFXML(String[] nombres)
     {
-        Timer temporizador = new Timer();
-        TimerTask tarea = new TimerTask() 
+        for (int i = 0; i < 7; i++)
         {
-            @Override
-            public void run() 
-            {
-                try {
-                    for (int i = 0; i < 7; i++)
-                    {
-                        String nombre = nombres[i];
+            String nombre = nombres[i];
+            int posicion = i;
 
-                        if (nombre != null)
+            Timer temporizador = new Timer();
+            TimerTask tarea = new TimerTask() 
+            {
+                @Override
+                public void run() 
+                {
+                    if (nombre != null)
+                    {
+                        try 
                         {
-                            panelesSecundarios.add(0, (AnchorPane) FXMLLoader.load(getClass().getResource("/Vista/" + nombre)));
+                            panelesSecundarios.set(posicion, (AnchorPane) FXMLLoader.load(getClass().getResource("/Vista/" + nombre)));
+                        } catch (IOException ex) {
+                            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
-                } finally
-                {
                     cancel();
                     temporizador.cancel();
                 }
-            }
-        };
-        temporizador.schedule(tarea, 0, 10000);
+            };
+            temporizador.schedule(tarea, 0, 10000);
+        }
     }
 
     private void quitarVisibilidad()
