@@ -8,12 +8,12 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ProyectoDesarrollo.jar" size="343484" download="eager" />
+    <jar href="ProyectoDesarrollo.jar" size="356780" download="eager" />
     <jar href="lib\postgresql-42.3.6.jar" size="1041072" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ProyectoDesarrollo" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="MainApp"  name="ProyectoDesarrollo" />
+  <jfx:javafx-desc  width="800" height="600" main-class="Vista.MainApp"  name="ProyectoDesarrollo" />
   <update check="always"/>
 </jnlp>

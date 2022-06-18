@@ -30,7 +30,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="ventanaPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="617.0" prefWidth="1022.0" style="-fx-background-color: #76a2cb;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.GUIController">
    <children>
-      <Pane fx:id="panelPrincipal" layoutX="-3.0" prefHeight="617.0" prefWidth="1024.0" style="-fx-background-color: #76a2cb;" visible="false" AnchorPane.leftAnchor="-3.0">
+      <Pane fx:id="panelPrincipal" layoutX="-3.0" prefHeight="617.0" prefWidth="1024.0" style="-fx-background-color: #76a2cb;" AnchorPane.leftAnchor="-3.0">
          <children>
             <Button fx:id="bCerrar" layoutX="925.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="28.0" prefWidth="89.0" style="-fx-background-color: #FFFFFF;" text="Cerrar" textFill="#76a2cb">
                <cursor>
@@ -128,7 +128,7 @@
             </GridPane>
          </children>
       </Pane>
-      <Pane fx:id="ventanaMenu" layoutX="216.0" prefHeight="617.0" prefWidth="806.0">
+      <Pane fx:id="ventanaMenu" layoutX="216.0" prefHeight="617.0" prefWidth="806.0" visible="false">
          <children>
             <Pane fx:id="panelOpciones" layoutX="-215.0" prefHeight="617.0" prefWidth="216.0">
                <children>
@@ -190,7 +190,7 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="boton_cerrar" alignment="BASELINE_CENTER" layoutY="391.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Cerrar" textFill="WHITE">
+                        <Button fx:id="boton_cerrar" alignment="BASELINE_CENTER" layoutY="391.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #CE5F56;" text="Cerrar" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
