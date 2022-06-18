@@ -217,12 +217,12 @@ public class ControladorInventario implements Initializable {
         if(categoria.getValue() == "Vehículo" && !(textfield_marca.getText().isEmpty()) && !(textfield_linea.getText().isEmpty()) &&
            !(textfield_modelo.getText().isEmpty()) && !(textfield_precio.getText().isEmpty()) && !(textfield_cantidad.getText().isEmpty()))
         {
-            sql_guardar = "INSERT INTO vehiculo (marca, linea, modelo, precio, cantidad_vehiculo) VALUES ('"+
-                textfield_marca.getText()+ "', '"+ textfield_linea.getText()+"', '" + textfield_modelo.getText() 
-                +"', '" + Integer.parseInt(textfield_precio.getText()) + "', "+ Integer.parseInt(textfield_cantidad.getText())+ ")";
-            
             try
             {
+                sql_guardar = "INSERT INTO vehiculo (marca, linea, modelo, precio, cantidad_vehiculo) VALUES ('"+
+                textfield_marca.getText()+ "', '"+ textfield_linea.getText()+"', '" + textfield_modelo.getText() 
+                +"', '" + Integer.parseInt(textfield_precio.getText().trim()) + "', "+ Integer.parseInt(textfield_cantidad.getText().trim())+ ")";
+                
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
                 Statement sentencia = conexion.createStatement();
@@ -242,16 +242,21 @@ public class ControladorInventario implements Initializable {
                 JOptionPane.showMessageDialog(null,"Error: " + 
                     sqle.getMessage());
             }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
+                boton_guardar_inventario.setStyle("-fx-background-color: #66c00b; ");
+            }
         }
         else if(categoria.getValue() == "Repuesto" && !(textfield_marca.getText().isEmpty()) && !(textfield_linea.getText().isEmpty()) &&
            !(textfield_modelo.getText().isEmpty()) && !(textfield_precio.getText().isEmpty()) && !(textfield_cantidad.getText().isEmpty()))
-        {
-            sql_guardar = "INSERT INTO repuesto (marca, linea, modelo, precio, cantidad_repuesto) VALUES ('"+
-                textfield_marca.getText()+ "', '"+ textfield_linea.getText()+"', '" + textfield_modelo.getText() 
-                +"', '" + Integer.parseInt(textfield_precio.getText()) + "', "+ Integer.parseInt(textfield_cantidad.getText())+ ")";
-               
+        {     
             try
             {
+                sql_guardar = "INSERT INTO repuesto (marca, linea, modelo, precio, cantidad_repuesto) VALUES ('"+
+                textfield_marca.getText()+ "', '"+ textfield_linea.getText()+"', '" + textfield_modelo.getText() 
+                +"', '" + Integer.parseInt(textfield_precio.getText().trim()) + "', "+ Integer.parseInt(textfield_cantidad.getText().trim())+ ")";
+                
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
                 Statement sentencia = conexion.createStatement();
@@ -270,6 +275,11 @@ public class ControladorInventario implements Initializable {
             {
                 JOptionPane.showMessageDialog(null,"Error: " + 
                     sqle.getMessage());
+            }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
+                boton_guardar_inventario.setStyle("-fx-background-color: #66c00b; ");
             }
         }
         else
@@ -291,12 +301,12 @@ public class ControladorInventario implements Initializable {
            !(textfield_linea_modificacion.getText().isEmpty()) && !(textfield_modelo_modificacion.getText().isEmpty()) &&
            !(textfield_precio_modificacion.getText().isEmpty()) && !(textfield_cantidad_modificacion.getText().isEmpty()))
         {
-            sql_guardar = "UPDATE vehiculo SET marca = " + "'" + textfield_marca_modificacion.getText() +"'" +", linea = " + "'" + textfield_linea_modificacion.getText()+ "'"
-                           + ", modelo = " + "'"+ textfield_modelo_modificacion.getText() + "'" +", precio = " + "'" +Integer.parseInt(textfield_precio_modificacion.getText()) + "'"
-                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText()) + "WHERE id_vehiculo = " + textfield_buscar.getText();
-    
             try
             {
+                sql_guardar = "UPDATE vehiculo SET marca = " + "'" + textfield_marca_modificacion.getText() +"'" +", linea = " + "'" + textfield_linea_modificacion.getText()+ "'"
+                           + ", modelo = " + "'"+ textfield_modelo_modificacion.getText() + "'" +", precio = " + "'" +Integer.parseInt(textfield_precio_modificacion.getText().trim()) + "'"
+                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_vehiculo = " + textfield_buscar.getText();
+                
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
                 Statement sentencia = conexion.createStatement();
@@ -316,16 +326,21 @@ public class ControladorInventario implements Initializable {
                 JOptionPane.showMessageDialog(null,"Error: " + 
                     sqle.getMessage());
             }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
+                boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #66c00b; ");
+            }
         }
         else if(modificacion_categoria.getValue() == "Repuesto" && !(textfield_marca_modificacion.getText().isEmpty()) && !(textfield_linea_modificacion.getText().isEmpty()) &&
                 !(textfield_modelo_modificacion.getText().isEmpty()) && !(textfield_precio_modificacion.getText().isEmpty()) && !(textfield_cantidad_modificacion.getText().isEmpty()))
-        {
-            sql_guardar = "UPDATE repuesto SET marca = " + textfield_marca_modificacion.getText() +", linea = " + textfield_linea_modificacion.getText()
-                           + ", modelo = " + textfield_modelo_modificacion.getText() +", precio = " + Integer.parseInt(textfield_precio_modificacion.getText())
-                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText()) + "WHERE id_repuesto = " + textfield_buscar.getText();
-               
+        { 
             try
             {
+                sql_guardar = "UPDATE repuesto SET marca = " + textfield_marca_modificacion.getText() +", linea = " + textfield_linea_modificacion.getText()
+                           + ", modelo = " + textfield_modelo_modificacion.getText() +", precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim())
+                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_repuesto = " + textfield_buscar.getText();
+                
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
                 Statement sentencia = conexion.createStatement();
@@ -344,6 +359,11 @@ public class ControladorInventario implements Initializable {
             {
                 JOptionPane.showMessageDialog(null,"Error: " + 
                     sqle.getMessage());
+            }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
+                boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #66c00b; ");
             }
         }
         else
