@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorInventario">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorInventario">
    <children>
       <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="Infinity" prefWidth="Infinity" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
@@ -97,15 +103,15 @@
                               <Image url="@../Recursos/inventarioG.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="boton_guardar_inventario" layoutX="550.0" layoutY="452.0" mnemonicParsing="false" onAction="#guardarInventario" prefHeight="28.0" prefWidth="103.0" style="-fx-background-color: #66c00b;" text="Guardar">
+                        <Button fx:id="boton_guardar_inventario" alignment="BASELINE_LEFT" layoutX="550.0" layoutY="452.0" mnemonicParsing="false" onAction="#guardarInventario" prefHeight="40.0" prefWidth="103.0" style="-fx-background-color: #66c00b;" text="Guardar" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <ImageView layoutX="504.0" layoutY="453.0">
+                        <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="625.0" layoutY="459.0">
                            <image>
                               <Image url="@../Recursos/icons8_checkmark_26px.png" />
                            </image>
@@ -159,15 +165,15 @@
                            </font>
                         </Label>
                         <TextField fx:id="textfield_cantidad_modificacion" disable="true" layoutX="186.0" layoutY="418.0" />
-                        <Button fx:id="boton_guardar_inventario_modificacion" disable="true" layoutX="573.0" layoutY="508.0" mnemonicParsing="false" onAction="#guardar_Inventario_Modificado" prefHeight="28.0" prefWidth="103.0" style="-fx-background-color: #66c00b;" text="Guardar">
+                        <Button fx:id="boton_guardar_inventario_modificacion" alignment="BASELINE_LEFT" disable="true" layoutX="573.0" layoutY="482.0" mnemonicParsing="false" onAction="#guardar_Inventario_Modificado" prefHeight="42.0" prefWidth="103.0" style="-fx-background-color: #66c00b;" text="Guardar" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
-                        <ImageView layoutX="524.0" layoutY="509.0">
+                        <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="646.0" layoutY="491.0">
                            <image>
                               <Image url="@../Recursos/icons8_checkmark_26px.png" />
                            </image>
