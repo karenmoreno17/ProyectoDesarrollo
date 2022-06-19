@@ -31,26 +31,26 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox layoutX="198.0" layoutY="172.0" prefWidth="150.0" />
+                  <ComboBox fx:id="cbVehiculo" layoutX="198.0" layoutY="172.0" prefWidth="150.0" />
                   <Label layoutX="20.0" layoutY="218.0" text="Proceso realizado:">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="19.0" layoutY="233.0" prefHeight="220.0" prefWidth="668.0" />
+                  <TextArea fx:id="taProceso" layoutX="19.0" layoutY="233.0" prefHeight="220.0" prefWidth="668.0" />
                   <Label layoutX="371.0" layoutY="177.0" text="Repuesto:">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="532.0" layoutY="172.0" />
+                  <ComboBox fx:id="cbRepuesto" layoutX="532.0" layoutY="172.0" prefWidth="150.0" />
                   <Label layoutX="165.0" layoutY="37.0" prefHeight="40.0" prefWidth="375.0" style="-fx-background-color: #76A2CB;" text="  Nueva Orden de trabajo" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Verdana Bold" size="25.0" />
                      </font>
                   </Label>
                   <Button layoutX="607.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#crearOrden" text="Crear orden" />
-                  <Button layoutX="496.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#LimpiarCampos" text="Limpiar campos" />
+                  <Button layoutX="496.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#limpiarCampos" text="Limpiar campos" />
                </children>
             </AnchorPane>
         </content>
