@@ -16,17 +16,25 @@
  */
 package Controlador;
 
+import Modelo.Fachada;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -37,17 +45,12 @@ public class ControladorOrdenTrabajo implements Initializable
 {
 
     @FXML
-    private TextField tfIdCliente, tfIdEncargado;
+    private TextField tfIdEncargado, tfIdCliente;
+    @FXML
+    private TextArea taProceso;
+    @FXML
+    private ComboBox<String> cbVehiculo, cbRepuesto;
 
-    
-    private void verificacionTeclasEspecialesAux(KeyEvent event, TextField tf) 
-    {
-        if(event.getCode().toString().equals("CONTROL"))
-        {
-            tf.setEditable(false);
-        }
-
-    }
 
     /**
      * Initializes the controller class.
@@ -58,6 +61,9 @@ public class ControladorOrdenTrabajo implements Initializable
         // TODO
         tfIdCliente.setContextMenu(new ContextMenu());
         tfIdEncargado.setContextMenu(new ContextMenu());
+
+        cargarDeInventario(cbVehiculo, "vehiculo");
+        cargarDeInventario(cbRepuesto, "repuesto");
 
     }
 
@@ -86,13 +92,67 @@ public class ControladorOrdenTrabajo implements Initializable
     @FXML
     private void crearOrden(MouseEvent event) 
     {
+        boolean ordenInvalida = tfIdCliente.getText().equals("") && tfIdEncargado.getText().equals("") 
+                             && cbVehiculo.getValue().equals("Elige un vehiculo") && cbRepuesto.getValue().equals("Elige un repuesto")
+                             && taProceso.getText().equals("");
         
+        if (ordenInvalida)
+        {
+            JOptionPane.showConfirmDialog(null, "Por favor llene todos los campos.");
+        }
+        else
+        {
+            Fachada con = new Fachada();
+            Connection conexion = con.getConnection();
+
+            Timer temporizadorV = new Timer();
+            TimerTask tareaV = new TimerTask() 
+            {
+                @Override
+                public void run() 
+                {
+                    try
+                    {
+                        Statement st = conexion.createStatement();
+                        String sql = "INSERT INTO orden_trabajo (cedula_cliente, id_encargado, id_vehiculo, id_repuesto, proceso) VALUES ("
+                                   + tfIdCliente.getText() + ", " + tfIdEncargado.getText() + ", " + cbVehiculo.getValue().split("-")[0] + ", " 
+                                   + cbRepuesto.getValue().split("-")[0] + ", '" + taProceso.getText() + "');";
+
+                        int result = st.executeUpdate(sql);
+
+                        if (result == 1)
+                        {
+                            JOptionPane.showMessageDialog(null, "La orden de trabajo fue creada con éxito.");
+                            limpiarCampos();
+                        } else
+                        {
+                            JOptionPane.showMessageDialog(null, "Ocurrió un error al crear la orden de trabajo.");
+                        }
+
+                        st.close();
+                        conexion.close();
+                    } catch(SQLException ex)
+                    {
+                        JOptionPane.showMessageDialog(null,"Error Mostrar: " + ex.getMessage());
+                    } finally
+                    {
+                        cancel();
+                        temporizadorV.cancel();
+                    }
+                }
+            };
+            temporizadorV.schedule(tareaV, 0, 10000);
+        }
     }
 
     @FXML
-    private void LimpiarCampos(MouseEvent event) 
+    private void limpiarCampos() 
     {
-        
+        tfIdCliente.setText("");
+        tfIdEncargado.setText("");
+        taProceso.setText("");
+        cbVehiculo.setValue("Elige un vehiculo");
+        cbRepuesto.setValue("Elige un repuesto");
     }
 
     @FXML
@@ -104,7 +164,47 @@ public class ControladorOrdenTrabajo implements Initializable
         {
             tf.setEditable(false);
         }
+    }
 
+    private void cargarDeInventario(ComboBox cb, String tipo)
+    {
+        Fachada con = new Fachada();
+        Connection conexion = con.getConnection();
+
+        Timer temporizadorV = new Timer();
+        TimerTask tareaV = new TimerTask() 
+        {
+            @Override
+            public void run() 
+            {
+                try
+                {
+                    Statement st = conexion.createStatement();
+                    String sql = "select * from " + tipo + ";";
+
+                    cb.getItems().clear();
+                    cb.setValue("Elige un " + tipo);
+                    cb.getItems().add("Elige un " + tipo);
+
+                    ResultSet rs = st.executeQuery(sql);
+
+                    while(rs.next())
+                    {
+                    cb.getItems().add(rs.getString(1) + "- " + rs.getString(2) + ", " + rs.getString(5) + ", " + rs.getString(3));
+                    }
+                    st.close();
+                    conexion.close();
+                } catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null,"Error Mostrar: " + ex.getMessage());
+                } finally
+                {
+                    cancel();
+                    temporizadorV.cancel();
+                }
+            }
+        };
+        temporizadorV.schedule(tareaV, 0, 10000);
     }
 
 }
