@@ -108,7 +108,7 @@ public class GUIController implements Initializable
         nombres[2] = "Inventario.fxml";
         nombres[3] = null;
         nombres[4] = null;
-        nombres[5] = null;
+        nombres[5] = "OrdenTrabajo.fxml";
         nombres[6] = null;
 
         panelesSecundarios = new ArrayList<>();
@@ -120,7 +120,7 @@ public class GUIController implements Initializable
 
         cargarFXML(nombres);
 
-        ventanaDesarrollador();
+//        ventanaDesarrollador();
 
     }
 
@@ -289,7 +289,8 @@ public class GUIController implements Initializable
 
     private void ventanaDesarrollador()
     {
-        boton_cerrar.setLayoutY(boton_usuario.getLayoutY());
+        boton_cerrar.setLayoutY(boton_inventario.getLayoutY());
+        boton_orden.setLayoutY(boton_usuario.getLayoutY());
         boton_inventario.setLayoutY(boton_inicio.getLayoutY());
         
         setColor(boton_inventario);
@@ -300,7 +301,6 @@ public class GUIController implements Initializable
         boton_inicio.setVisible(false);
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
-        boton_orden.setVisible(false);
         boton_reporte.setVisible(false);
         boton_venta.setVisible(false);
     }
