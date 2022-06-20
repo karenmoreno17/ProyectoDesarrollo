@@ -32,7 +32,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -80,14 +79,15 @@ public class ControladorOrdenTrabajo implements Initializable
                 event.consume();
             }
 
-        } catch (NumberFormatException nfe) 
+        } 
+        catch (NumberFormatException nfe) 
         {
             event.consume();
         }
     }
 
     @FXML
-    private void crearOrden(MouseEvent event) 
+    private void crearOrden() 
     {
         boolean ordenInvalida = tfIdCliente.getText().equals("") || tfIdEncargado.getText().equals("")
                 || cbVehiculo.getValue().equals("Elige un vehiculo") || cbRepuesto.getValue().equals("Elige un repuesto")
@@ -96,7 +96,8 @@ public class ControladorOrdenTrabajo implements Initializable
         if (ordenInvalida) 
         {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos.");
-        } else 
+        } 
+        else 
         {
             Fachada con = new Fachada();
             Connection conexion = con.getConnection();
@@ -127,17 +128,20 @@ public class ControladorOrdenTrabajo implements Initializable
                         if (result == 1) 
                         {
                             JOptionPane.showMessageDialog(null, "La orden de trabajo fue creada con éxito.");
-                        } else 
+                        } 
+                        else 
                         {
                             JOptionPane.showMessageDialog(null, "Ocurrió un error al crear la orden de trabajo.");
                         }
 
                         st.close();
                         conexion.close();
-                    } catch (SQLException ex) 
+                    } 
+                    catch (SQLException ex) 
                     {
                         JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex.getMessage());
-                    } finally 
+                    } 
+                    finally 
                     {
                         cancel();
                         temporizadorV.cancel();
@@ -197,10 +201,12 @@ public class ControladorOrdenTrabajo implements Initializable
                     }
                     st.close();
                     conexion.close();
-                } catch (SQLException ex) 
+                } 
+                catch (SQLException ex) 
                 {
                     JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex.getMessage());
-                } finally 
+                } 
+                finally 
                 {
                     cancel();
                     temporizadorV.cancel();
@@ -211,4 +217,3 @@ public class ControladorOrdenTrabajo implements Initializable
     }
 
 }
-
