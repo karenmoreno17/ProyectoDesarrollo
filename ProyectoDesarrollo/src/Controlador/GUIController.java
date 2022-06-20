@@ -246,7 +246,6 @@ public class GUIController implements Initializable
 
             if (rs.getString(1).equals(contrasena))
             {
-                System.out.println(rs.getString(2));
                 ingresar(rs.getString(2));
             }
             else 
@@ -371,10 +370,6 @@ public class GUIController implements Initializable
     private void ventanaGerente()
     {
         setColor(boton_inicio);
-        System.out.println(boton_usuario.getLayoutY());
-        System.out.println(boton_inventario.getLayoutY());
-        System.out.println(boton_sede.getLayoutY());
-        System.out.println(boton_reporte.getLayoutY());
     }
 
     private void ventanaVendedor()
