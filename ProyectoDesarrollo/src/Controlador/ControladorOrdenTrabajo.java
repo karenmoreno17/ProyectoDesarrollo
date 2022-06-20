@@ -187,7 +187,7 @@ public class ControladorOrdenTrabajo implements Initializable
                 try 
                 {
                     Statement st = conexion.createStatement();
-                    String sql = "select * from " + tipo + ";";
+                    String sql = "SELECT * FROM " + tipo + ";";
 
                     cb.getItems().clear();
                     cb.setValue("Elige un " + tipo);
