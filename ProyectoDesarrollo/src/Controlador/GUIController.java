@@ -5,8 +5,13 @@
  */
 package Controlador;
 
+import Modelo.Fachada;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -22,10 +27,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -37,47 +44,19 @@ public class GUIController implements Initializable
     private ArrayList <AnchorPane> panelesSecundarios;
 
     @FXML
-    private Pane ventanaPrincipal, ventanaMenu;
+    private AnchorPane ventanaPrincipal, panelBotones, panelUsuario, panelInventario, panelSedes, panelReportes, panelInicio, panelOrdenes, panelVentas;
     @FXML
-    private Pane panelPrincipal;
+    private Pane ventanaMenu, panelPrincipal, panelBienvenida, panelOpciones, panelContenedor;
     @FXML
-    private Pane panelBienvenida;
+    private GridPane panelIngreso;
     @FXML
-    private Button bCerrar, bContinuar, bIngresar, boton_inicio, boton_usuario, boton_inventario,boton_sede,boton_reporte;
+    private Button bCerrar, bContinuar, bIngresar, boton_inicio, boton_usuario, boton_inventario,boton_sede,boton_reporte, boton_orden, boton_venta, boton_cerrar;
     @FXML
     private TextField tCedula, tAuxContrasena;
     @FXML
     private PasswordField tContrasena;
     @FXML
-    private GridPane panelIngreso;
-    @FXML
     private CheckBox cbContrasena;
-    @FXML
-    private Pane panelOpciones;
-    @FXML
-    private AnchorPane panelBotones;
-    @FXML
-    private Pane panelContenedor;
-    @FXML
-    private AnchorPane panelUsuario;
-    @FXML
-    private AnchorPane panelInventario;
-    @FXML
-    private AnchorPane panelSedes;
-    @FXML
-    private AnchorPane panelReportes;
-    @FXML
-    private AnchorPane panelInicio;
-    @FXML
-    private AnchorPane panelOrdenes;
-    @FXML
-    private Button boton_orden;
-    @FXML
-    private Button boton_venta;
-    @FXML
-    private Button boton_cerrar;
-    @FXML
-    private AnchorPane panelVentas;
 
 
     /**
@@ -119,9 +98,6 @@ public class GUIController implements Initializable
         }
 
         cargarFXML(nombres);
-
-//        ventanaDesarrollador();
-
     }
 
     @FXML
@@ -142,22 +118,6 @@ public class GUIController implements Initializable
     }
 
     @FXML
-    private void ingresar(ActionEvent event) 
-    {
-        panelPrincipal.setVisible(false);
-        ventanaMenu.setVisible(true);
-
-        for (int i = 0; i < 7; i++)
-        {
-            if (panelesSecundarios.get(i) != null)
-            {
-                AnchorPane hijo = (AnchorPane) panelContenedor.getChildren().get(i);
-                hijo.getChildren().add(panelesSecundarios.get(i));
-            }
-        }
-    }
-
-    @FXML
     private void activarContrasena(ActionEvent event) 
     {
         if(cbContrasena.isSelected())
@@ -165,21 +125,13 @@ public class GUIController implements Initializable
             tAuxContrasena.setText(tContrasena.getText());
             tAuxContrasena.setVisible(true);
             tContrasena.setVisible(false);
-            return;
         }
-        tContrasena.setVisible(true);
-        tAuxContrasena.setVisible(false); 
-        tAuxContrasena.setText("");
-    }
-    
-    void setColor(Button boton )
-    {
-        boton.setStyle("-fx-background-color: #B5B2B2; ");
-    }
-    
-    void resetColor(Button boton )
-    {
-        boton.setStyle("-fx-background-color: #808080; ");
+        else
+        {
+            tContrasena.setText(tAuxContrasena.getText());
+            tContrasena.setVisible(true);
+            tAuxContrasena.setVisible(false);
+        }
     }
 
     @FXML
@@ -238,6 +190,89 @@ public class GUIController implements Initializable
         panelVentas.setVisible(true);
     }
 
+    @FXML
+    private void verificacionTeclasEspeciales(KeyEvent event) 
+    {
+        TextField tf = (TextField) event.getSource();
+
+        if (event.getCode().toString().equals("CONTROL")) 
+        {
+            tf.setEditable(false);
+        }
+    }
+
+    @FXML
+    private void verificacionEntradaNumerica(KeyEvent event) 
+    {
+        TextField tf = (TextField) event.getSource();
+
+        try 
+        {
+            Integer.parseInt(event.getCharacter());
+            tf.setEditable(true);
+
+            if (tf.getText().length() > 15) 
+            {
+                event.consume();
+            }
+        } 
+        catch (NumberFormatException nfe) 
+        {
+            event.consume();
+        }
+    }
+
+    @FXML
+    private void verificarLogin ()
+    {
+        String contrasena = (cbContrasena.isSelected())? tAuxContrasena.getText(): tContrasena.getText();
+
+        if (contrasena.equals("") || tCedula.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "El usuario y/o la contraseña no pueden ser vacíos.");
+        }
+
+        Fachada con = new Fachada();
+        Connection conexion = con.getConnection();
+
+        try 
+        {
+            Statement st = conexion.createStatement();
+            String sql = "SELECT contrasena, rol FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            rs.next();
+
+            if (rs.getString(1).equals(contrasena))
+            {
+                System.out.println(rs.getString(2));
+                ingresar(rs.getString(2));
+            }
+            else 
+            {
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
+            }
+
+            st.close();
+            conexion.close();
+        } 
+        catch (SQLException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex.getMessage());
+        }
+    }
+
+    private void setColor(Button boton )
+    {
+        boton.setStyle("-fx-background-color: #B5B2B2; ");
+    }
+
+    private void resetColor(Button boton )
+    {
+        boton.setStyle("-fx-background-color: #808080; ");
+    }
+
     private void cargarFXML(String[] nombres)
     {
         for (int i = 0; i < 7; i++)
@@ -278,7 +313,7 @@ public class GUIController implements Initializable
         resetColor(boton_orden);
         resetColor(boton_venta);
 
-//        panelInicio.setVisible(false);
+        panelInicio.setVisible(false);
         panelUsuario.setVisible(false);
         panelInventario.setVisible(false);
         panelSedes.setVisible(false);
@@ -292,7 +327,7 @@ public class GUIController implements Initializable
         boton_cerrar.setLayoutY(boton_inventario.getLayoutY());
         boton_orden.setLayoutY(boton_usuario.getLayoutY());
         boton_inventario.setLayoutY(boton_inicio.getLayoutY());
-        
+
         setColor(boton_inventario);
 
         panelInventario.setVisible(true);
@@ -303,6 +338,67 @@ public class GUIController implements Initializable
         boton_sede.setVisible(false);
         boton_reporte.setVisible(false);
         boton_venta.setVisible(false);
+    }
+
+    private void ingresar(String rol) 
+    {
+        panelPrincipal.setVisible(false);
+        ventanaMenu.setVisible(true);
+
+        for (int i = 0; i < 7; i++)
+        {
+            if (panelesSecundarios.get(i) != null)
+            {
+                AnchorPane hijo = (AnchorPane) panelContenedor.getChildren().get(i);
+                hijo.getChildren().add(panelesSecundarios.get(i));
+            }
+        }
+
+        switch(rol.toLowerCase())
+        {
+            case "gerente":
+                ventanaGerente();
+                break;
+            case "vendedor":
+                ventanaVendedor();
+                break;
+            case "jefe de taller":
+                ventanaJefeTaller();
+                break;
+        }
+    }
+
+    private void ventanaGerente()
+    {
+        setColor(boton_inicio);
+        System.out.println(boton_usuario.getLayoutY());
+        System.out.println(boton_inventario.getLayoutY());
+        System.out.println(boton_sede.getLayoutY());
+        System.out.println(boton_reporte.getLayoutY());
+    }
+
+    private void ventanaVendedor()
+    {
+        boton_usuario.setVisible(false);
+        boton_sede.setVisible(false);
+        boton_orden.setVisible(false);
+
+        boton_inventario.setLayoutY(121);
+        boton_reporte.setLayoutY(166);
+        boton_venta.setLayoutY(211);
+        boton_cerrar.setLayoutY(256);
+    }
+
+    private void ventanaJefeTaller()
+    {
+        boton_usuario.setVisible(false);
+        boton_sede.setVisible(false);
+        boton_venta.setVisible(false);
+
+        boton_inventario.setLayoutY(121);
+        boton_reporte.setLayoutY(166);
+        boton_orden.setLayoutY(211);
+        boton_cerrar.setLayoutY(256);
     }
 
 }
