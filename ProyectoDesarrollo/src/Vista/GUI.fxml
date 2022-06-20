@@ -40,7 +40,7 @@
                   <Font name="Verdana Bold" size="14.0" />
                </font>
             </Button>
-            <Pane fx:id="panelBienvenida" layoutX="69.0" layoutY="47.0" prefHeight="515.0" prefWidth="890.0" style="-fx-background-color: #FFFFFF;" visible="false">
+            <Pane fx:id="panelBienvenida" layoutX="69.0" layoutY="47.0" prefHeight="515.0" prefWidth="890.0" style="-fx-background-color: #FFFFFF;">
                <children>
                    
                         <Label layoutX="296.0" layoutY="59.0" prefHeight="80.0" prefWidth="368.0" style="-fx-background-color: #76a2cb;" text="   Le damos la bienvenida " textFill="WHITE">
@@ -68,7 +68,7 @@
                   </Button>
                </children>
             </Pane>
-            <GridPane fx:id="panelIngreso" gridLinesVisible="true" layoutX="69.0" layoutY="53.0" maxHeight="515.0" maxWidth="890.0" minHeight="515.0" minWidth="668.0" prefHeight="515.0" prefWidth="890.0">
+            <GridPane fx:id="panelIngreso" gridLinesVisible="true" layoutX="69.0" layoutY="53.0" maxHeight="515.0" maxWidth="890.0" minHeight="515.0" minWidth="668.0" prefHeight="515.0" prefWidth="890.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="559.0" minWidth="10.0" prefWidth="546.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="344.0" />
