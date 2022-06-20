@@ -25,7 +25,6 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -105,6 +104,14 @@ public class ControladorOrdenTrabajo implements Initializable
             Fachada con = new Fachada();
             Connection conexion = con.getConnection();
 
+            String cedulaCliente = tfIdCliente.getText();
+            String cedulaEncargado = tfIdEncargado.getText();
+            String idVehiculo = cbVehiculo.getValue().split("-")[0];
+            String idRepuesto = cbRepuesto.getValue().split("-")[0];
+            String proceso = taProceso.getText();
+
+            limpiarCampos();
+
             Timer temporizadorV = new Timer();
             TimerTask tareaV = new TimerTask() 
             {
@@ -115,15 +122,14 @@ public class ControladorOrdenTrabajo implements Initializable
                     {
                         Statement st = conexion.createStatement();
                         String sql = "INSERT INTO orden_trabajo (cedula_cliente, id_encargado, id_vehiculo, id_repuesto, proceso) VALUES ("
-                                   + tfIdCliente.getText() + ", " + tfIdEncargado.getText() + ", " + cbVehiculo.getValue().split("-")[0] + ", " 
-                                   + cbRepuesto.getValue().split("-")[0] + ", '" + taProceso.getText() + "');";
+                                   + cedulaCliente + ", " + cedulaEncargado + ", " + idVehiculo + ", " 
+                                   + idRepuesto + ", '" + proceso + "');";
 
                         int result = st.executeUpdate(sql);
 
                         if (result == 1)
                         {
                             JOptionPane.showMessageDialog(null, "La orden de trabajo fue creada con éxito.");
-                            limpiarCampos();
                         } else
                         {
                             JOptionPane.showMessageDialog(null, "Ocurrió un error al crear la orden de trabajo.");
