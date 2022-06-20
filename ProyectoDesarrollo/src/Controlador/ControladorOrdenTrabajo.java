@@ -63,7 +63,6 @@ public class ControladorOrdenTrabajo implements Initializable
 
         cargarDeInventario(cbVehiculo, "vehiculo");
         cargarDeInventario(cbRepuesto, "repuesto");
-
     }
 
     @FXML
@@ -71,35 +70,33 @@ public class ControladorOrdenTrabajo implements Initializable
     {
         TextField tf = (TextField) event.getSource();
 
-        try
+        try 
         {
             Integer.parseInt(event.getCharacter());
             tf.setEditable(true);
 
-            if (tf.getText().length() > 15)
+            if (tf.getText().length() > 15) 
             {
                 event.consume();
             }
 
-        } catch (NumberFormatException nfe)
+        } catch (NumberFormatException nfe) 
         {
             event.consume();
         }
-
     }
 
     @FXML
     private void crearOrden(MouseEvent event) 
     {
-        boolean ordenInvalida = tfIdCliente.getText().equals("") && tfIdEncargado.getText().equals("") 
-                             && cbVehiculo.getValue().equals("Elige un vehiculo") && cbRepuesto.getValue().equals("Elige un repuesto")
-                             && taProceso.getText().equals("");
-        
-        if (ordenInvalida)
+        boolean ordenInvalida = tfIdCliente.getText().equals("") || tfIdEncargado.getText().equals("")
+                || cbVehiculo.getValue().equals("Elige un vehiculo") || cbRepuesto.getValue().equals("Elige un repuesto")
+                || taProceso.getText().equals("");
+
+        if (ordenInvalida) 
         {
-            JOptionPane.showConfirmDialog(null, "Por favor llene todos los campos.");
-        }
-        else
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos.");
+        } else 
         {
             Fachada con = new Fachada();
             Connection conexion = con.getConnection();
@@ -118,29 +115,29 @@ public class ControladorOrdenTrabajo implements Initializable
                 @Override
                 public void run() 
                 {
-                    try
+                    try 
                     {
                         Statement st = conexion.createStatement();
                         String sql = "INSERT INTO orden_trabajo (cedula_cliente, id_encargado, id_vehiculo, id_repuesto, proceso) VALUES ("
-                                   + cedulaCliente + ", " + cedulaEncargado + ", " + idVehiculo + ", " 
-                                   + idRepuesto + ", '" + proceso + "');";
+                                + cedulaCliente + ", " + cedulaEncargado + ", " + idVehiculo + ", "
+                                + idRepuesto + ", '" + proceso + "');";
 
                         int result = st.executeUpdate(sql);
 
-                        if (result == 1)
+                        if (result == 1) 
                         {
                             JOptionPane.showMessageDialog(null, "La orden de trabajo fue creada con éxito.");
-                        } else
+                        } else 
                         {
                             JOptionPane.showMessageDialog(null, "Ocurrió un error al crear la orden de trabajo.");
                         }
 
                         st.close();
                         conexion.close();
-                    } catch(SQLException ex)
+                    } catch (SQLException ex) 
                     {
-                        JOptionPane.showMessageDialog(null,"Error Mostrar: " + ex.getMessage());
-                    } finally
+                        JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex.getMessage());
+                    } finally 
                     {
                         cancel();
                         temporizadorV.cancel();
@@ -166,13 +163,13 @@ public class ControladorOrdenTrabajo implements Initializable
     {
         TextField tf = (TextField) event.getSource();
 
-        if(event.getCode().toString().equals("CONTROL"))
+        if (event.getCode().toString().equals("CONTROL")) 
         {
             tf.setEditable(false);
         }
     }
 
-    private void cargarDeInventario(ComboBox cb, String tipo)
+    private void cargarDeInventario(ComboBox cb, String tipo) 
     {
         Fachada con = new Fachada();
         Connection conexion = con.getConnection();
@@ -183,7 +180,7 @@ public class ControladorOrdenTrabajo implements Initializable
             @Override
             public void run() 
             {
-                try
+                try 
                 {
                     Statement st = conexion.createStatement();
                     String sql = "select * from " + tipo + ";";
@@ -194,16 +191,16 @@ public class ControladorOrdenTrabajo implements Initializable
 
                     ResultSet rs = st.executeQuery(sql);
 
-                    while(rs.next())
+                    while (rs.next()) 
                     {
-                    cb.getItems().add(rs.getString(1) + "- " + rs.getString(2) + ", " + rs.getString(5) + ", " + rs.getString(3));
+                        cb.getItems().add(rs.getString(1) + "- " + rs.getString(2) + ", " + rs.getString(5) + ", " + rs.getString(3));
                     }
                     st.close();
                     conexion.close();
-                } catch(SQLException ex)
+                } catch (SQLException ex) 
                 {
-                    JOptionPane.showMessageDialog(null,"Error Mostrar: " + ex.getMessage());
-                } finally
+                    JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex.getMessage());
+                } finally 
                 {
                     cancel();
                     temporizadorV.cancel();
@@ -214,3 +211,4 @@ public class ControladorOrdenTrabajo implements Initializable
     }
 
 }
+
