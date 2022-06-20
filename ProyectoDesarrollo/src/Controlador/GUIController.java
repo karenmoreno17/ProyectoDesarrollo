@@ -113,8 +113,6 @@ public class GUIController implements Initializable
     {
         panelBienvenida.setVisible(false);
         panelIngreso.setVisible(true);
-        tContrasena.setVisible(true);
-        tAuxContrasena.setVisible(false); 
     }
 
     @FXML
