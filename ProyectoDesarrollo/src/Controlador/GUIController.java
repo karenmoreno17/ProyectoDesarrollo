@@ -106,7 +106,7 @@ public class GUIController implements Initializable
         nombres[0] = null;
         nombres[1] = null;
         nombres[2] = "Inventario.fxml";
-        nombres[3] = null;
+        nombres[3] = "Sedes.fxml";
         nombres[4] = null;
         nombres[5] = "OrdenTrabajo.fxml";
         nombres[6] = null;
