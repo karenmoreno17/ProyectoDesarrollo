@@ -2,65 +2,75 @@
 
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controlador.ControladorOrdenTrabajo">
-  <tabs>
-    <Tab text="Crear orden de trabajo">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="806.0" style="-fx-background-color: White;">
-           <children>
-              <Label layoutX="67.0" layoutY="149.0" text="Identificación del encargado:">
-                 <font>
-                    <Font name="Verdana" size="12.0" />
-                 </font>
-              </Label>
-              <TextField fx:id="tfIdEncargado" layoutX="252.0" layoutY="144.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" />
-              <Label layoutX="424.0" layoutY="149.0" text="Identicación del cliente:">
-                 <font>
-                    <Font name="Verdana" size="12.0" />
-                 </font>
-              </Label>
-              <TextField fx:id="tfIdCliente" layoutX="585.0" layoutY="144.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" />
-              <Label layoutX="71.0" layoutY="206.0" text="Vehiculo:">
-                 <font>
-                    <Font name="Verdana" size="12.0" />
-                 </font>
-              </Label>
-              <ComboBox fx:id="cbVehiculo" layoutX="251.0" layoutY="201.0" prefWidth="150.0" />
-              <Label layoutX="73.0" layoutY="247.0" text="Proceso realizado:">
-                 <font>
-                    <Font name="Verdana" size="12.0" />
-                 </font>
-              </Label>
-              <TextArea fx:id="taProceso" layoutX="72.0" layoutY="262.0" prefHeight="220.0" prefWidth="668.0" />
-              <Label layoutX="424.0" layoutY="206.0" text="Repuesto:">
-                 <font>
-                    <Font name="Verdana" size="12.0" />
-                 </font>
-              </Label>
-              <ComboBox fx:id="cbRepuesto" layoutX="585.0" layoutY="201.0" prefWidth="150.0" />
-              <Label layoutX="241.0" layoutY="66.0" prefHeight="40.0" prefWidth="375.0" text="  Nueva Orden de trabajo" textAlignment="CENTER">
-                 <font>
-                    <Font name="Verdana" size="25.0" />
-                 </font>
-              </Label>
-              <Button layoutX="651.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#crearOrden" style="-fx-background-color: #66c00b;" text="Crear orden">
-                 <font>
-                    <Font name="System Bold" size="12.0" />
-                 </font>
-              </Button>
-              <Button layoutX="535.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#limpiarCampos" text="Limpiar campos" />
-              <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="201.0" layoutY="66.0">
-                 <image>
-                    <Image url="@../Recursos/Orden_de_trabajo.png" />
-                 </image>
-              </ImageView>
-           </children>
-        </AnchorPane>
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorOrdenTrabajo">
+   <effect>
+      <ColorAdjust />
+   </effect>
+   <children>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Crear orden de trabajo">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="806.0" style="-fx-background-color: White;">
+                     <children>
+                        <Label layoutX="67.0" layoutY="149.0" text="Identificación del encargado:">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfIdEncargado" layoutX="252.0" layoutY="144.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" />
+                        <Label layoutX="424.0" layoutY="149.0" text="Identicación del cliente:">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfIdCliente" layoutX="585.0" layoutY="144.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" />
+                        <Label layoutX="71.0" layoutY="206.0" text="Vehiculo:">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbVehiculo" layoutX="251.0" layoutY="201.0" prefWidth="150.0" />
+                        <Label layoutX="73.0" layoutY="247.0" text="Proceso realizado:">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="taProceso" layoutX="72.0" layoutY="262.0" prefHeight="220.0" prefWidth="668.0" />
+                        <Label layoutX="424.0" layoutY="206.0" text="Repuesto:">
+                           <font>
+                              <Font name="Verdana" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbRepuesto" layoutX="585.0" layoutY="201.0" prefWidth="150.0" />
+                        <Label layoutX="241.0" layoutY="66.0" prefHeight="40.0" prefWidth="375.0" text="  Nueva Orden de trabajo" textAlignment="CENTER">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="651.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#crearOrden" style="-fx-background-color: #66c00b;" text="Crear orden">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="535.0" layoutY="497.0" mnemonicParsing="false" onMouseClicked="#limpiarCampos" text="Limpiar campos" />
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="201.0" layoutY="66.0">
+                           <image>
+                              <Image url="@../Recursos/Orden_de_trabajo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
