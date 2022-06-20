@@ -342,6 +342,10 @@ public class GUIController implements Initializable
         panelPrincipal.setVisible(false);
         ventanaMenu.setVisible(true);
 
+        tContrasena.clear();
+        tAuxContrasena.clear();
+        tCedula.clear();
+
         for (int i = 0; i < 7; i++)
         {
             if (panelesSecundarios.get(i) != null)
@@ -372,6 +376,8 @@ public class GUIController implements Initializable
 
     private void ventanaVendedor()
     {
+        setColor(boton_inicio);
+
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
         boton_orden.setVisible(false);
@@ -384,6 +390,8 @@ public class GUIController implements Initializable
 
     private void ventanaJefeTaller()
     {
+        setColor(boton_inicio);
+
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
         boton_venta.setVisible(false);
