@@ -65,6 +65,17 @@ public class ControladorOrdenTrabajo implements Initializable
     }
 
     @FXML
+    private void verificacionTeclasEspeciales(KeyEvent event) 
+    {
+        TextField tf = (TextField) event.getSource();
+
+        if (event.getCode().toString().equals("CONTROL")) 
+        {
+            tf.setEditable(false);
+        }
+    }
+
+    @FXML
     private void verificacionEntradaNumerica(KeyEvent event) 
     {
         TextField tf = (TextField) event.getSource();
@@ -78,7 +89,6 @@ public class ControladorOrdenTrabajo implements Initializable
             {
                 event.consume();
             }
-
         } 
         catch (NumberFormatException nfe) 
         {
@@ -93,7 +103,7 @@ public class ControladorOrdenTrabajo implements Initializable
                 || cbVehiculo.getValue().equals("Elige un vehiculo") || cbRepuesto.getValue().equals("Elige un repuesto")
                 || taProceso.getText().equals("");
 
-        if (ordenInvalida) 
+        if (ordenInvalida)
         {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos.");
         } 
@@ -160,17 +170,6 @@ public class ControladorOrdenTrabajo implements Initializable
         taProceso.setText("");
         cbVehiculo.setValue("Elige un vehiculo");
         cbRepuesto.setValue("Elige un repuesto");
-    }
-
-    @FXML
-    private void verificacionTeclasEspeciales(KeyEvent event) 
-    {
-        TextField tf = (TextField) event.getSource();
-
-        if (event.getCode().toString().equals("CONTROL")) 
-        {
-            tf.setEditable(false);
-        }
     }
 
     private void cargarDeInventario(ComboBox cb, String tipo) 
