@@ -228,6 +228,7 @@ public class GUIController implements Initializable
         if (contrasena.equals("") || tCedula.getText().equals(""))
         {
             JOptionPane.showMessageDialog(null, "El usuario y/o la contraseña no pueden ser vacíos.");
+            return;
         }
 
         Fachada con = new Fachada();
