@@ -83,7 +83,7 @@ public class GUIController implements Initializable
 
         String[] nombres = new String[7];
         nombres[0] = null;
-        nombres[1] = null;
+        nombres[1] = "Usuario.fxml";
         nombres[2] = "Inventario.fxml";
         nombres[3] = "Sedes.fxml";
         nombres[4] = null;
