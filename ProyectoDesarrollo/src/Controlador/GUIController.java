@@ -249,15 +249,19 @@ public class GUIController implements Initializable
             }
             else 
             {
-                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos.");
+                JOptionPane.showMessageDialog(null, "Contraseña incorrecta.");
             }
 
             st.close();
             conexion.close();
-        } 
+        }
+        catch (PSQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Usuario incorrecto.");
+        }
         catch (SQLException ex) 
         {
-            JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error Mostrar: " + ex);
         }
     }
 
