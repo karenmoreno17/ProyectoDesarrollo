@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,6 +38,18 @@ public class ControladorSedes implements Initializable
     private TextField tfNombre, tfUbicacion, tfTelefono;
     @FXML
     private Button bEliminar, bModificar;
+    @FXML
+    private TextField tNombreSede;
+    @FXML
+    private TextField tTelefonoSede;
+    @FXML
+    private TextField tIdentificadorSede;
+    @FXML
+    private TextField tDireccionSede;
+    @FXML
+    private Button bCrearSede;
+    @FXML
+    private Button bLimpiarCamposSede;
 
 
     /**
@@ -322,5 +335,55 @@ public class ControladorSedes implements Initializable
             }
         };
         temporizadorV.schedule(tareaV, 0, 10000);
+    }
+
+    @FXML
+    private void crearSede(ActionEvent event) 
+    {
+        boolean sedeInvalida = tIdentificadorSede.getText().equals("") && tNombreSede.getText().equals("") 
+                             && tDireccionSede.getText().equals("") && tTelefonoSede.getText().equals("");
+        
+        if (sedeInvalida)
+        {
+            JOptionPane.showConfirmDialog(null, "Por favor, llene todos los campos.");
+        }
+        else
+        {
+            Fachada con = new Fachada();
+            Connection conexion = con.getConnection();
+
+            
+            try 
+            {
+                Statement st = conexion.createStatement();
+                String sql = "INSERT INTO sede (id_sede, nombre_sede, ubicacion_sede, telefono_sede) VALUES ("
+                        + tIdentificadorSede.getText() + ", '" + tNombreSede.getText() + "', '" + tDireccionSede.getText() + "', "
+                        + tTelefonoSede.getText() + " );";
+
+                int result = st.executeUpdate(sql);
+
+                if (result == 1) {
+                    JOptionPane.showMessageDialog(null, "La sede se ha creado exitosamente.");
+                    limpiarCamposSede();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al crear la sede.");
+                }
+
+                st.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error : " + ex.getMessage());
+            }
+        }
+            
+    }
+
+    @FXML
+    private void limpiarCamposSede() 
+    {
+        tIdentificadorSede.setText("");
+        tNombreSede.setText("");
+        tDireccionSede.setText("");
+        tTelefonoSede.setText("");
     }
 }
