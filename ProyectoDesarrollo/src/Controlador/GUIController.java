@@ -89,7 +89,7 @@ public class GUIController implements Initializable
         nombres[3] = "Sedes.fxml";
         nombres[4] = null;
         nombres[5] = "OrdenTrabajo.fxml";
-        nombres[6] = null;
+        nombres[6] = "Venta.fxml";
 
         panelesSecundarios = new ArrayList<>();
 
