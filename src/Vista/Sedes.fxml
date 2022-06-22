@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorSedes">
+   <children>
+      <TabPane prefHeight="617.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab style="-fx-background-color: C1C3C4;" text="Crear sedes">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
+                     <children>
+                        <TextField fx:id="tNombreSede" layoutX="440.0" layoutY="201.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tTelefonoSede" layoutX="440.0" layoutY="343.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tIdentificadorSede" layoutX="86.0" layoutY="201.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tDireccionSede" layoutX="86.0" layoutY="343.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="86.0" layoutY="170.0" prefHeight="32.0" prefWidth="112.0" text="Identificador:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="86.0" layoutY="314.0" prefHeight="29.0" prefWidth="112.0" text="Dirección:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="440.0" layoutY="314.0" prefHeight="29.0" prefWidth="112.0" text="Teléfono:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="440.0" layoutY="171.0" prefHeight="29.0" prefWidth="112.0" text="Nombre:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="301.0" layoutY="54.0" prefHeight="30.0" prefWidth="225.0" text="Creación de sedes">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="bCrearSede" layoutX="417.0" layoutY="463.0" mnemonicParsing="false" onAction="#crearSede" prefWidth="145.0" style="-fx-background-color: #76A2CB;" text="Crear sede" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="bLimpiarCamposSede" layoutX="245.0" layoutY="463.0" mnemonicParsing="false" onAction="#limpiarCamposSede" style="-fx-background-color: #76A2CB;" text="Limpiar campos" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <ImageView fitHeight="51.0" fitWidth="43.0" layoutX="254.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Recursos/icons8-rascacielos-64.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab style="-fx-background-color: C1C3C4;" text="Modificar sedes">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
+                     <children>
+                        <Label layoutX="71.0" layoutY="168.0" prefWidth="80.0" text="Id de sede:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbId" layoutX="71.0" layoutY="193.0" onAction="#habilitarCampos" prefWidth="255.0" promptText="Elige una sede" />
+                        <ImageView fitHeight="80.0" fitWidth="100.0" layoutX="221.0" layoutY="23.0">
+                           <image>
+                              <Image url="@../Recursos/Sedes.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="427.0" layoutY="168.0" prefWidth="125.0" text="Nombre de sede:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfNombre" editable="false" layoutX="427.0" layoutY="193.0" prefWidth="255.0" promptText="Elige un id de sede" />
+                        <Label layoutX="71.0" layoutY="318.0" prefWidth="75.0" text="Ubicación:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfUbicacion" editable="false" layoutX="71.0" layoutY="343.0" prefWidth="255.0" promptText="Elige un id de sede" />
+                        <Label layoutX="427.0" layoutY="318.0" prefWidth="150.0" text="Número telefónico:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfTelefono" editable="false" layoutX="427.0" layoutY="343.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" prefWidth="255.0" promptText="Elige un id de sede" />
+                        <Label layoutX="290.0" layoutY="48.0" prefHeight="30.0" prefWidth="275.0" text="Modificación de Sedes">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="bEliminar" layoutX="202.0" layoutY="468.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="131.0" style="-fx-background-color: #F03030;" text="Eliminar sede">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="339.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#limpiarCampos" style="-fx-background-color: #76A2CB;" text="Limpiar campos" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="bModificar" layoutX="490.0" layoutY="468.0" mnemonicParsing="false" style="-fx-background-color: #66c00b;" text="Modificar sede">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
