@@ -385,6 +385,8 @@ public class ControladorGUI implements Initializable
         boton_inicio.setVisible(false);
         boton_reporte.setVisible(false);
 
+        panelInventario.setVisible(true);
+
         boton_usuario.setLayoutY(76);
         boton_inventario.setLayoutY(121);
         boton_sede.setLayoutY(166);
@@ -403,6 +405,8 @@ public class ControladorGUI implements Initializable
         boton_orden.setVisible(false);
         boton_reporte.setVisible(false);
 
+        panelInventario.setVisible(true);
+
         boton_inventario.setLayoutY(76);
         boton_venta.setLayoutY(121);
         boton_cerrar.setLayoutY(166);
@@ -417,6 +421,8 @@ public class ControladorGUI implements Initializable
         boton_sede.setVisible(false);
         boton_venta.setVisible(false);
         boton_reporte.setVisible(false);
+
+        panelInventario.setVisible(true);
 
         boton_inventario.setLayoutY(76);
         boton_orden.setLayoutY(121);
