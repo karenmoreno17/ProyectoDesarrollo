@@ -381,35 +381,46 @@ public class ControladorGUI implements Initializable
 
     private void ventanaGerente()
     {
-        setColor(boton_inicio);
+        setColor(boton_inventario);
+        boton_inicio.setVisible(false);
+        boton_reporte.setVisible(false);
+
+        boton_usuario.setLayoutY(76);
+        boton_inventario.setLayoutY(121);
+        boton_sede.setLayoutY(166);
+        boton_orden.setLayoutY(211);
+        boton_venta.setLayoutY(256);
+        boton_cerrar.setLayoutY(301);
     }
 
     private void ventanaVendedor()
     {
-        setColor(boton_inicio);
+        setColor(boton_inventario);
 
+        boton_inicio.setVisible(false);
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
         boton_orden.setVisible(false);
+        boton_reporte.setVisible(false);
 
-        boton_inventario.setLayoutY(121);
-        boton_reporte.setLayoutY(166);
-        boton_venta.setLayoutY(211);
-        boton_cerrar.setLayoutY(256);
+        boton_inventario.setLayoutY(76);
+        boton_venta.setLayoutY(121);
+        boton_cerrar.setLayoutY(166);
     }
 
     private void ventanaJefeTaller()
     {
-        setColor(boton_inicio);
+        setColor(boton_inventario);
 
+        boton_inicio.setVisible(false);
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
         boton_venta.setVisible(false);
+        boton_reporte.setVisible(false);
 
-        boton_inventario.setLayoutY(121);
-        boton_reporte.setLayoutY(166);
-        boton_orden.setLayoutY(211);
-        boton_cerrar.setLayoutY(256);
+        boton_inventario.setLayoutY(76);
+        boton_orden.setLayoutY(121);
+        boton_cerrar.setLayoutY(166);
     }
 
 }
