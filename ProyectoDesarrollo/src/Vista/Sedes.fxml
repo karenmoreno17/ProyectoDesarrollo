@@ -12,6 +12,59 @@
    <children>
       <TabPane prefHeight="617.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
+            <Tab text="Crear sedes">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
+                     <children>
+                        <TextField fx:id="tNombreSede" layoutX="453.0" layoutY="189.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tTelefonoSede" layoutX="453.0" layoutY="331.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tIdentificadorSede" layoutX="99.0" layoutY="189.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tDireccionSede" layoutX="99.0" layoutY="331.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="99.0" layoutY="158.0" prefHeight="32.0" prefWidth="112.0" text="Identificador">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="99.0" layoutY="302.0" prefHeight="29.0" prefWidth="112.0" text="Dirección">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="453.0" layoutY="302.0" prefHeight="29.0" prefWidth="112.0" text="Teléfono">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="453.0" layoutY="159.0" prefHeight="29.0" prefWidth="112.0" text="Nombre">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="292.0" layoutY="30.0" prefHeight="30.0" prefWidth="225.0" text="Creación de sedes">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="bCrearSede" layoutX="431.0" layoutY="452.0" mnemonicParsing="false" onAction="#crearSede" style="-fx-background-color: #76A2CB;" text="Crear sede" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="bLimpiarCamposSede" layoutX="259.0" layoutY="452.0" mnemonicParsing="false" onAction="#limpiarCamposSede" style="-fx-background-color: #76A2CB;" text="Limpiar campos" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
           <Tab text="Modificar sedes">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -45,27 +98,27 @@
                            </font>
                         </Label>
                         <TextField fx:id="tfTelefono" editable="false" layoutX="586.0" layoutY="300.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" prefWidth="150.0" promptText="Elige un id de sede" />
+                        <Label layoutX="289.0" layoutY="30.0" prefHeight="30.0" prefWidth="275.0" text="Modificación de Sedes">
+                           <font>
+                              <Font name="Verdana" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="bEliminar" layoutX="389.0" layoutY="446.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #F03030;" text="Eliminar sede">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="501.0" layoutY="446.0" mnemonicParsing="false" onMouseClicked="#limpiarCampos" text="Limpiar campos" />
+                        <Button fx:id="bModificar" layoutX="611.0" layoutY="446.0" mnemonicParsing="false" style="-fx-background-color: #66c00b;" text="Modificar sede">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="500.0" layoutY="475.0" mnemonicParsing="false" onMouseClicked="#limpiarCampos" text="Limpiar campos" />
-      <Button fx:id="bModificar" layoutX="610.0" layoutY="475.0" mnemonicParsing="false" style="-fx-background-color: #66c00b;" text="Modificar sede">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="bEliminar" layoutX="390.0" layoutY="475.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #F03030;" text="Eliminar sede">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="300.0" layoutY="60.0" prefHeight="30.0" prefWidth="275.0" text="Modificación de Sedes">
-         <font>
-            <Font name="Verdana" size="24.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>
