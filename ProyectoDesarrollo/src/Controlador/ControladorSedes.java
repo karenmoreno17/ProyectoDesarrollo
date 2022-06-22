@@ -264,7 +264,7 @@ public class ControladorSedes implements Initializable
                     {
                         Statement st = conexion.createStatement();
                         String sql1 = "DELETE FROM sede WHERE id_sede = " + idSede + ";";
-                        String sql2 = "UPDATE empleado SET id_sede = 0 WHERE id_sede = " + idSede + ";";
+                        String sql2 = "UPDATE empleado SET id_sede = -1 WHERE id_sede = " + idSede + ";";
 
                         int eliminar = st.executeUpdate(sql1);
                         st.executeUpdate(sql2);
