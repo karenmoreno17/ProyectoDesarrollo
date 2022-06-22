@@ -37,8 +37,7 @@ import Modelo.Vehiculo;
  * @author Alvaro Portocarrero.
  */
 
-public class ControladorInventario implements Initializable 
-{
+public class ControladorInventario implements Initializable {
 
     private ObservableList<Vehiculo> datosV;
     private ObservableList<Repuesto> datosR;
@@ -113,8 +112,7 @@ public class ControladorInventario implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) 
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO 
 
         items.add("Vehículo");
@@ -147,8 +145,7 @@ public class ControladorInventario implements Initializable
     }
 
     @FXML
-    public void cargarInventario()
-    {
+    public void cargarInventario(){
         Fachada con = new Fachada();
         Connection conexion = con.getConnection();
 
@@ -164,40 +161,34 @@ public class ControladorInventario implements Initializable
                 try
                 {
                     Statement st = conexion.createStatement();
-                    String sql = "SELECT * FROM vehiculo;";
+                    String sql = "select * from vehiculo;";
             
                     datosR.clear();
                     datosV.clear();
 
                     ResultSet rs = st.executeQuery(sql);
 
-                    while(rs.next())
-                    {
+                    while(rs.next()){
 
-                        datosV.add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
-                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
+                        datosV.add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), 
+                                                Integer.parseInt(rs.getString(5)), Integer.parseInt(rs.getString(6))));
                     }
 
-                    sql = "SELECT * FROM repuesto;";
+                    sql = "select * from repuesto;";
 
                     rs = st.executeQuery(sql);
 
-                    while(rs.next())
-                    {
-                        datosR.add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
-                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
+                    while(rs.next()){
+                        datosR.add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), 
+                                                Integer.parseInt(rs.getString(5)), Integer.parseInt(rs.getString(6))));
                     }
 
                     st.close();
                     conexion.close();
 
-                }
-                catch(SQLException ex)
-                {
+                }catch(SQLException ex){
                     JOptionPane.showMessageDialog(null,"Error Mostrar: " + ex.getMessage());
-                } 
-                finally 
-                {
+                } finally {
 
                     tvVehiculos.setItems(datosV);
 
@@ -304,7 +295,6 @@ public class ControladorInventario implements Initializable
         boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #c7eb7a; ");
         
         String sql_guardar;
-        System.out.println(textfield_marca_modificacion.getText().isEmpty());
         
         if(modificacion_categoria.getValue().equals("Vehículo") && !(textfield_marca_modificacion.getText().isEmpty()) && 
            !(textfield_linea_modificacion.getText().isEmpty()) && !(textfield_modelo_modificacion.getText().isEmpty()) &&
@@ -313,7 +303,7 @@ public class ControladorInventario implements Initializable
             try
             {
                 sql_guardar = "UPDATE vehiculo SET marca = " + "'" + textfield_marca_modificacion.getText() +"'" +", linea = " + "'" + textfield_linea_modificacion.getText()+ "'"
-                           + ", modelo = " + "'"+ textfield_modelo_modificacion.getText() + "'" +", precio = " + "'" +Integer.parseInt(textfield_precio_modificacion.getText().trim()) + "'"
+                           + ", modelo = " + "'"+ textfield_modelo_modificacion.getText() + "'" +", precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim()) 
                     + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_vehiculo = " + textfield_buscar.getText();
                 
                 Fachada con = new Fachada();
@@ -346,9 +336,9 @@ public class ControladorInventario implements Initializable
         { 
             try
             {
-                sql_guardar = "UPDATE repuesto SET marca = " + textfield_marca_modificacion.getText() +", linea = " + textfield_linea_modificacion.getText()
-                           + ", modelo = " + textfield_modelo_modificacion.getText() +", precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim())
-                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_repuesto = " + textfield_buscar.getText();
+                sql_guardar = "UPDATE repuesto SET marca = " + "'" + textfield_marca_modificacion.getText() + "'" + ", linea = " + "'" +textfield_linea_modificacion.getText() + "'"
+                           +  ", modelo = " + "'" +textfield_modelo_modificacion.getText() + "'" + ", precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim())
+                    + ", cantidad_repuesto = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_repuesto = " + textfield_buscar.getText();
                 
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
