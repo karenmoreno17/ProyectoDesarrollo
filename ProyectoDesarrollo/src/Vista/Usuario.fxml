@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorUsuario">
+   <children>
+      <TabPane layoutX="-3.0" layoutY="-1.0" prefHeight="620.0" prefWidth="812.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab style="-fx-background-color: C1C3C4;" text="Crear Usuario">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="507.0" prefWidth="779.0">
+                     <children>
+                        <Label layoutX="80.0" layoutY="97.0" prefHeight="29.0" prefWidth="112.0" text="Nombre(s)">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="80.0" layoutY="257.0" prefHeight="29.0" prefWidth="112.0" text="Cédula">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="80.0" layoutY="179.0" prefHeight="29.0" prefWidth="112.0" text="Correo">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="80.0" layoutY="339.0" prefHeight="29.0" prefWidth="112.0" text="Rol">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="478.0" layoutY="257.0" prefHeight="29.0" prefWidth="112.0" text="Teléfono">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="483.0" layoutY="179.0" prefHeight="29.0" prefWidth="112.0" text="Dirección">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="483.0" layoutY="96.0" prefHeight="32.0" prefWidth="112.0" text="Apellido(s)">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tTelefonoUsuario" layoutX="478.0" layoutY="281.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tRolUsuario" layoutX="80.0" layoutY="368.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tCedulaUsuario" layoutX="80.0" layoutY="281.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tDireccionUsuario" layoutX="478.0" layoutY="204.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tCorreoUsuario" layoutX="80.0" layoutY="204.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tApellidoUsuario" layoutX="478.0" layoutY="130.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tNombreUsuario" layoutX="80.0" layoutY="130.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Button fx:id="bCrearUsuario" layoutX="413.0" layoutY="514.0" mnemonicParsing="false" onAction="#crearUsuario" prefHeight="33.0" prefWidth="147.0" style="-fx-background-color: #76A2CB;" text="Crear Usuario" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="bLimpiarCampos" layoutX="252.0" layoutY="514.0" mnemonicParsing="false" onAction="#limpiarCampos" prefHeight="33.0" prefWidth="147.0" style="-fx-background-color: #76A2CB;" text="Limpiar Campos" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="tSedeUsuario" layoutX="478.0" layoutY="368.0" onKeyPressed="#verificacionTeclasEspeciales" onKeyTyped="#verificacionEntradaNumerica" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="478.0" layoutY="339.0" prefHeight="29.0" prefWidth="112.0" text="Sede">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="295.0" layoutY="421.0" prefHeight="29.0" prefWidth="112.0" text="Contraseña">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tContrasenaUsuario" layoutX="295.0" layoutY="450.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="272.0" layoutY="42.0" prefHeight="32.0" prefWidth="270.0" text="Creación de Usuarios">
+                           <font>
+                              <Font name="Verdana" size="25.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="46.0" fitWidth="52.0" layoutX="218.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Recursos/icons8-nombre-de-usuario-50.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab style="-fx-background-color: C1C3C4;" text="Modificar Usuario">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Pane layoutY="-2.0" prefHeight="149.0" prefWidth="760.0" style="-fx-background-color: C4DCF2;">
+                           <children>
+                              <Label layoutX="156.0" layoutY="106.0" prefHeight="29.0" prefWidth="112.0" text="Cédula">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="bBuscarUsuario" layoutX="528.0" layoutY="107.0" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="28.0" prefWidth="139.0" style="-fx-background-color: #76A2CB;" text="Buscar Usuario" textFill="WHITE">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <ComboBox fx:id="cbCedula" layoutX="242.0" layoutY="108.0" prefWidth="255.0" promptText="Elija la cédula del empleado" />
+                              <Label layoutX="228.0" layoutY="34.0" prefHeight="32.0" prefWidth="332.0" text="Modificación de Usuarios">
+                                 <font>
+                                    <Font name="Verdana" size="25.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="47.0" fitWidth="52.0" layoutX="179.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Recursos/icons8-herramientas-de-accesibilidad-50.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Button fx:id="bModificarUsuario" layoutX="404.0" layoutY="515.0" mnemonicParsing="false" onAction="#modificarUsuario" prefHeight="33.0" prefWidth="161.0" style="-fx-background-color: #76A2CB;" text="Modificar Usuario" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <TextField fx:id="tCorreoUsuarioM" layoutX="447.0" layoutY="260.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tApellidoUsuarioM" layoutX="447.0" layoutY="195.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tRolUsuarioM" layoutX="58.0" layoutY="260.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tNombreUsuarioM" layoutX="58.0" layoutY="195.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tTelefonoUsuarioM" layoutX="58.0" layoutY="330.0" prefHeight="25.0" prefWidth="255.0" />
+                        <TextField fx:id="tDireccionUsuarioM" layoutX="447.0" layoutY="330.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="447.0" layoutY="165.0" prefHeight="32.0" prefWidth="112.0" text="Apellido(s)">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="447.0" layoutY="301.0" prefHeight="29.0" prefWidth="112.0" text="Dirección">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="58.0" layoutY="301.0" prefHeight="29.0" prefWidth="112.0" text="Teléfono">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="58.0" layoutY="235.0" prefHeight="29.0" prefWidth="112.0" text="Rol">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="447.0" layoutY="235.0" prefHeight="29.0" prefWidth="112.0" text="Correo">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="58.0" layoutY="166.0" prefHeight="29.0" prefWidth="112.0" text="Nombre(s)">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="58.0" layoutY="373.0" prefHeight="29.0" prefWidth="112.0" text="Sede">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tSedeUsuarioM" layoutX="58.0" layoutY="402.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="447.0" layoutY="373.0" prefHeight="29.0" prefWidth="112.0" text="Contraseña">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tContrasenaUsuarioM" layoutX="447.0" layoutY="402.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="279.0" layoutY="438.0" prefHeight="29.0" prefWidth="112.0" text="Estado">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbEstado" layoutX="279.0" layoutY="467.0" prefWidth="255.0" promptText="Elija el estado de su empleado" visibleRowCount="2" />
+                        <Button fx:id="bLimpiarCamposM" layoutX="248.0" layoutY="515.0" mnemonicParsing="false" onAction="#limpiarCamposM" prefHeight="33.0" prefWidth="147.0" style="-fx-background-color: #76A2CB;" text="Limpiar Campos" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Verdana Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
