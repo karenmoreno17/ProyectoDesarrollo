@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 
@@ -43,7 +44,6 @@ public class ControladorUsuario implements Initializable {
     private TextField tNombreUsuario;
     @FXML
     private Button bCrearUsuario;
-    @FXML
     private TextField tCedulaM;
     @FXML
     private Button bBuscarUsuario;
@@ -71,13 +71,21 @@ public class ControladorUsuario implements Initializable {
     private TextField tSedeUsuarioM;
     @FXML
     private TextField tContrasenaUsuarioM;
+    @FXML
+    private ComboBox<String> cbEstado;
+    @FXML
+    private Button bLimpiarCamposM;
+    @FXML
+    private ComboBox<Integer> cbCedula;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         // TODO
+        
     }    
 
     @FXML
@@ -107,10 +115,11 @@ public class ControladorUsuario implements Initializable {
                     try
                     {
                         Statement st = conexion.createStatement();
-                        String sql = "INSERT INTO empleado (cedula_empleado, contrasena, rol, nombre_empleado, correo_empleado, direccion_empleado, telefono_empleado, id_sede) VALUES ("
+                        String sql = "INSERT INTO empleado (cedula_empleado, contrasena, rol, nombre_empleado, correo_empleado, direccion_empleado, telefono_empleado, id_sede, estado) VALUES ("
                                    + tCedulaUsuario.getText() + ", '" + tContrasenaUsuario.getText() + "', '" + tRolUsuario.getText() + "', '" 
-                                   + tNombreUsuario.getText() + tApellidoUsuario.getText() + "', '" + tCorreoUsuario.getText() +  "', '"
-                                   + tDireccionUsuario.getText() + "', "  + tTelefonoUsuario.getText() + ", " + tSedeUsuario.getText() + ");";
+                                   + tNombreUsuario.getText() + " " +  tApellidoUsuario.getText() + "', '" + tCorreoUsuario.getText() +  "', '"
+                                   + tDireccionUsuario.getText() + "', "  + tTelefonoUsuario.getText() + ", " + tSedeUsuario.getText()
+                                   + ", 'Activo');";
 
                         int result = st.executeUpdate(sql);
 
@@ -145,7 +154,36 @@ public class ControladorUsuario implements Initializable {
     }
 
     @FXML
-    private void modificarUsuario(ActionEvent event) {
+    private void modificarUsuario(ActionEvent event) 
+    {
+        //Erick completa lo de la modificación de usuario, trayendo de la Base de Datos las cédulas de los usuarios a la combobox, etc
+        //Junto con la modificación del resto de datos aparte del estado
+        String sql_guardar;
+        
+        if(cbEstado.getValue().equals("Inactivo"))
+        {
+            try
+            {
+                sql_guardar = "UPDATE empleado SET estado = " + "'" + cbEstado.getValue() + "'" + "WHERE cedula_empleado = " + cbCedula.getValue();
+                
+                Fachada con = new Fachada();
+                Connection conexion = con.getConnection();
+                Statement sentencia = conexion.createStatement();
+                int num = sentencia.executeUpdate(sql_guardar);
+                conexion.close();
+                JOptionPane.showMessageDialog(null,"Estado modificado exitosamente");
+                limpiarCamposM();
+            }
+            catch(SQLException sqle)
+            {
+                JOptionPane.showMessageDialog(null,"Error: " + sqle.getMessage());
+            }
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(null, "Lo escrito en los campos no coincide con el tipo de dato");
+            }
+        }
+        
     }
 
     @FXML
@@ -160,6 +198,21 @@ public class ControladorUsuario implements Initializable {
         tNombreUsuario.setText("");
         tSedeUsuario.setText("");
         tContrasenaUsuario.setText("");
+        
+    }
+
+    @FXML
+    private void limpiarCamposM() {
+        tCedulaM.setText("");
+        tCorreoUsuarioM.setText("");
+        tApellidoUsuarioM.setText("");
+        tRolUsuarioM.setText("");
+        tNombreUsuarioM.setText("");
+        tTelefonoUsuarioM.setText("");
+        tDireccionUsuarioM.setText("");
+        tSedeUsuarioM.setText("");
+        tContrasenaUsuarioM.setText("");
+        cbEstado.setValue("Elija el estado de su empleado");
     }
     
 }
