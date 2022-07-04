@@ -16,7 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,6 +57,8 @@ public class ControladorVenta implements Initializable
     private TextField cantidad_venta;
     @FXML
     private Button boton_vender;
+    @FXML
+    private Label mensaje;
 
     /**
      * Initializes the controller class.
@@ -72,6 +76,7 @@ public class ControladorVenta implements Initializable
         String sql_buscar_cotizacion;
         String sql_buscar_cliente;
         String sql_buscar_articulo;
+        mensaje.setText("");
         if(!(buscar_cotizacion_venta.getText().isEmpty()))
         {
             Fachada con = new Fachada();
@@ -83,42 +88,67 @@ public class ControladorVenta implements Initializable
                 Statement sentencia1 = conexion.createStatement();
                 Statement sentencia2 = conexion.createStatement();
                 ResultSet cotizacion = sentencia.executeQuery(sql_buscar_cotizacion);
-                
-                while(cotizacion.next())
-                {   
-                    sql_buscar_cliente = "SELECT * FROM cliente WHERE cedula_cliente = " + cotizacion.getString(3);
-                    ResultSet cliente = sentencia1.executeQuery(sql_buscar_cliente);
-                    sql_buscar_articulo = "SELECT * FROM vehiculo WHERE id_vehiculo = " + cotizacion.getString(2);
-                    ResultSet articulo = sentencia2.executeQuery(sql_buscar_articulo);
-                    cliente.next();
-                    articulo.next();
-                    cedula_cliente_venta.setText(cliente.getString(1));
-                    nombre_cliente_venta.setText(cliente.getString(2));
-                    telefono_cliente_venta.setText(cliente.getString(4));
-                    telefono_cliente_venta.setEditable(true);
-                    direccion_cliente_venta.setText(cliente.getString(3));
-                    direccion_cliente_venta.setEditable(true);
-                    correo_cliente_venta.setText(cliente.getString(6));
-                    correo_cliente_venta.setEditable(true);
-                    genero_cliente_venta.setText(cliente.getString(5));
-                    marca_venta.setText(articulo.getString(3));
-                    linea_venta.setText(articulo.getString(2));
-                    modelo_venta.setText(articulo.getString(5));
-                    precio_venta.setText(articulo.getString(4));
-                    cantidad_venta.setEditable(true);
-                    boton_vender.setDisable(false);
+                if(cotizacion.next() == false)
+                {
+                    buscar_cotizacion_venta.setText("");
+                    cedula_cliente_venta.setText("");
+                    nombre_cliente_venta.setText("");
+                    telefono_cliente_venta.setText("");
+                    direccion_cliente_venta.setText("");
+                    correo_cliente_venta.setText("");
+                    genero_cliente_venta.setText("");
+                    marca_venta.setText("");
+                    linea_venta.setText("");
+                    modelo_venta.setText("");
+                    precio_venta.setText("");
+                    cantidad_venta.setText("");
+                    mensaje.setVisible(true);
+                    mensaje.setTextFill(Color.web("#ff0000"));
+                    mensaje.setText("La cotizacion solicitada no existe.");
+                    cotizacion.beforeFirst();
+                    conexion.close();
+                    return;
                 }
+                
+                
+                sql_buscar_cliente = "SELECT * FROM cliente WHERE cedula_cliente = " + cotizacion.getString(3);
+                ResultSet cliente = sentencia1.executeQuery(sql_buscar_cliente);
+                sql_buscar_articulo = "SELECT * FROM vehiculo WHERE id_vehiculo = " + cotizacion.getString(2);
+                ResultSet articulo = sentencia2.executeQuery(sql_buscar_articulo);
+                cliente.next();
+                articulo.next();
+                cedula_cliente_venta.setText(cliente.getString(1));
+                nombre_cliente_venta.setText(cliente.getString(2));
+                telefono_cliente_venta.setText(cliente.getString(4));
+                telefono_cliente_venta.setEditable(true);
+                direccion_cliente_venta.setText(cliente.getString(3));
+                direccion_cliente_venta.setEditable(true);
+                correo_cliente_venta.setText(cliente.getString(6));
+                correo_cliente_venta.setEditable(true);
+                genero_cliente_venta.setText(cliente.getString(5));
+                marca_venta.setText(articulo.getString(3));
+                linea_venta.setText(articulo.getString(2));
+                modelo_venta.setText(articulo.getString(5));
+                precio_venta.setText(articulo.getString(4));
+                cantidad_venta.setEditable(true);
+                boton_vender.setDisable(false);
+                mensaje.setText("");
+                mensaje.setVisible(false);
+                
                 conexion.close();
             }
             catch(SQLException sqle)
             {
-                JOptionPane.showMessageDialog(null,"Error: " + 
-                    sqle.getMessage());
+                mensaje.setVisible(true);
+                mensaje.setTextFill(Color.web("#ff0000"));
+                mensaje.setText("La cotizacion solicitada no existe.");
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null,"Ingrese el codigo de la cotización. ");
+            mensaje.setVisible(true);
+            mensaje.setTextFill(Color.web("#ff0000"));
+            mensaje.setText("Ingrese el codigo de la cotización. ");
         }
     }
     
@@ -147,14 +177,17 @@ public class ControladorVenta implements Initializable
                 Statement sentencia3 = conexion.createStatement();
                 Statement sentencia4 = conexion.createStatement();
                 Statement sentencia5 = conexion.createStatement();
-                
                 ResultSet cotizacion = sentencia.executeQuery(sql_buscar_cotizacion);
-                if(cotizacion == null)
+                if(cotizacion.next() == false)
                 {
-                    JOptionPane.showMessageDialog(null,"Digite el codigo de la cotización. ");
+                    mensaje.setVisible(true);
+                    mensaje.setTextFill(Color.web("#ff0000"));
+                    mensaje.setText("Ingrese el codigo de la cotización. ");
+                    cotizacion.beforeFirst();
+                    conexion.close();
+                    return;
                 }
                 
-                cotizacion.next();
                 String id_cotizacion = cotizacion.getString(1);
                 String id_vendedor = cotizacion.getString(4);
                 sql_buscar_cliente = "SELECT * FROM cliente WHERE cedula_cliente = " + cotizacion.getString(3);
@@ -192,10 +225,13 @@ public class ControladorVenta implements Initializable
                     cantidad_venta.setText("");
                     cantidad_venta.setEditable(false);
                     boton_vender.setDisable(true);
+                    mensaje.setVisible(false);
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"Cantidad en inventario insuficiente.");
+                    mensaje.setVisible(true);
+                    mensaje.setTextFill(Color.web("#ff0000"));
+                    mensaje.setText("Cantidad en inventario insuficiente.");
                 }  
             }
             catch(SQLException sqle)
@@ -205,14 +241,17 @@ public class ControladorVenta implements Initializable
             }
             catch(NumberFormatException ex)
             {
-                JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
+                mensaje.setVisible(true);
+                mensaje.setTextFill(Color.web("#ff0000"));
+                mensaje.setText("Los valores introducidos no son validos.");
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null,"Por favor llene todos los campos. ");
+            mensaje.setVisible(true);
+            mensaje.setTextFill(Color.web("#ff0000"));
+            mensaje.setText("Por favor llene todos los campos.");
         }
-        
     }
     
 }
