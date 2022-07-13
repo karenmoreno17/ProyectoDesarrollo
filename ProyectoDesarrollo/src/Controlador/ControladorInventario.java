@@ -304,7 +304,7 @@ public class ControladorInventario implements Initializable
         boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #c7eb7a; ");
         
         String sql_guardar;
-        System.out.println(textfield_marca_modificacion.getText().isEmpty());
+        
         
         if(modificacion_categoria.getValue().equals("Vehículo") && !(textfield_marca_modificacion.getText().isEmpty()) && 
            !(textfield_linea_modificacion.getText().isEmpty()) && !(textfield_modelo_modificacion.getText().isEmpty()) &&
