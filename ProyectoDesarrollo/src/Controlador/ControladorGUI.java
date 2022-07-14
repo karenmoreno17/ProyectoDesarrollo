@@ -25,8 +25,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -58,7 +61,24 @@ public class ControladorGUI implements Initializable
     private PasswordField tContrasena;
     @FXML
     private CheckBox cbContrasena;
-
+    @FXML
+    private Label nombre_usuario_inicio;
+    @FXML
+    private Label rol_usuario_inicio;
+    @FXML
+    private Button boton_inicio_lateral;
+    @FXML
+    private Button boton_usuario_lateral;
+    @FXML
+    private Button boton_inventario_lateral;
+    @FXML
+    private Button boton_sede_lateral;
+    @FXML
+    private Button boton_reporte_lateral;
+    @FXML
+    private Button boton_orden_lateral;
+    @FXML
+    private Button boton_venta_lateral;
 
     /**
      * Initializes the controller class.
@@ -67,8 +87,8 @@ public class ControladorGUI implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) 
-    {
-/*
+    { 
+        /*
         El nombre de cada archivo .fxml (de los paneles secundarios) se guarda en una posicion del array nombres.
         Con este array que el programa los añade después en su respectivo panel (en la función ingresar).
 
@@ -80,7 +100,7 @@ public class ControladorGUI implements Initializable
          - Panel de reportes            4.
          - Panel de órdenes de trabajo: 5.
          - Panel de ventas:             6.
-*/
+        */
 
         String[] nombres = new String[7];
         nombres[0] = null;
@@ -99,6 +119,7 @@ public class ControladorGUI implements Initializable
         }
 
         cargarFXML(nombres);
+        
     }
 
     @FXML
@@ -242,7 +263,7 @@ public class ControladorGUI implements Initializable
         try 
         {
             Statement st = conexion.createStatement();
-            String sql = "SELECT contrasena, rol FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
+            String sql = "SELECT contrasena, rol, nombre_empleado FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
 
             ResultSet rs = st.executeQuery(sql);
 
@@ -250,6 +271,8 @@ public class ControladorGUI implements Initializable
 
             if (rs.getString(1).equals(contrasena))
             {
+                nombre_usuario_inicio.setText(rs.getString(3));
+                rol_usuario_inicio.setText(rs.getString(2));
                 ingresar(rs.getString(2));
             }
             else 
@@ -382,51 +405,61 @@ public class ControladorGUI implements Initializable
     private void ventanaGerente()
     {
         setColor(boton_inventario);
-        boton_inicio.setVisible(false);
-        boton_reporte.setVisible(false);
+        boton_inicio.setVisible(true);
+        boton_reporte.setVisible(true);
 
-        panelInventario.setVisible(true);
-
-        boton_usuario.setLayoutY(76);
-        boton_inventario.setLayoutY(121);
-        boton_sede.setLayoutY(166);
-        boton_orden.setLayoutY(211);
-        boton_venta.setLayoutY(256);
-        boton_cerrar.setLayoutY(301);
+        panelInventario.setVisible(true);   
     }
 
     private void ventanaVendedor()
     {
         setColor(boton_inventario);
 
-        boton_inicio.setVisible(false);
+        boton_inicio.setVisible(true);
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
         boton_orden.setVisible(false);
-        boton_reporte.setVisible(false);
+        boton_reporte.setVisible(true);
 
         panelInventario.setVisible(true);
 
-        boton_inventario.setLayoutY(76);
-        boton_venta.setLayoutY(121);
-        boton_cerrar.setLayoutY(166);
+        boton_cerrar.setLayoutY(boton_venta.getLayoutY());
+        boton_reporte.setLayoutY(boton_sede.getLayoutY());
+        boton_venta.setLayoutY(boton_inventario.getLayoutY());
+        boton_inventario.setLayoutY(boton_usuario.getLayoutY());
+        
+        boton_usuario_lateral.setVisible(false);
+        boton_sede_lateral.setVisible(false);
+        boton_orden_lateral.setVisible(false);
+        boton_reporte_lateral.setLayoutY(boton_sede_lateral.getLayoutY());
+        boton_venta_lateral.setLayoutY(boton_inventario_lateral.getLayoutY());
+        boton_inventario_lateral.setLayoutY(boton_usuario_lateral.getLayoutY());
     }
 
     private void ventanaJefeTaller()
     {
         setColor(boton_inventario);
 
-        boton_inicio.setVisible(false);
+        boton_inicio.setVisible(true);
         boton_usuario.setVisible(false);
         boton_sede.setVisible(false);
         boton_venta.setVisible(false);
-        boton_reporte.setVisible(false);
+        boton_reporte.setVisible(true);
 
         panelInventario.setVisible(true);
 
-        boton_inventario.setLayoutY(76);
-        boton_orden.setLayoutY(121);
-        boton_cerrar.setLayoutY(166);
+        boton_cerrar.setLayoutY(boton_venta.getLayoutY());
+        boton_reporte.setLayoutY(boton_sede.getLayoutY());
+        boton_orden.setLayoutY(boton_inventario.getLayoutY());
+        boton_inventario.setLayoutY(boton_usuario.getLayoutY());
+        
+        boton_usuario_lateral.setVisible(false);
+        boton_sede_lateral.setVisible(false);
+        boton_venta_lateral.setVisible(false);
+        boton_reporte_lateral.setLayoutY(boton_sede_lateral.getLayoutY());
+        boton_orden_lateral.setLayoutY(boton_inventario_lateral.getLayoutY());
+        boton_inventario_lateral.setLayoutY(boton_usuario_lateral.getLayoutY());
     }
+    
 
 }
