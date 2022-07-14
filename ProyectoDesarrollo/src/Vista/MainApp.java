@@ -24,6 +24,7 @@ public class MainApp extends Application {
 
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.getIcons().add(new Image("/Recursos/logo-recortado.png"));
         stage.show();
     }
 }
