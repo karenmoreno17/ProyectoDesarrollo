@@ -18,6 +18,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import org.postgresql.util.PSQLException;
 
@@ -46,6 +49,8 @@ import org.postgresql.util.PSQLException;
 public class ControladorGUI implements Initializable
 {
     private ArrayList <AnchorPane> panelesSecundarios;
+    @FXML
+    private boolean estado = false;
 
     @FXML
     private AnchorPane ventanaPrincipal, panelBotones, panelUsuario, panelInventario, panelSedes, panelReportes, panelInicio, panelOrdenes, panelVentas;
@@ -79,6 +84,9 @@ public class ControladorGUI implements Initializable
     private Button boton_orden_lateral;
     @FXML
     private Button boton_venta_lateral;
+    @FXML
+    private Button boton_menu_lateral;
+    
 
     /**
      * Initializes the controller class.
@@ -164,6 +172,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_inicio);
         panelInicio.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -172,6 +181,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_usuario);
         panelUsuario.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -180,6 +190,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_inventario);
         panelInventario.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -188,6 +199,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_sede);
         panelSedes.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -196,6 +208,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_reporte);
         panelReportes.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -204,6 +217,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_orden);
         panelOrdenes.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -212,6 +226,7 @@ public class ControladorGUI implements Initializable
         quitarVisibilidad();
         setColor(boton_venta);
         panelVentas.setVisible(true);
+        esconderMenu();
     }
 
     @FXML
@@ -461,5 +476,48 @@ public class ControladorGUI implements Initializable
         boton_inventario_lateral.setLayoutY(boton_usuario_lateral.getLayoutY());
     }
     
-
+    @FXML
+    private void desplazar_menu(ActionEvent event)
+    {
+        if(estado)
+        {
+            panelContenedor.toFront();
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
+            fadeTransition.setFromValue(0.15);
+            fadeTransition.setToValue(0);
+            fadeTransition.play();
+            fadeTransition.setOnFinished(event1 -> {panelBotones.setVisible(false);});
+            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),panelBotones);
+            translateTransition.setByX(-25);
+            translateTransition.play();
+            estado = false;
+        }
+        else
+        {
+            panelContenedor.toBack();
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
+            fadeTransition.setFromValue(0.2);
+            fadeTransition.setToValue(1);
+            fadeTransition.play();
+            fadeTransition.setOnFinished(event2 -> {panelBotones.setVisible(true);});
+            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),panelBotones);
+            translateTransition.setByX(25);
+            translateTransition.play();
+            estado = true;
+        }
+    }
+    
+    private void esconderMenu()
+    {
+        panelContenedor.toFront();
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
+        fadeTransition.setFromValue(0.2);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+        fadeTransition.setOnFinished(event1 -> {panelBotones.setVisible(false);});
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),panelBotones);
+        translateTransition.setByX(-25);
+        translateTransition.play();
+        estado = false;
+    }
 }
