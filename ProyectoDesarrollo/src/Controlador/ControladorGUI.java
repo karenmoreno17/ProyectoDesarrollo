@@ -241,6 +241,10 @@ public class ControladorGUI implements Initializable
         {
             tf.setEditable(false);
         }
+        else if (event.getCode().toString().equals("ENTER")) 
+        {
+            verificarLogin();
+        }
     }
 
     @FXML
