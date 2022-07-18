@@ -120,9 +120,9 @@
          <children>
             <Pane fx:id="panelOpciones" layoutX="-215.0" prefHeight="617.0" prefWidth="216.0">
                <children>
-                  <AnchorPane fx:id="panelBotones" prefHeight="617.0" prefWidth="216.0" style="-fx-background-color: #808080;" visible="false">
+                  <AnchorPane fx:id="panelBotones" layoutX="25.0" prefHeight="617.0" prefWidth="216.0" style="-fx-background-color: #808080;" visible="false">
                      <children>
-                        <Button fx:id="boton_inicio" alignment="BASELINE_CENTER" layoutY="120.0" mnemonicParsing="false" onAction="#botonInicio" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Inicio" textFill="WHITE">
+                        <Button fx:id="boton_inicio" alignment="BASELINE_CENTER" layoutY="120.0" mnemonicParsing="false" onAction="#botonInicio" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Inicio" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -130,7 +130,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_usuario" alignment="BASELINE_CENTER" layoutY="165.0" mnemonicParsing="false" onAction="#botonUsuario" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Usuarios" textFill="WHITE">
+                        <Button fx:id="boton_usuario" alignment="BASELINE_CENTER" layoutY="165.0" mnemonicParsing="false" onAction="#botonUsuario" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Usuarios" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -138,7 +138,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_inventario" alignment="BASELINE_CENTER" layoutY="210.0" mnemonicParsing="false" onAction="#botonInventario" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Inventario" textFill="WHITE">
+                        <Button fx:id="boton_inventario" alignment="BASELINE_CENTER" layoutY="210.0" mnemonicParsing="false" onAction="#botonInventario" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Inventario" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -146,7 +146,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_sede" alignment="BASELINE_CENTER" layoutY="255.0" mnemonicParsing="false" onAction="#botonSedes" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Sedes" textFill="WHITE">
+                        <Button fx:id="boton_sede" alignment="BASELINE_CENTER" layoutY="255.0" mnemonicParsing="false" onAction="#botonSedes" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Sedes" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
@@ -154,15 +154,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_reporte" alignment="BASELINE_CENTER" layoutY="390.0" mnemonicParsing="false" onAction="#botonReportes" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Reportes" textFill="WHITE">
-                           <font>
-                              <Font name="Verdana" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="boton_orden" alignment="BASELINE_CENTER" layoutY="345.0" mnemonicParsing="false" onAction="#botonOrdenes" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="   Órdenes de trabajo" textFill="WHITE">
+                        <Button fx:id="boton_venta" alignment="BASELINE_CENTER" layoutY="300.0" mnemonicParsing="false" onAction="#botonVentas" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Ventas" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -170,7 +162,7 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="boton_venta" alignment="BASELINE_CENTER" layoutY="300.0" mnemonicParsing="false" onAction="#botonVentas" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Ventas" textFill="WHITE">
+                        <Button fx:id="boton_orden" alignment="BASELINE_CENTER" layoutY="345.0" mnemonicParsing="false" onAction="#botonOrdenes" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="   Órdenes de trabajo" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -178,7 +170,15 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="boton_cerrar" alignment="BASELINE_CENTER" layoutY="435.0" mnemonicParsing="false" onAction="#cerrar" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #CE5F56;" text="Cerrar" textFill="WHITE">
+                        <Button fx:id="boton_reporte" alignment="BASELINE_CENTER" layoutY="390.0" mnemonicParsing="false" onAction="#botonReportes" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #808080;" text="Reportes" textFill="WHITE">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="boton_cerrar" alignment="BASELINE_CENTER" layoutY="435.0" mnemonicParsing="false" onAction="#cerrar" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="45.0" prefWidth="217.0" style="-fx-background-color: #CE5F56;" text="Cerrar" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -202,12 +202,24 @@
                         <DropShadow />
                      </effect>
                   </AnchorPane>
-                  <AnchorPane prefHeight="617.0" prefWidth="31.0" style="-fx-background-color: #76A2CB;">
+                  <AnchorPane fx:id="panel_lateral" prefHeight="617.0" prefWidth="31.0" style="-fx-background-color: #76A2CB;">
                      <effect>
                         <DropShadow />
                      </effect>
                      <children>
-                        <Button fx:id="boton_inicio_lateral" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_menu_lateral" layoutY="91.0" mnemonicParsing="false" onAction="#desplazar_menu" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #90B1DB;">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <graphic>
+                              <ImageView fitHeight="19.0" fitWidth="17.0">
+                                 <image>
+                                    <Image url="@../Recursos/icons8_menu_50px_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="boton_inicio_lateral" layoutY="132.0" mnemonicParsing="false" onAction="#botonInicio" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
@@ -219,7 +231,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_usuario_lateral" layoutY="177.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_usuario_lateral" layoutY="177.0" mnemonicParsing="false" onAction="#botonUsuario" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
@@ -231,7 +243,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_inventario_lateral" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_inventario_lateral" layoutY="221.0" mnemonicParsing="false" onAction="#botonInventario" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
@@ -243,7 +255,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_sede_lateral" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_sede_lateral" layoutY="266.0" mnemonicParsing="false" onAction="#botonSedes" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
@@ -255,7 +267,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_venta_lateral" layoutY="312.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_venta_lateral" layoutY="312.0" mnemonicParsing="false" onAction="#botonVentas" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
@@ -267,7 +279,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_orden_lateral" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_orden_lateral" layoutY="355.0" mnemonicParsing="false" onAction="#botonOrdenes" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
@@ -279,23 +291,11 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="boton_reporte_lateral" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
+                        <Button fx:id="boton_reporte_lateral" layoutY="403.0" mnemonicParsing="false" onAction="#botonReportes" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="33.0" style="-fx-background-color: #76A2CB;">
                            <graphic>
                               <ImageView>
                                  <image>
                                     <Image url="@../Recursos/reporte.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="boton_menu_lateral" layoutY="91.0" mnemonicParsing="false" onAction="#desplazar_menu" prefHeight="25.0" prefWidth="33.0">
-                           <graphic>
-                              <ImageView fitHeight="19.0" fitWidth="17.0">
-                                 <image>
-                                    <Image url="@../Recursos/icons8_menu_50px_1.png" />
                                  </image>
                               </ImageView>
                            </graphic>
