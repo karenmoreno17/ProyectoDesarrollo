@@ -33,7 +33,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -49,7 +51,6 @@ import org.postgresql.util.PSQLException;
 public class ControladorGUI implements Initializable
 {
     private ArrayList <AnchorPane> panelesSecundarios;
-    @FXML
     private boolean estado = false;
 
     @FXML
@@ -86,6 +87,8 @@ public class ControladorGUI implements Initializable
     private Button boton_venta_lateral;
     @FXML
     private Button boton_menu_lateral;
+    @FXML
+    private AnchorPane panel_lateral;
     
 
     /**
@@ -481,43 +484,159 @@ public class ControladorGUI implements Initializable
     {
         if(estado)
         {
-            panelContenedor.toFront();
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
-            fadeTransition.setFromValue(0.15);
-            fadeTransition.setToValue(0);
-            fadeTransition.play();
-            fadeTransition.setOnFinished(event1 -> {panelBotones.setVisible(false);});
-            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),panelBotones);
-            translateTransition.setByX(-25);
-            translateTransition.play();
-            estado = false;
+            esconderMenu();
         }
         else
         {
-            panelContenedor.toBack();
-            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
-            fadeTransition.setFromValue(0.2);
-            fadeTransition.setToValue(1);
-            fadeTransition.play();
-            fadeTransition.setOnFinished(event2 -> {panelBotones.setVisible(true);});
-            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),panelBotones);
-            translateTransition.setByX(25);
-            translateTransition.play();
-            estado = true;
+            mostrarMenu();
         }
+    }
+    
+     private void mostrarMenu()
+    {
+        if(estado)
+        {
+            return;
+        }
+        for (Node elemento: panelBotones.getChildren())
+        { 
+            elemento.setVisible(true);
+        }
+        panelBotones.setStyle("-fx-background-color: #808080;");
+        panelContenedor.toBack();
+        panelBotones.setVisible(true);
+        /*FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), panelBotones);
+        fadeTransition.setFromValue(0.2);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
+        fadeTransition.setOnFinished(event2 -> {
+            panelBotones.setVisible(true);
+        });
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), panelBotones);
+        translateTransition.setByX(25);
+        translateTransition.play();*/
+        estado = true;
     }
     
     private void esconderMenu()
     {
+        if(!estado)
+        {
+            return;
+        }
         panelContenedor.toFront();
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
+        panelBotones.setVisible(false);
+        /*FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5),panelBotones);
         fadeTransition.setFromValue(0.2);
         fadeTransition.setToValue(0);
         fadeTransition.play();
         fadeTransition.setOnFinished(event1 -> {panelBotones.setVisible(false);});
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5),panelBotones);
         translateTransition.setByX(-25);
-        translateTransition.play();
+        translateTransition.play();*/
         estado = false;
+    }
+    
+    
+    @FXML
+    private void cambiarColor(MouseEvent event)
+    {
+        if(event.getSource() == boton_inicio)
+        {
+            setColor(boton_inicio);
+        }
+        else if(event.getSource() == boton_usuario)
+        {
+            setColor(boton_usuario);
+        }
+        else if(event.getSource() == boton_inventario)
+        {
+            setColor(boton_inventario);
+        }
+        else if(event.getSource() == boton_sede)
+        {
+            setColor(boton_sede);
+        }
+        else if(event.getSource() == boton_reporte)
+        {
+            setColor(boton_reporte);
+        }
+        else if(event.getSource() == boton_venta)
+        {
+            setColor(boton_venta);
+        }
+        else
+        {
+            setColor(boton_orden);
+        }
+    }
+    
+    
+    @FXML
+    private void resetearColor(MouseEvent event)
+    {
+        if(event.getSource() == boton_inicio)
+        {
+            resetColor(boton_inicio);
+        }
+        else if(event.getSource() == boton_usuario)
+        {
+            resetColor(boton_usuario);
+        }
+        else if(event.getSource() == boton_inventario)
+        {
+            resetColor(boton_inventario);
+        }
+        else if(event.getSource() == boton_sede)
+        {
+            resetColor(boton_sede);
+        }
+        else if(event.getSource() == boton_reporte)
+        {
+            resetColor(boton_reporte);
+        }
+        else if(event.getSource() == boton_venta)
+        {
+            resetColor(boton_venta);
+        }
+        else
+        {
+            resetColor(boton_orden);
+        }
+        
+    }
+    
+
+    
+    @FXML
+    private void desplegarBoton(MouseEvent event)
+    {
+        mostrarMenu();
+        panelBotones.setStyle("");
+        Button botonDesplegado = (Button) event.getSource();
+
+        int i = 0;
+
+        for (; i < panelBotones.getChildren().size() - 1; i++)
+        {
+            if(panel_lateral.getChildren().get(i).equals(botonDesplegado))
+            {
+                panelBotones.getChildren().get(i-1).setVisible(true);
+                panelBotones.getChildren().get(i).setVisible(false);
+            }
+            else
+            {
+                panelBotones.getChildren().get(i).setVisible(false);
+            }
+        }
+
+        panelBotones.getChildren().get(i).setVisible(false);
+   }
+
+    @FXML
+    private void esconderBoton(MouseEvent event) 
+    {
+        esconderMenu();
+        
     }
 }
