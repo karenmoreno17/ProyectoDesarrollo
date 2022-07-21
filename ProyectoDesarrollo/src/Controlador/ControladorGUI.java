@@ -430,7 +430,7 @@ public class ControladorGUI implements Initializable
         boton_inicio.setVisible(true);
         boton_reporte.setVisible(true);
 
-        panelInventario.setVisible(true);   
+        panelInicio.setVisible(true);   
     }
 
     private void ventanaVendedor()
@@ -443,7 +443,7 @@ public class ControladorGUI implements Initializable
         boton_orden.setVisible(false);
         boton_reporte.setVisible(true);
 
-        panelInventario.setVisible(true);
+        panelInicio.setVisible(true);
 
         boton_cerrar.setLayoutY(boton_venta.getLayoutY());
         boton_reporte.setLayoutY(boton_sede.getLayoutY());
@@ -468,7 +468,7 @@ public class ControladorGUI implements Initializable
         boton_venta.setVisible(false);
         boton_reporte.setVisible(true);
 
-        panelInventario.setVisible(true);
+        panelInicio.setVisible(true);
 
         boton_cerrar.setLayoutY(boton_venta.getLayoutY());
         boton_reporte.setLayoutY(boton_sede.getLayoutY());
