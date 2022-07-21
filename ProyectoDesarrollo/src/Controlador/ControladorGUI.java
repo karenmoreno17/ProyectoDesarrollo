@@ -51,6 +51,7 @@ import org.postgresql.util.PSQLException;
 public class ControladorGUI implements Initializable
 {
     private ArrayList <AnchorPane> panelesSecundarios;
+    private ArrayList controladores;
     private boolean estado = false;
 
     @FXML
@@ -123,10 +124,12 @@ public class ControladorGUI implements Initializable
         nombres[6] = "Venta.fxml";
 
         panelesSecundarios = new ArrayList<>();
+        controladores = new ArrayList<>();
 
         for (int i = 0; i < nombres.length; i++)
         {
             panelesSecundarios.add(null);
+            controladores.add(null);
         }
 
         cargarFXML(nombres);
@@ -342,7 +345,11 @@ public class ControladorGUI implements Initializable
                     {
                         try 
                         {
-                            panelesSecundarios.set(posicion, (AnchorPane) FXMLLoader.load(getClass().getResource("/Vista/" + nombre)));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vista/" + nombre));
+
+                            panelesSecundarios.set(posicion, (AnchorPane) loader.load());
+
+                            controladores.set(posicion, loader.getController());
                         } catch (IOException ex) {
                             Logger.getLogger(ControladorGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
