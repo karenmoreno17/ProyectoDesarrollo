@@ -40,10 +40,6 @@ import Modelo.Vehiculo;
 public class ControladorInventario implements Initializable 
 {
 
-    private ObservableList<Vehiculo> datosV;
-    private ObservableList<Repuesto> datosR;
-    private ObservableList<String> items = FXCollections.observableArrayList();
-    private ObservableList<String> itemsModificacion = FXCollections.observableArrayList();
     private Fachada conexion;
     
     @FXML
@@ -117,6 +113,9 @@ public class ControladorInventario implements Initializable
     {
         // TODO 
 
+        ObservableList<String> items = FXCollections.observableArrayList();
+        ObservableList<String> itemsModificacion = FXCollections.observableArrayList();
+
         items.add("Vehículo");
         items.add("Repuesto");
         itemsModificacion.add("Vehículo");
@@ -126,15 +125,11 @@ public class ControladorInventario implements Initializable
         
         conexion = new Fachada();
 
-        datosV = FXCollections.observableArrayList();
-
         tcVLinea.setCellValueFactory( new PropertyValueFactory("linea"));
         tcVMarca.setCellValueFactory( new PropertyValueFactory("marca"));
         tcVModelo.setCellValueFactory( new PropertyValueFactory("modelo"));
         tcVPrecio.setCellValueFactory( new PropertyValueFactory("precio"));
         tcVCantidad.setCellValueFactory( new PropertyValueFactory("cantidad"));
-
-        datosR = FXCollections.observableArrayList();
 
         tcRLinea.setCellValueFactory( new PropertyValueFactory("linea"));
         tcRMarca.setCellValueFactory( new PropertyValueFactory("marca"));
