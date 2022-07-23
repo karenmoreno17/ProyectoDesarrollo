@@ -149,6 +149,60 @@ public class ControladorInventario implements Initializable
     @FXML
     public void cargarInventario()
     {
+        cargarVehiculos();
+        cargarRepuestos();
+    }
+
+    public void cargarVehiculos()
+    {
+        Fachada con = new Fachada();
+        Connection conexion = con.getConnection();
+
+
+        Timer temporizador = new Timer();
+
+        TimerTask tarea = new TimerTask()
+        {
+            @Override
+            public void run() 
+            {
+                try
+                {
+                    Statement st = conexion.createStatement();
+                    String sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo;";
+
+                    tvVehiculos.getItems().clear();
+
+                    ResultSet rs = st.executeQuery(sql);
+
+                    while(rs.next())
+                    {
+                        tvVehiculos.getItems().add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
+                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
+                    }
+
+                    st.close();
+                    conexion.close();
+                }
+                catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null,"Error Mostrar: " + ex.getMessage());
+                } 
+                finally 
+                {
+                    pb.setVisible(false);
+                }
+                cancel();
+                temporizador.cancel();
+            }
+        };
+        temporizador.schedule(tarea, 0, 10000); 
+
+        pb.setVisible(true);
+    }
+    
+    public void cargarRepuestos()
+    {
         Fachada con = new Fachada();
         Connection conexion = con.getConnection();
 
@@ -164,33 +218,20 @@ public class ControladorInventario implements Initializable
                 try
                 {
                     Statement st = conexion.createStatement();
-                    String sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo;";
+                    String sql = "SELECT * FROM repuesto ORDER BY id_repuesto;";
             
-                    datosR.clear();
-                    datosV.clear();
+                    tvRepuestos.getItems().clear();
 
                     ResultSet rs = st.executeQuery(sql);
 
                     while(rs.next())
                     {
-
-                        datosV.add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
-                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
-                    }
-
-                    sql = "SELECT * FROM repuesto ORDER BY id_repuesto;";
-
-                    rs = st.executeQuery(sql);
-
-                    while(rs.next())
-                    {
-                        datosR.add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
+                        tvRepuestos.getItems().add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
                                                 Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
                     }
 
                     st.close();
                     conexion.close();
-
                 }
                 catch(SQLException ex)
                 {
@@ -198,13 +239,7 @@ public class ControladorInventario implements Initializable
                 } 
                 finally 
                 {
-
-                    tvVehiculos.setItems(datosV);
-
-                    tvRepuestos.setItems(datosR);
-
                     pb.setVisible(false);
-
                 }
                 cancel();
                 temporizador.cancel();
@@ -213,7 +248,6 @@ public class ControladorInventario implements Initializable
         temporizador.schedule(tarea, 0, 10000); 
 
         pb.setVisible(true);
-
     }
 
     @FXML
