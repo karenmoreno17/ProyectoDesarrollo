@@ -41,6 +41,7 @@ public class ControladorInventario implements Initializable
 {
 
     private Fachada conexion;
+    private String privilegios;
     
     @FXML
     private TableView<Vehiculo> tvVehiculos;
@@ -137,6 +138,8 @@ public class ControladorInventario implements Initializable
         tcRPrecio.setCellValueFactory( new PropertyValueFactory("precio"));
         tcRCantidad.setCellValueFactory( new PropertyValueFactory("cantidad"));
 
+        privilegios = "Gerente";
+
         cargarInventario();
 
     }
@@ -144,8 +147,19 @@ public class ControladorInventario implements Initializable
     @FXML
     public void cargarInventario()
     {
-        cargarVehiculos();
-        cargarRepuestos();
+        switch (privilegios)
+        {
+            case "Gerente":
+                cargarVehiculos();
+                cargarRepuestos();
+                break;
+            case "Vendedor":
+                cargarVehiculos();
+                break;
+            case "Jefe de taller":
+                cargarRepuestos();
+                break;
+        }
     }
 
     public void cargarVehiculos()
