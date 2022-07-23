@@ -164,7 +164,7 @@ public class ControladorInventario implements Initializable
                 try
                 {
                     Statement st = conexion.createStatement();
-                    String sql = "SELECT * FROM vehiculo;";
+                    String sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo;";
             
                     datosR.clear();
                     datosV.clear();
@@ -178,7 +178,7 @@ public class ControladorInventario implements Initializable
                                                 Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
                     }
 
-                    sql = "SELECT * FROM repuesto;";
+                    sql = "SELECT * FROM repuesto ORDER BY id_repuesto;";
 
                     rs = st.executeQuery(sql);
 
