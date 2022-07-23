@@ -115,7 +115,7 @@ public class ControladorGUI implements Initializable
         */
 
         String[] nombres = new String[7];
-        nombres[0] = null;
+        nombres[0] = "Inicio.fxml";
         nombres[1] = "Usuario.fxml";
         nombres[2] = "Inventario.fxml";
         nombres[3] = "Sedes.fxml";
