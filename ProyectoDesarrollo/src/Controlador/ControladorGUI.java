@@ -153,16 +153,6 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void moverVentana(MouseEvent event)
-    {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        
-        stage.setX(event.getScreenX() - event.getX() - 8);
-        stage.setY(event.getScreenY());
-    }
-
-    @FXML
     private void continuar(ActionEvent event) 
     {
         panelBienvenida.setVisible(false);
