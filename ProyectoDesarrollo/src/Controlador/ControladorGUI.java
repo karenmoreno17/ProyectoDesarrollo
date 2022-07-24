@@ -143,13 +143,23 @@ public class ControladorGUI implements Initializable
     @FXML
     private void cerrar(ActionEvent event) 
     {
-        int confirmacion = JOptionPane.showConfirmDialog(null, "Esta acción no se puede deshacer. ¿Confirma que desea cerrar la ventana?", "Cerrar ventana", 0, 2);
-        if (confirmacion == 0) 
-        {
+    //    int confirmacion = JOptionPane.showConfirmDialog(null, "Esta acción no se puede deshacer. ¿Confirma que desea cerrar la ventana?", "Cerrar ventana", 0, 2);
+    //    if (confirmacion == 0) 
+    //    {
             Node source = (Node) event.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
             stage.close();
-        }
+    //    }
+    }
+
+    @FXML
+    private void moverVentana(MouseEvent event)
+    {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        
+        stage.setX(event.getScreenX() - event.getX() - 8);
+        stage.setY(event.getScreenY());
     }
 
     @FXML
@@ -637,4 +647,5 @@ public class ControladorGUI implements Initializable
         esconderMenu();
         
     }
+
 }
