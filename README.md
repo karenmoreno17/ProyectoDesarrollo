@@ -1,8 +1,13 @@
 # ProyectoDesarrollo
 
-Creé un usuario que se llama test, para probar las cosas
-Sus datos de ingreso son:
-Cédula: 1
-Contraseña: test
+Los usuarios creados para pruebas en el momento son:
+Vendedor:
+ + Cédula: 1; 
+ + Contraseña: 1.
 
-Todos los datos donde vayan palabras, es test, y donde se tengan que poner números, es 1.
+Jefe de taller:
+ + Cédula: 2;
+ + Contraseña: 2.
+Gerente:
+ + Cédula: 4;
+ + Contraseña: 4.
