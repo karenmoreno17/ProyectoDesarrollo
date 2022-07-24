@@ -146,14 +146,11 @@ public class ControladorInventario implements Initializable
     {
         switch (privilegios)
         {
-            case "Gerente":
-                cargarVehiculos();
-                cargarRepuestos();
-                break;
-            case "Vendedor":
+            case "vendedor":
                 cargarVehiculos();
                 break;
-            case "Jefe de taller":
+            default:
+                cargarVehiculos();
                 cargarRepuestos();
                 break;
         }
@@ -547,11 +544,15 @@ public class ControladorInventario implements Initializable
 
         switch (privilegios)
         {
-            case "Gerente":
+            case "gerente":
                 break;
-            case "Vendedor":
+            case "vendedor":
+                tabPane.getTabs().remove(1, 4);
                 break;
-            case "Jefe de taller":
+            case "jefe de taller":
+                tabPane.getTabs().set(2, tabPane.getTabs().get(0));
+                tabPane.getTabs().remove(0);
+                tabPane.getTabs().remove(2, 3);
                 break;
         }
     }
