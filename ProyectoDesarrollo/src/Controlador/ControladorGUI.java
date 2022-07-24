@@ -292,7 +292,7 @@ public class ControladorGUI implements Initializable
         try 
         {
             Statement st = conexion.createStatement();
-            String sql = "SELECT contrasena, rol, nombre_empleado FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
+            String sql = "SELECT contrasena, rol, nombre_empleado, id_sede FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
 
             ResultSet rs = st.executeQuery(sql);
 
@@ -302,7 +302,7 @@ public class ControladorGUI implements Initializable
             {
                 nombre_usuario_inicio.setText(rs.getString(3));
                 rol_usuario_inicio.setText(rs.getString(2));
-                ingresar(rs.getString(2), rs.getInt(0));
+                ingresar(rs.getString(2), rs.getInt(4));
             }
             else 
             {
