@@ -115,14 +115,15 @@ public class ControladorGUI implements Initializable
          - Panel de ventas:             6.
         */
 
-        String[] nombres = new String[7];
+        String[] nombres = new String[8];
         nombres[0] = "Inicio.fxml";
         nombres[1] = "Usuario.fxml";
         nombres[2] = "Inventario.fxml";
         nombres[3] = "Sedes.fxml";
         nombres[4] = null;
         nombres[5] = "OrdenTrabajo.fxml";
-        nombres[6] = "Venta.fxml";
+        nombres[6] = null;
+        nombres[7] = "Venta.fxml";
 
         tAuxContrasena.setContextMenu(new ContextMenu());
         tCedula.setContextMenu(new ContextMenu());
