@@ -139,9 +139,6 @@ public class ControladorInventario implements Initializable
         tcRCantidad.setCellValueFactory( new PropertyValueFactory("cantidad"));
 
         privilegios = "Gerente";
-
-        cargarInventario();
-
     }
 
     @FXML
@@ -282,12 +279,12 @@ public class ControladorInventario implements Initializable
                 conexion.close();
                 JOptionPane.showMessageDialog(null,"Vehículo registrado con exito. ");
                 boton_guardar_inventario.setStyle("-fx-background-color: #66c00b; ");
-                categoria.setValue("");
-                textfield_marca.setText("");
-                textfield_linea.setText("");
-                textfield_modelo.setText("");
-                textfield_precio.setText("");
-                textfield_cantidad.setText("");
+                categoria.getSelectionModel().clearSelection();
+                textfield_marca.clear();
+                textfield_linea.clear();
+                textfield_modelo.clear();
+                textfield_precio.clear();
+                textfield_cantidad.clear();
             }
             catch(SQLException sqle)
             {
@@ -316,12 +313,12 @@ public class ControladorInventario implements Initializable
                 conexion.close();
                 JOptionPane.showMessageDialog(null,"Repuesto registrado con exito. ");
                 boton_guardar_inventario.setStyle("-fx-background-color: #66c00b; ");
-                categoria.setValue("");
-                textfield_marca.setText("");
-                textfield_linea.setText("");
-                textfield_modelo.setText("");
-                textfield_precio.setText("");
-                textfield_cantidad.setText("");
+                categoria.getSelectionModel().clearSelection();
+                textfield_marca.clear();
+                textfield_linea.clear();
+                textfield_modelo.clear();
+                textfield_precio.clear();
+                textfield_cantidad.clear();
             }
             catch(SQLException sqle)
             {
@@ -355,9 +352,9 @@ public class ControladorInventario implements Initializable
         {
             try
             {
-                sql_guardar = "UPDATE vehiculo SET marca = " + "'" + textfield_marca_modificacion.getText() +"'" +", linea = " + "'" + textfield_linea_modificacion.getText()+ "'"
-                           + ", modelo = " + "'"+ textfield_modelo_modificacion.getText() + "'" +", precio = " + "'" +Integer.parseInt(textfield_precio_modificacion.getText().trim()) + "'"
-                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_vehiculo = " + textfield_buscar.getText();
+                sql_guardar = "UPDATE vehiculo SET marca = '" + textfield_marca_modificacion.getText() +"', linea = '" + textfield_linea_modificacion.getText()+ "'"
+                           + ", modelo = '"+ textfield_modelo_modificacion.getText() + "', precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim())
+                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_vehiculo = " + Integer.parseInt(textfield_buscar.getText().trim());
                 
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
@@ -366,22 +363,24 @@ public class ControladorInventario implements Initializable
                 conexion.close();
                 JOptionPane.showMessageDialog(null,"Vehículo modificado con exito. ");
                 boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #66c00b; ");
-                modificacion_categoria.setValue("");
-                textfield_marca_modificacion.setText("");
-                textfield_linea_modificacion.setText("");
-                textfield_modelo_modificacion.setText("");
-                textfield_precio_modificacion.setText("");
-                textfield_cantidad_modificacion.setText("");
+                modificacion_categoria.getSelectionModel().clearSelection();
+                textfield_marca_modificacion.clear();
+                textfield_linea_modificacion.clear();
+                textfield_modelo_modificacion.clear();
+                textfield_precio_modificacion.clear();
+                textfield_cantidad_modificacion.clear();
             }
             catch(SQLException sqle)
             {
                 JOptionPane.showMessageDialog(null,"Error: " + 
                     sqle.getMessage());
+                return;
             }
             catch(NumberFormatException ex)
             {
                 JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
                 boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #66c00b; ");
+                return;
             }
         }
         else if(modificacion_categoria.getValue() == "Repuesto" && !(textfield_marca_modificacion.getText().isEmpty()) && !(textfield_linea_modificacion.getText().isEmpty()) &&
@@ -389,9 +388,9 @@ public class ControladorInventario implements Initializable
         { 
             try
             {
-                sql_guardar = "UPDATE repuesto SET marca = " + textfield_marca_modificacion.getText() +", linea = " + textfield_linea_modificacion.getText()
-                           + ", modelo = " + textfield_modelo_modificacion.getText() +", precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim())
-                    + ", cantidad_vehiculo = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_repuesto = " + textfield_buscar.getText();
+                sql_guardar = "UPDATE repuesto SET marca = '" + textfield_marca_modificacion.getText() + "', linea = '" + textfield_linea_modificacion.getText() + "'"
+                           + ", modelo = '" + textfield_modelo_modificacion.getText() +"', precio = " + Integer.parseInt(textfield_precio_modificacion.getText().trim())
+                    + ", cantidad_repuesto = " + Integer.parseInt(textfield_cantidad_modificacion.getText().trim()) + "WHERE id_repuesto = " + Integer.parseInt(textfield_buscar.getText().trim());
                 
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
@@ -400,35 +399,50 @@ public class ControladorInventario implements Initializable
                 conexion.close();
                 JOptionPane.showMessageDialog(null,"Repuesto modificado con exito. ");
                 boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #66c00b; ");
-                modificacion_categoria.setValue("");
-                textfield_marca_modificacion.setText("");
-                textfield_linea_modificacion.setText("");
-                textfield_modelo_modificacion.setText("");
-                textfield_precio_modificacion.setText("");
-                textfield_cantidad_modificacion.setText("");
+                modificacion_categoria.getSelectionModel().clearSelection();
+                textfield_marca_modificacion.clear();
+                textfield_linea_modificacion.clear();
+                textfield_modelo_modificacion.clear();
+                textfield_precio_modificacion.clear();
+                textfield_cantidad_modificacion.clear();
             }
             catch(SQLException sqle)
             {
                 JOptionPane.showMessageDialog(null,"Error: " + 
                     sqle.getMessage());
+                return;
             }
             catch(NumberFormatException ex)
             {
                 JOptionPane.showMessageDialog(null,"Los valores introducidos no son validos. ");
                 boton_guardar_inventario_modificacion.setStyle("-fx-background-color: #66c00b; ");
+                return;
             }
         }
         else
         {
             JOptionPane.showMessageDialog(null,"Por favor complete todos los campos. ");
             boton_guardar_inventario.setStyle("-fx-background-color: #66c00b; ");
+            return;
         }
+
+        textfield_marca_modificacion.setDisable(true);
+        textfield_linea_modificacion.setDisable(true);
+        textfield_modelo_modificacion.setDisable(true);
+        textfield_precio_modificacion.setDisable(true);
+        textfield_cantidad_modificacion.setDisable(true);
     }
 
     @FXML
     private void buscarArticulo (ActionEvent event) 
     {
         String sql_buscar;
+
+        if (textfield_buscar.getText().trim().equals(""))
+        {
+            return;
+        }
+
         if(modificacion_categoria.getValue() == "Vehículo")
         {
             Fachada con = new Fachada();
@@ -441,11 +455,16 @@ public class ControladorInventario implements Initializable
                 if(rs == null)
                 {
                     JOptionPane.showMessageDialog(null,"Vehiculo inexistente ");
-                    textfield_marca_modificacion.setText("");
-                    textfield_linea_modificacion.setText("");
-                    textfield_modelo_modificacion.setText("");
-                    textfield_precio_modificacion.setText("");
-                    textfield_cantidad_modificacion.setText("");
+                    textfield_marca_modificacion.clear();
+                    textfield_marca_modificacion.setDisable(true);
+                    textfield_linea_modificacion.clear();
+                    textfield_linea_modificacion.setDisable(true);
+                    textfield_modelo_modificacion.clear();
+                    textfield_modelo_modificacion.setDisable(true);
+                    textfield_precio_modificacion.clear();
+                    textfield_precio_modificacion.setDisable(true);
+                    textfield_cantidad_modificacion.clear();
+                    textfield_cantidad_modificacion.setDisable(true);
                 }
                 while(rs.next())
                 {
@@ -481,11 +500,16 @@ public class ControladorInventario implements Initializable
                 if(rs == null)
                 {
                     JOptionPane.showMessageDialog(null,"Repuesto inexistente ");
-                    textfield_marca_modificacion.setText("");
-                    textfield_linea_modificacion.setText("");
-                    textfield_modelo_modificacion.setText("");
-                    textfield_precio_modificacion.setText("");
-                    textfield_cantidad_modificacion.setText("");
+                    textfield_marca_modificacion.clear();
+                    textfield_marca_modificacion.setDisable(true);
+                    textfield_linea_modificacion.clear();
+                    textfield_linea_modificacion.setDisable(true);
+                    textfield_modelo_modificacion.clear();
+                    textfield_modelo_modificacion.setDisable(true);
+                    textfield_precio_modificacion.clear();
+                    textfield_precio_modificacion.setDisable(true);
+                    textfield_cantidad_modificacion.clear();
+                    textfield_cantidad_modificacion.setDisable(true);
                 }
                 while(rs.next())
                 {
@@ -515,4 +539,20 @@ public class ControladorInventario implements Initializable
         } 
     }
 
+    public void login(String privilegios)
+    {
+        this.privilegios = privilegios;
+
+        cargarInventario();
+
+        switch (privilegios)
+        {
+            case "Gerente":
+                break;
+            case "Vendedor":
+                break;
+            case "Jefe de taller":
+                break;
+        }
+    }
 }
