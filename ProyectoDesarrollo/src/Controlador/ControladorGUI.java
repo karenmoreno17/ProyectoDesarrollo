@@ -153,6 +153,16 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
+    private void moverVentana(MouseEvent event)
+    {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        
+        stage.setX(event.getScreenX() - event.getX() - 8);
+        stage.setY(event.getScreenY());
+    }
+
+    @FXML
     private void continuar(ActionEvent event) 
     {
         panelBienvenida.setVisible(false);
@@ -302,7 +312,7 @@ public class ControladorGUI implements Initializable
             {
                 nombre_usuario_inicio.setText(rs.getString(3));
                 rol_usuario_inicio.setText(rs.getString(2));
-                ingresar(rs.getString(2));
+                ingresar(rs.getString(2), rs.getInt(0));
             }
             else 
             {
@@ -385,8 +395,10 @@ public class ControladorGUI implements Initializable
         panelVentas.setVisible(false);
     }
 
-    private void ingresar(String rol) 
+    private void ingresar(String rol, int sede) 
     {
+        ControladorInventario controladorInventario = (ControladorInventario) controladores.get(2);
+
         panelPrincipal.setVisible(false);
         ventanaMenu.setVisible(true);
 
@@ -402,6 +414,8 @@ public class ControladorGUI implements Initializable
                 hijo.getChildren().add(panelesSecundarios.get(i));
             }
         }
+
+        controladorInventario.login(rol.toLowerCase(), sede);
 
         switch(rol.toLowerCase())
         {
@@ -419,17 +433,11 @@ public class ControladorGUI implements Initializable
 
     private void ventanaGerente()
     {
-        ControladorInventario controladorInventario = (ControladorInventario) controladores.get(2);
-
         setColor(boton_inicio);
-        
-        controladorInventario.login("Gerente");
     }
 
     private void ventanaVendedor()
     {
-        ControladorInventario controladorInventario = (ControladorInventario) controladores.get(2);
-
         setColor(boton_inicio);
 
         boton_venta.setVisible(true);
@@ -451,8 +459,6 @@ public class ControladorGUI implements Initializable
         panel_lateral.getChildren().remove(6);
         panel_lateral.getChildren().remove(4);
         panel_lateral.getChildren().remove(2);
-
-        controladorInventario.login("Vendedor");
     }
 
     private void ventanaJefeTaller()

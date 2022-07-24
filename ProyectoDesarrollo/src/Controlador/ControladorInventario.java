@@ -42,6 +42,7 @@ public class ControladorInventario implements Initializable
 
     private Fachada conexion;
     private String privilegios;
+    private int sede;
     
     @FXML
     private TableView<Vehiculo> tvVehiculos;
@@ -175,7 +176,7 @@ public class ControladorInventario implements Initializable
                 try
                 {
                     Statement st = conexion.createStatement();
-                    String sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo;";
+                    String sql = "SELECT * FROM vehiculo WHERE id_sede = " + sede + " ORDER BY id_vehiculo;";
 
                     tvVehiculos.getItems().clear();
 
@@ -183,8 +184,8 @@ public class ControladorInventario implements Initializable
 
                     while(rs.next())
                     {
-                        tvVehiculos.getItems().add(new Vehiculo(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
-                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
+                        tvVehiculos.getItems().add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), 
+                                                rs.getInt(4), rs.getInt(6)));
                     }
 
                     st.close();
@@ -232,8 +233,8 @@ public class ControladorInventario implements Initializable
 
                     while(rs.next())
                     {
-                        tvRepuestos.getItems().add(new Repuesto(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(5), 
-                                                Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(6))));
+                        tvRepuestos.getItems().add(new Repuesto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), 
+                                                rs.getInt(4), rs.getInt(6)));
                     }
 
                     st.close();
@@ -539,9 +540,10 @@ public class ControladorInventario implements Initializable
         } 
     }
 
-    public void login(String privilegios)
+    public void login(String privilegios, int sede)
     {
         this.privilegios = privilegios;
+        this.sede = sede;
 
         cargarInventario();
 
