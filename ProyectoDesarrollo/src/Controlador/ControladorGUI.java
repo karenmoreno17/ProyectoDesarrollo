@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -123,6 +124,10 @@ public class ControladorGUI implements Initializable
         nombres[5] = "OrdenTrabajo.fxml";
         nombres[6] = "Venta.fxml";
 
+        tAuxContrasena.setContextMenu(new ContextMenu());
+        tCedula.setContextMenu(new ContextMenu());
+        tContrasena.setContextMenu(new ContextMenu());
+
         panelesSecundarios = new ArrayList<>();
         controladores = new ArrayList<>();
 
@@ -133,7 +138,6 @@ public class ControladorGUI implements Initializable
         }
 
         cargarFXML(nombres);
-        
     }
 
     @FXML
@@ -240,7 +244,7 @@ public class ControladorGUI implements Initializable
     {
         TextField tf = (TextField) event.getSource();
 
-        if (event.getCode().toString().equals("CONTROL")) 
+        if (event.getCode().toString().equals("CONTROL"))
         {
             tf.setEditable(false);
         }
@@ -381,24 +385,6 @@ public class ControladorGUI implements Initializable
         panelVentas.setVisible(false);
     }
 
-    private void ventanaDesarrollador()
-    {
-        boton_cerrar.setLayoutY(boton_inventario.getLayoutY());
-        boton_orden.setLayoutY(boton_usuario.getLayoutY());
-        boton_inventario.setLayoutY(boton_inicio.getLayoutY());
-
-        setColor(boton_inventario);
-
-        panelInventario.setVisible(true);
-        panelInicio.setVisible(false);
-
-        boton_inicio.setVisible(false);
-        boton_usuario.setVisible(false);
-        boton_sede.setVisible(false);
-        boton_reporte.setVisible(false);
-        boton_venta.setVisible(false);
-    }
-
     private void ingresar(String rol) 
     {
         panelPrincipal.setVisible(false);
@@ -433,61 +419,62 @@ public class ControladorGUI implements Initializable
 
     private void ventanaGerente()
     {
-        setColor(boton_inventario);
-        boton_inicio.setVisible(true);
-        boton_reporte.setVisible(true);
+        ControladorInventario controladorInventario = (ControladorInventario) controladores.get(2);
 
-        panelInicio.setVisible(true);   
+        setColor(boton_inicio);
+        
+        controladorInventario.login("Gerente");
     }
 
     private void ventanaVendedor()
     {
-        setColor(boton_inventario);
+        ControladorInventario controladorInventario = (ControladorInventario) controladores.get(2);
 
-        boton_inicio.setVisible(true);
-        boton_usuario.setVisible(false);
-        boton_sede.setVisible(false);
+        setColor(boton_inicio);
+
+        boton_venta.setVisible(true);
         boton_orden.setVisible(false);
-        boton_reporte.setVisible(true);
-
-        panelInicio.setVisible(true);
 
         boton_cerrar.setLayoutY(boton_venta.getLayoutY());
         boton_reporte.setLayoutY(boton_sede.getLayoutY());
         boton_venta.setLayoutY(boton_inventario.getLayoutY());
         boton_inventario.setLayoutY(boton_usuario.getLayoutY());
-        
-        boton_usuario_lateral.setVisible(false);
-        boton_sede_lateral.setVisible(false);
-        boton_orden_lateral.setVisible(false);
+
         boton_reporte_lateral.setLayoutY(boton_sede_lateral.getLayoutY());
         boton_venta_lateral.setLayoutY(boton_inventario_lateral.getLayoutY());
         boton_inventario_lateral.setLayoutY(boton_usuario_lateral.getLayoutY());
+
+        panelBotones.getChildren().remove(5);
+        panelBotones.getChildren().remove(3);
+        panelBotones.getChildren().remove(1);
+
+        panel_lateral.getChildren().remove(6);
+        panel_lateral.getChildren().remove(4);
+        panel_lateral.getChildren().remove(2);
+
+        controladorInventario.login("Vendedor");
     }
 
     private void ventanaJefeTaller()
     {
-        setColor(boton_inventario);
-
-        boton_inicio.setVisible(true);
-        boton_usuario.setVisible(false);
-        boton_sede.setVisible(false);
-        boton_venta.setVisible(false);
-        boton_reporte.setVisible(true);
-
-        panelInicio.setVisible(true);
+        setColor(boton_inicio);
 
         boton_cerrar.setLayoutY(boton_venta.getLayoutY());
         boton_reporte.setLayoutY(boton_sede.getLayoutY());
         boton_orden.setLayoutY(boton_inventario.getLayoutY());
         boton_inventario.setLayoutY(boton_usuario.getLayoutY());
-        
-        boton_usuario_lateral.setVisible(false);
-        boton_sede_lateral.setVisible(false);
-        boton_venta_lateral.setVisible(false);
+
         boton_reporte_lateral.setLayoutY(boton_sede_lateral.getLayoutY());
         boton_orden_lateral.setLayoutY(boton_inventario_lateral.getLayoutY());
         boton_inventario_lateral.setLayoutY(boton_usuario_lateral.getLayoutY());
+
+        panelBotones.getChildren().remove(4);
+        panelBotones.getChildren().remove(3);
+        panelBotones.getChildren().remove(1);
+
+        panel_lateral.getChildren().remove(5);
+        panel_lateral.getChildren().remove(4);
+        panel_lateral.getChildren().remove(2);
     }
     
     @FXML
