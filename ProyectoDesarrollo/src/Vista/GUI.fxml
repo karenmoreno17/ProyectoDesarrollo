@@ -94,12 +94,12 @@
                               <Font name="Verdana Bold" size="14.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="tContrasena" layoutX="44.0" layoutY="300.0" prefHeight="25.0" prefWidth="170.0" promptText="Ingrese su contraseña">
+                        <PasswordField fx:id="tContrasena" layoutX="44.0" layoutY="300.0" onKeyPressed="#verificacionTeclasEspeciales" prefHeight="25.0" prefWidth="170.0" promptText="Ingrese su contraseña">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
                         </PasswordField>
-                        <TextField fx:id="tAuxContrasena" layoutX="44.0" layoutY="300.0" prefHeight="25.0" prefWidth="170.0" promptText="Ingrese su contraseña" visible="false">
+                        <TextField fx:id="tAuxContrasena" layoutX="44.0" layoutY="300.0" onKeyPressed="#verificacionTeclasEspeciales" prefHeight="25.0" prefWidth="170.0" promptText="Ingrese su contraseña" visible="false">
                            <font>
                               <Font name="Verdana" size="13.0" />
                            </font>
