@@ -129,7 +129,7 @@ public class ControladorGUI implements Initializable
         nombres[3] = "Sedes.fxml";
         nombres[4] = null;
         nombres[5] = "OrdenTrabajo.fxml";
-        nombres[6] = null;
+        nombres[6] = "Cotizaciones.fxml";
         nombres[7] = "Venta.fxml";
 
         tAuxContrasena.setContextMenu(new ContextMenu());
@@ -379,7 +379,7 @@ public class ControladorGUI implements Initializable
                     temporizador.cancel();
                 }
             };
-            temporizador.schedule(tarea, 0);
+            temporizador.schedule(tarea, 0, 10000);
         }
     }
 
