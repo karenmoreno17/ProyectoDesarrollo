@@ -118,7 +118,8 @@ public class ControladorGUI implements Initializable
          - Panel de sedes:              3.
          - Panel de reportes            4.
          - Panel de órdenes de trabajo: 5.
-         - Panel de ventas:             6.
+         - Panel de cotizaciones:       6.
+         - Panel de ventas:             7.
         */
 
         String[] nombres = new String[8];
