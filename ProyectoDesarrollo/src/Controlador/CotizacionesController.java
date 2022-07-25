@@ -128,10 +128,19 @@ public class CotizacionesController implements Initializable {
         
         try {
             
-            String sql_cotizacion="INSERT INTO cotizacion (id_vehiculo, id_cliente,id_vendedor) VALUES (" + Integer.parseInt(txt_IDautomovil_cotizacion.getText())+","+Integer.parseInt(txt_cedula_cotizacion.getText())+","+Integer.parseInt(txt_IDvendedor_cotizacion.getText())+")";
+            String sql_cotizacion="INSERT INTO cotizacion (id_vehiculo, id_cliente,id_vendedor) VALUES (" 
+                    + Integer.parseInt(txt_IDautomovil_cotizacion.getText())+","+Integer.parseInt(txt_cedula_cotizacion.getText())+","+Integer.parseInt(txt_IDvendedor_cotizacion.getText())+");";
             Statement stCotizacion= conexion.createStatement();
-            stCotizacion.executeQuery(sql_cotizacion);
+            ResultSet rstCotizacion = stCotizacion.executeQuery(sql_cotizacion);
+            System.out.println("llegur a cliente");
+            String sql_cliente="INSERT INTO cliente (cedula_cliente, nombre_cliente,direccion_cliente,telefono_cliente,genero_cliente,correo_electronico) VALUES ("
+                    + Integer.parseInt(txt_cedula_cotizacion.getText())+",'"+txt_nombre_cotizacion.getText()+"','"+txt_direccion_cotizacion.getText()+"',"+Integer.parseInt(txt_telefono_cotizacion.getText())+",'"+txt_genero_cotizacion.getText()+"','"+txt_correo_cotizacion.getText()+"');";
+            System.out.println(sql_cliente);
             
+            Statement stCliente= conexion.createStatement();
+            ResultSet rstCliente = stCliente.executeQuery(sql_cliente);
+            System.out.println("llegur a cerrar");
+            conexion.close();  
             
         } catch (SQLException ex) {
             Logger.getLogger(CotizacionesController.class.getName()).log(Level.SEVERE, null, ex);
