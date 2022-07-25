@@ -133,13 +133,64 @@
                   <AnchorPane fx:id="panelSedes" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false" />
                   <AnchorPane fx:id="panelReportes" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false" />
                   <AnchorPane fx:id="panelOrdenes" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false" />
-                  <AnchorPane fx:id="panelCotizaciones" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false">
+                  <AnchorPane fx:id="panelCotizaciones" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false" />
+                  <AnchorPane fx:id="panelVentas" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false" />
+                  <AnchorPane fx:id="panelNotificaciones" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false">
                      <children>
-                        <Label text="Panel cotizaciones" />
-                     </children></AnchorPane>
-                  <AnchorPane fx:id="panelVentas" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" visible="false">
-                     <children>
-                        <Label text="Panel ventas" />
+                        <AnchorPane layoutX="424.0" layoutY="14.0" prefHeight="326.0" prefWidth="368.0" style="-fx-background-color: C4DCF2;">
+                           <children>
+                              <Label layoutX="50.0" layoutY="145.0" text="Vendedor: *************">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="50.0" layoutY="173.0" text="Vehiculo: *************">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="23.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#crearOrden" prefWidth="100.0" style="-fx-background-color: #66c00b;" text="Aprobar">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="133.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#crearOrden" prefWidth="100.0" style="-fx-background-color: #F03030;" text="Rechazar">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="243.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#crearOrden" prefWidth="100.0" style="-fx-background-color: #76A2CB;" text="Cancelar">
+                                 <font>
+                                    <Font name="Verdana Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="50.0" layoutY="201.0" text="Sede origen: *************">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="25.0" layoutY="80.0" text="¿Desea pedir el traslado del vehiculo para">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="25.0" layoutY="100.0" text="  esta sede?">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="56.0" layoutY="25.0" text="Solicitud de traslado">
+                                 <font>
+                                    <Font name="Verdana" size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="50.0" layoutY="229.0" text="Estado: Esperando aprobación externa." visible="false">
+                                 <font>
+                                    <Font name="Verdana" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </children></AnchorPane>
                </children>
             </Pane>
@@ -219,15 +270,27 @@
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Button>
-                        <Pane layoutX="33.0" layoutY="14.0" prefHeight="100.0" prefWidth="178.0">
+                        <Pane layoutX="16.0" layoutY="14.0" prefHeight="100.0" prefWidth="195.0">
                            <children>
-                              <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="14.0" layoutY="34.0">
+                              <ImageView fitHeight="28.0" fitWidth="31.0" layoutX="30.0" layoutY="33.0">
                                  <image>
                                     <Image url="@../Recursos/icons8_user_50px.png" />
                                  </image>
                               </ImageView>
-                              <Label fx:id="nombre_usuario_inicio" alignment="CENTER" layoutX="45.0" layoutY="9.0" prefHeight="39.0" prefWidth="126.0" textAlignment="CENTER" textFill="WHITE" />
-                              <Label fx:id="rol_usuario_inicio" alignment="CENTER" layoutX="64.0" layoutY="48.0" prefHeight="17.0" prefWidth="89.0" textAlignment="CENTER" textFill="WHITE" />
+                              <Label fx:id="nombre_usuario_inicio" alignment="CENTER" layoutX="61.0" layoutY="8.0" prefHeight="39.0" prefWidth="126.0" textAlignment="CENTER" textFill="WHITE" />
+                              <Label fx:id="rol_usuario_inicio" alignment="CENTER" layoutX="80.0" layoutY="47.0" prefHeight="17.0" prefWidth="89.0" textAlignment="CENTER" textFill="WHITE" />
+                              <Button fx:id="boton_usuario_lateral1" layoutX="-5.0" layoutY="30.0" mnemonicParsing="false" onAction="#botonUsuario" onMouseEntered="#desplegarBoton" onMouseExited="#esconderBoton" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0">
+                                       <image>
+                                          <Image url="@../Recursos/icons8_notification_50px.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </Pane>
                      </children>
