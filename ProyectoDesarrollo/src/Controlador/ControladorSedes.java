@@ -178,7 +178,7 @@ public class ControladorSedes implements Initializable
                 }
             }
         };
-        temporizadorV.schedule(tareaV, 0, 10000);
+        temporizadorV.schedule(tareaV, 0);
     }
 
     private void modificarSede() 
@@ -239,7 +239,7 @@ public class ControladorSedes implements Initializable
                     }
                 }
             };
-            temporizadorV.schedule(tareaV, 0, 10000);
+            temporizadorV.schedule(tareaV, 0);
         }
     }
 
@@ -294,7 +294,7 @@ public class ControladorSedes implements Initializable
                     }
                 }
             };
-            temporizadorV.schedule(tareaV, 0, 10000);
+            temporizadorV.schedule(tareaV, 0);
         }
     }
     
@@ -336,7 +336,7 @@ public class ControladorSedes implements Initializable
                 }
             }
         };
-        temporizadorV.schedule(tareaV, 0, 10000);
+        temporizadorV.schedule(tareaV, 0);
     }
 
     @FXML
