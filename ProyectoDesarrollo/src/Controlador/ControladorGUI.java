@@ -91,6 +91,10 @@ public class ControladorGUI implements Initializable
     private Button boton_cotizacion_lateral;
     @FXML
     private AnchorPane panelCotizaciones;
+    @FXML
+    private AnchorPane panelNotificaciones;
+    @FXML
+    private Button boton_usuario_lateral1;
     
 
     /**
@@ -300,7 +304,7 @@ public class ControladorGUI implements Initializable
         Fachada con = new Fachada();
         Connection conexion = con.getConnection();
 
-        try 
+        try
         {
             Statement st = conexion.createStatement();
             String sql = "SELECT contrasena, rol, nombre_empleado, id_sede FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
@@ -411,16 +415,12 @@ public class ControladorGUI implements Initializable
 
         for (int i = 0; i < panelesSecundarios.size(); i++)
         {
-            System.out.println(i);
             if (panelesSecundarios.get(i) != null)
             {
-                System.out.println("Carga " + i);
                 AnchorPane hijo = (AnchorPane) panelContenedor.getChildren().get(i);
                 hijo.getChildren().add(panelesSecundarios.get(i));
             }
         }
-        
-        System.out.println("Finish");
 
         controladorInventario.login(rol.toLowerCase(), sede);
 
@@ -502,7 +502,7 @@ public class ControladorGUI implements Initializable
             mostrarMenu();
         }
     }
-    
+
      private void mostrarMenu()
     {
         if(estado)
@@ -528,7 +528,7 @@ public class ControladorGUI implements Initializable
         translateTransition.play();*/
         estado = true;
     }
-    
+
     private void esconderMenu()
     {
         if(!estado)
@@ -547,82 +547,23 @@ public class ControladorGUI implements Initializable
         translateTransition.play();*/
         estado = false;
     }
-    
-    
+
+
     @FXML
     private void cambiarColor(MouseEvent event)
     {
-        if(event.getSource() == boton_inicio)
-        {
-            setColor(boton_inicio);
-        }
-        else if(event.getSource() == boton_usuario)
-        {
-            setColor(boton_usuario);
-        }
-        else if(event.getSource() == boton_inventario)
-        {
-            setColor(boton_inventario);
-        }
-        else if(event.getSource() == boton_sede)
-        {
-            setColor(boton_sede);
-        }
-        else if(event.getSource() == boton_reporte)
-        {
-            setColor(boton_reporte);
-        }
-        else if(event.getSource() == boton_cotizacion)
-        {
-            setColor(boton_cotizacion);
-        }
-        else if(event.getSource() == boton_venta)
-        {
-            setColor(boton_venta);
-        }
-        else if (event.getSource() == boton_orden)
-        {
-            setColor(boton_orden);
-        }
+        Button boton = (Button) event.getSource();
+
+        setColor(boton);
     }
-    
-    
+
+
     @FXML
     private void resetearColor(MouseEvent event)
     {
-        if(event.getSource() == boton_inicio)
-        {
-            resetColor(boton_inicio);
-        }
-        else if(event.getSource() == boton_usuario)
-        {
-            resetColor(boton_usuario);
-        }
-        else if(event.getSource() == boton_inventario)
-        {
-            resetColor(boton_inventario);
-        }
-        else if(event.getSource() == boton_sede)
-        {
-            resetColor(boton_sede);
-        }
-        else if(event.getSource() == boton_reporte)
-        {
-            resetColor(boton_reporte);
-        }
-        else if(event.getSource() == boton_cotizacion)
-        {
-            resetColor(boton_cotizacion);
-        }
-        else if(event.getSource() == boton_venta)
-        {
-            resetColor(boton_venta);
-        }
-        else if(event.getSource() == boton_orden)
-        {
-            resetColor(boton_orden);
-        }
-        
+        Button boton = (Button) event.getSource();
+
+        resetColor(boton);   
     }
     
 
@@ -657,6 +598,10 @@ public class ControladorGUI implements Initializable
     {
         esconderMenu();
         
+    }
+
+    @FXML
+    private void crearOrden(MouseEvent event) {
     }
 
 }
