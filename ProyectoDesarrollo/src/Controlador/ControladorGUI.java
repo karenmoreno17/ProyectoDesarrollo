@@ -379,7 +379,7 @@ public class ControladorGUI implements Initializable
                     temporizador.cancel();
                 }
             };
-            temporizador.schedule(tarea, 0, 10000);
+            temporizador.schedule(tarea, 0);
         }
     }
 
