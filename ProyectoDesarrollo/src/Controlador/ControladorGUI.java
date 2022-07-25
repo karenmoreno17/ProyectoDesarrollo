@@ -91,6 +91,12 @@ public class ControladorGUI implements Initializable
     private Button boton_menu_lateral;
     @FXML
     private AnchorPane panel_lateral;
+    @FXML
+    private Button boton_cotizacion;
+    @FXML
+    private Button boton_cotizacion_lateral;
+    @FXML
+    private AnchorPane panelCotizaciones;
     
 
     /**
@@ -241,6 +247,15 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
+    private void botonCotizaciones(ActionEvent event)
+    {
+        quitarVisibilidad();
+        setColor(boton_cotizacion);
+        panelCotizaciones.setVisible(true);
+        esconderMenu();
+    }
+
+    @FXML
     private void verificacionTeclasEspeciales(KeyEvent event) 
     {
         TextField tf = (TextField) event.getSource();
@@ -323,19 +338,19 @@ public class ControladorGUI implements Initializable
         }
     }
 
-    private void setColor(Button boton )
+    private void setColor(Button boton)
     {
         boton.setStyle("-fx-background-color: #B5B2B2; ");
     }
 
-    private void resetColor(Button boton )
+    private void resetColor(Button boton)
     {
         boton.setStyle("-fx-background-color: #808080; ");
     }
 
     private void cargarFXML(String[] nombres)
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < nombres.length; i++)
         {
             String nombre = nombres[i];
             int posicion = i;
@@ -375,6 +390,7 @@ public class ControladorGUI implements Initializable
         resetColor(boton_sede);
         resetColor(boton_reporte);
         resetColor(boton_orden);
+        resetColor(boton_cotizacion);
         resetColor(boton_venta);
 
         panelInicio.setVisible(false);
@@ -383,6 +399,7 @@ public class ControladorGUI implements Initializable
         panelSedes.setVisible(false);
         panelReportes.setVisible(false);
         panelOrdenes.setVisible(false);
+        panelCotizaciones.setVisible(false);
         panelVentas.setVisible(false);
     }
 
@@ -397,14 +414,18 @@ public class ControladorGUI implements Initializable
         tAuxContrasena.clear();
         tCedula.clear();
 
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < panelesSecundarios.size(); i++)
         {
+            System.out.println(i);
             if (panelesSecundarios.get(i) != null)
             {
+                System.out.println("Carga " + i);
                 AnchorPane hijo = (AnchorPane) panelContenedor.getChildren().get(i);
                 hijo.getChildren().add(panelesSecundarios.get(i));
             }
         }
+        
+        System.out.println("Finish");
 
         controladorInventario.login(rol.toLowerCase(), sede);
 
@@ -556,11 +577,15 @@ public class ControladorGUI implements Initializable
         {
             setColor(boton_reporte);
         }
+        else if(event.getSource() == boton_cotizacion)
+        {
+            setColor(boton_cotizacion);
+        }
         else if(event.getSource() == boton_venta)
         {
             setColor(boton_venta);
         }
-        else
+        else if (event.getSource() == boton_orden)
         {
             setColor(boton_orden);
         }
@@ -590,11 +615,15 @@ public class ControladorGUI implements Initializable
         {
             resetColor(boton_reporte);
         }
+        else if(event.getSource() == boton_cotizacion)
+        {
+            resetColor(boton_cotizacion);
+        }
         else if(event.getSource() == boton_venta)
         {
             resetColor(boton_venta);
         }
-        else
+        else if(event.getSource() == boton_orden)
         {
             resetColor(boton_orden);
         }
