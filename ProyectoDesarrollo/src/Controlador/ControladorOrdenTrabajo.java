@@ -158,7 +158,7 @@ public class ControladorOrdenTrabajo implements Initializable
                     }
                 }
             };
-            temporizadorV.schedule(tareaV, 0, 10000);
+            temporizadorV.schedule(tareaV, 0);
         }
     }
 
@@ -212,7 +212,7 @@ public class ControladorOrdenTrabajo implements Initializable
                 }
             }
         };
-        temporizadorV.schedule(tareaV, 0, 10000);
+        temporizadorV.schedule(tareaV, 0);
     }
 
 }
