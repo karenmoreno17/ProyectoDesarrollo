@@ -94,7 +94,7 @@ public class ControladorGUI implements Initializable
     @FXML
     private AnchorPane panelNotificaciones;
     @FXML
-    private Button boton_usuario_lateral1;
+    private Button boton_notificacion;
     
 
     /**
@@ -159,14 +159,14 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void continuar(ActionEvent event) 
+    private void continuar() 
     {
         panelBienvenida.setVisible(false);
         panelIngreso.setVisible(true);
     }
 
     @FXML
-    private void activarContrasena(ActionEvent event) 
+    private void activarContrasena() 
     {
         if(cbContrasena.isSelected())
         {
@@ -183,7 +183,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonInicio(ActionEvent event) 
+    private void botonInicio() 
     {
         quitarVisibilidad();
         setColor(boton_inicio);
@@ -192,7 +192,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonUsuario(ActionEvent event) 
+    private void botonUsuario() 
     {
         quitarVisibilidad();
         setColor(boton_usuario);
@@ -201,7 +201,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonInventario(ActionEvent event) 
+    private void botonInventario() 
     {
         quitarVisibilidad();
         setColor(boton_inventario);
@@ -210,7 +210,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonSedes(ActionEvent event) 
+    private void botonSedes() 
     {
         quitarVisibilidad();
         setColor(boton_sede);
@@ -219,7 +219,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonReportes(ActionEvent event) 
+    private void botonReportes() 
     {
         quitarVisibilidad();
         setColor(boton_reporte);
@@ -228,7 +228,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonOrdenes(ActionEvent event) 
+    private void botonOrdenes() 
     {
         quitarVisibilidad();
         setColor(boton_orden);
@@ -237,7 +237,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonVentas(ActionEvent event) 
+    private void botonVentas() 
     {
         quitarVisibilidad();
         setColor(boton_venta);
@@ -246,7 +246,7 @@ public class ControladorGUI implements Initializable
     }
 
     @FXML
-    private void botonCotizaciones(ActionEvent event)
+    private void botonCotizaciones()
     {
         quitarVisibilidad();
         setColor(boton_cotizacion);
@@ -489,9 +489,9 @@ public class ControladorGUI implements Initializable
         panel_lateral.getChildren().remove(4);
         panel_lateral.getChildren().remove(2);
     }
-    
+
     @FXML
-    private void desplazar_menu(ActionEvent event)
+    private void desplazar_menu()
     {
         if(estado)
         {
@@ -594,14 +594,9 @@ public class ControladorGUI implements Initializable
    }
 
     @FXML
-    private void esconderBoton(MouseEvent event) 
+    private void esconderBoton() 
     {
         esconderMenu();
-        
-    }
-
-    @FXML
-    private void crearOrden(MouseEvent event) {
     }
 
 }
