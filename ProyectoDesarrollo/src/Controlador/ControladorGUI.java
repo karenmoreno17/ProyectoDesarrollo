@@ -127,7 +127,7 @@ public class ControladorGUI implements Initializable
         nombres[1] = "Usuario.fxml";
         nombres[2] = "Inventario.fxml";
         nombres[3] = "Sedes.fxml";
-        nombres[4] = null;
+        nombres[4] = "Reportes.fxml";
         nombres[5] = "OrdenTrabajo.fxml";
         nombres[6] = "Cotizaciones.fxml";
         nombres[7] = "Venta.fxml";
