@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="panelNotificaciones" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: C4DCF2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorNotificaciones">
+   <children>
+      <TabPane prefHeight="617.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Pendientes">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tvPendientes" prefHeight="588.0" prefWidth="806.0">
+                          <columns>
+                            <TableColumn prefWidth="150.0" text="Vehiculo" />
+                              <TableColumn prefWidth="150.0" text="Encargado" />
+                            <TableColumn prefWidth="150.0" text="Sede origen" />
+                              <TableColumn prefWidth="150.0" text="Sede destino" />
+                              <TableColumn prefWidth="150.0" text="Estado" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Aprobados">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tvAprobados" prefHeight="588.0" prefWidth="806.0">
+                           <columns>
+                              <TableColumn prefWidth="150.0" text="Vehiculo" />
+                              <TableColumn prefWidth="150.0" text="Encargado" />
+                              <TableColumn prefWidth="150.0" text="Sede origen" />
+                              <TableColumn prefWidth="150.0" text="Sede destino" />
+                              <TableColumn prefWidth="150.0" text="Estado" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Rechazados">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tvRechazados" prefHeight="588.0" prefWidth="806.0">
+                           <columns>
+                              <TableColumn prefWidth="150.0" text="Vehiculo" />
+                              <TableColumn prefWidth="150.0" text="Encargado" />
+                              <TableColumn prefWidth="150.0" text="Sede origen" />
+                              <TableColumn prefWidth="150.0" text="Sede destino" />
+                              <TableColumn prefWidth="150.0" text="Estado" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <AnchorPane layoutX="383.0" layoutY="54.0" prefHeight="326.0" prefWidth="368.0" style="-fx-background-color: C4DCF2;" visible="false">
+         <children>
+            <Label layoutX="50.0" layoutY="145.0" text="Vendedor: *************">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="173.0" text="Vehiculo: *************">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Button layoutX="23.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#aprobarSolicitud" prefWidth="100.0" style="-fx-background-color: #66c00b;" text="Aprobar">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="133.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#rechazarSolicitud" prefWidth="100.0" style="-fx-background-color: #F03030;" text="Rechazar">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="243.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#cancelar" prefWidth="100.0" style="-fx-background-color: #76A2CB;" text="Cancelar">
+               <font>
+                  <Font name="Verdana Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="50.0" layoutY="201.0" text="Sede origen: *************">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="80.0" text="¿Desea pedir el traslado del vehiculo para">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="100.0" text="  esta sede?">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="56.0" layoutY="25.0" text="Solicitud de traslado">
+               <font>
+                  <Font name="Verdana" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="229.0" text="Estado: Esperando aprobación externa." visible="false">
+               <font>
+                  <Font name="Verdana" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
