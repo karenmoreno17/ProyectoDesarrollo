@@ -285,7 +285,6 @@ public class ControladorInicio implements Initializable
                 Statement sentencia4 = conexion.createStatement();
                 ResultSet rs4 = sentencia4.executeQuery(sql_buscar_jefe);
                 rs4.next();
-                System.out.println(rs.getString(5));
                 datos_ordenes.add(new Orden(Integer.parseInt(rs.getString(1)),rs3.getString(1), rs4.getString(1),rs.getString(5)));
                 sentencia3.clearBatch();
                 sentencia4.clearBatch();
