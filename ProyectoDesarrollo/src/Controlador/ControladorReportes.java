@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.Cliente;
 import Modelo.Empleado;
 import Modelo.Fachada;
 import Modelo.Repuesto;
@@ -15,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,8 +33,6 @@ import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
- *
- * @author JUAN DAVID
  */
 public class ControladorReportes implements Initializable 
 {
@@ -41,6 +42,7 @@ public class ControladorReportes implements Initializable
     private ObservableList<Empleado> datos_empleados_tabla;
     private ObservableList<Vehiculo> datos_vehiculos_tabla;
     private ObservableList<Repuesto> datos_repuestos_tabla;
+    private ObservableList<Cliente> datosClientesTabla;
     
     
     @FXML
@@ -91,6 +93,20 @@ public class ControladorReportes implements Initializable
     private Button cerrar_panel_grafica1;
     @FXML
     private Button boton_grafica_repuesto;
+    @FXML
+    private PieChart graGeneroClientes;
+    @FXML
+    private PieChart graComunasClientes;
+    @FXML
+    private TableView<Cliente> tablaClientes;
+    @FXML
+    private TableColumn<Cliente, String> columnaNombreCliente;
+    @FXML
+    private TableColumn<Cliente, String> columnaDireccionCliente;
+    @FXML
+    private TableColumn<Cliente, String> columnaGeneroCliente;
+    @FXML
+    private TableColumn<Cliente, Integer> columnaComunaCliente;
 
     /**
      * Initializes the controller class.
@@ -101,6 +117,8 @@ public class ControladorReportes implements Initializable
         datos_empleados_tabla = FXCollections.observableArrayList();
         datos_vehiculos_tabla = FXCollections.observableArrayList();
         datos_repuestos_tabla = FXCollections.observableArrayList();
+        datosClientesTabla = FXCollections.observableArrayList();
+        
         nombre_empleado_reporte.setCellValueFactory( new PropertyValueFactory("nombre"));
         cargo_empleado_reporte.setCellValueFactory( new PropertyValueFactory("cargo"));
         sede_empleado_reporte.setCellValueFactory( new PropertyValueFactory("sede"));
@@ -116,8 +134,14 @@ public class ControladorReportes implements Initializable
         modelo_repuestos_reporte.setCellValueFactory( new PropertyValueFactory("modelo"));
         cantidad_repuestos_reporte.setCellValueFactory( new PropertyValueFactory("cantidad"));
         
+        columnaNombreCliente.setCellValueFactory( new PropertyValueFactory("nombre"));
+        columnaDireccionCliente.setCellValueFactory( new PropertyValueFactory("direccion"));
+        columnaGeneroCliente.setCellValueFactory( new PropertyValueFactory("genero"));
+        columnaComunaCliente.setCellValueFactory( new PropertyValueFactory("comuna"));
+                
         reporte_empleados();
         reporte_inventario();
+        reporteClientes();
     }    
     
     
@@ -222,7 +246,49 @@ public class ControladorReportes implements Initializable
                     sqle.getMessage());
         }
         
+    }
+    
+    private void reporteClientes()
+    {
+        datosClientesTabla.clear();
+        double clientes = 0.0;
         
+        Timer temporizador = new Timer();
+        TimerTask tarea; 
+        tarea = new TimerTask() 
+        {
+            @Override
+            public void run()
+            {
+                try 
+                {
+                    Fachada con = new Fachada(); 
+                    Connection conexion = con.getConnection();
+                    String sql = "SELECT * FROM cliente;";
+                    Statement sentencia = conexion.createStatement();
+                    ResultSet rs = sentencia.executeQuery(sql);
+                    
+                    while(rs.next())
+                    {
+                        datosClientesTabla.add(new Cliente(rs.getString(2), rs.getString(3), rs.getString(5), rs.getInt(7)));
+                        
+                    }
+ 
+                    tablaClientes.setItems(datosClientesTabla);
+                    conexion.close();
+                }
+                catch (SQLException sqle)
+                {
+                    JOptionPane.showMessageDialog(null,"Error: " + sqle.getMessage());
+                }
+                finally
+                {
+                    cancel();
+                    temporizador.cancel();
+                }
+            }
+        };
+            temporizador.schedule(tarea, 0);
         
     }
 
