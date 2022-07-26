@@ -132,47 +132,49 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
                      <children>
-                        <Label layoutX="254.0" layoutY="36.0" prefHeight="32.0" prefWidth="332.0" text="Modificación de Clientes">
+                        <Label layoutX="266.0" layoutY="59.0" prefHeight="32.0" prefWidth="332.0" text="Modificación de Clientes">
                            <font>
                               <Font name="Verdana" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="157.0" layoutY="120.0" prefHeight="29.0" prefWidth="112.0" text="Cédula">
+                        <Label layoutX="167.0" layoutY="119.0" prefHeight="29.0" prefWidth="112.0" text="Cédula">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="bBuscarCliente" layoutX="548.0" layoutY="121.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="28.0" prefWidth="139.0" style="-fx-background-color: #76A2CB;" text="Buscar Cliente" textFill="WHITE">
+                        <Button fx:id="bBuscarCliente" layoutX="558.0" layoutY="120.0" mnemonicParsing="false" onAction="#buscarCliente" prefHeight="28.0" prefWidth="139.0" style="-fx-background-color: #76A2CB;" text="Buscar Cliente" textFill="WHITE">
                            <font>
                               <Font name="Verdana Bold" size="14.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
-                        <ComboBox fx:id="cbCedula" layoutX="263.0" layoutY="122.0" prefWidth="255.0" promptText="Elija la cédula del cliente" />
-                        <TextField fx:id="tfCorreoCliente" layoutX="548.0" layoutY="324.0" />
-                        <TextField fx:id="tfDireccionCliente" layoutX="121.0" layoutY="324.0" />
-                        <TextField fx:id="tfTelefonoCliente" layoutX="548.0" layoutY="222.0" />
-                        <TextField fx:id="tfNombreCliente" layoutX="120.0" layoutY="222.0" />
-                        <Label layoutX="120.0" layoutY="204.0" text="Nombre:">
+                        <TextField fx:id="tfCorreoCliente" disable="true" editable="false" layoutX="561.0" layoutY="279.0" />
+                        <TextField fx:id="tfDireccionCliente" disable="true" editable="false" layoutX="134.0" layoutY="279.0" />
+                        <TextField fx:id="tfTelefonoCliente" disable="true" editable="false" layoutX="562.0" layoutY="190.0" />
+                        <TextField fx:id="tfNombreCliente" disable="true" editable="false" layoutX="134.0" layoutY="190.0" />
+                        <Label layoutX="134.0" layoutY="172.0" text="Nombre:">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="121.0" layoutY="306.0" text="Dirección:">
+                        <Label layoutX="134.0" layoutY="261.0" text="Dirección:">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="548.0" layoutY="204.0" text="Teléfono:">
+                        <Label layoutX="562.0" layoutY="172.0" text="Teléfono:">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="548.0" layoutY="306.0" prefHeight="17.0" prefWidth="103.0" text="Correo:">
+                        <Label layoutX="561.0" layoutY="261.0" prefHeight="17.0" prefWidth="103.0" text="Correo:">
                            <font>
                               <Font name="Verdana" size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="bLimpiarCampos" layoutX="263.0" layoutY="422.0" mnemonicParsing="false" onAction="#limpiarCampos" prefHeight="33.0" prefWidth="147.0" style="-fx-background-color: #76A2CB;" text="Limpiar Campos" textFill="WHITE">
+                        <Button fx:id="bLimpiarCampos" layoutX="269.0" layoutY="435.0" mnemonicParsing="false" onAction="#limpiarCampos" prefHeight="33.0" prefWidth="147.0" style="-fx-background-color: #76A2CB;" text="Limpiar Campos" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -180,7 +182,7 @@
                               <Font name="Verdana Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="bModificarCliente" layoutX="429.0" layoutY="422.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="33.0" prefWidth="161.0" style="-fx-background-color: #76A2CB;" text="Modificar Cliente" textFill="WHITE">
+                        <Button fx:id="bModificarCliente" layoutX="435.0" layoutY="435.0" mnemonicParsing="false" onAction="#modificarCliente" prefHeight="33.0" prefWidth="161.0" style="-fx-background-color: #76A2CB;" text="Modificar Cliente" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -188,11 +190,18 @@
                               <Font name="Verdana Bold" size="14.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="47.0" fitWidth="51.0" layoutX="207.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="47.0" fitWidth="51.0" layoutX="219.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Recursos/clienteM.png" />
                            </image>
                         </ImageView>
+                        <TextField fx:id="tfCedula" layoutX="273.0" layoutY="121.0" prefHeight="25.0" prefWidth="255.0" />
+                        <Label layoutX="348.0" layoutY="338.0" prefHeight="17.0" prefWidth="103.0" text="Género:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfGeneroCliente" disable="true" editable="false" layoutX="348.0" layoutY="356.0" />
                      </children>
                   </AnchorPane>
               </content>
