@@ -100,6 +100,8 @@ public class ControladorCotizaciones implements Initializable {
     private Button button_resumen_cotizacion;
     @FXML
     private Button button_confirmar_cotizacion;
+    @FXML
+    private TextField tfComunaCliente;
 
     /**
      * Initializes the controller class.
@@ -196,10 +198,11 @@ public class ControladorCotizaciones implements Initializable {
         tfTelefonoCliente.setText("");
         tfNombreCliente.setText("");
         tfGeneroCliente.setText("");
+        tfComunaCliente.setText("");
     }
 
     @FXML
-    private void buscarCliente(ActionEvent event) 
+    private void buscarClienteM(ActionEvent event) 
     {
         String sqlBuscarCliente;
         if(!(tfCedula.getText().isEmpty()))
@@ -225,18 +228,21 @@ public class ControladorCotizaciones implements Initializable {
                 tfTelefonoCliente.setText(cliente.getString(4));
                 tfGeneroCliente.setText(cliente.getString(5));
                 tfCorreoCliente.setText(cliente.getString(6));
+                tfComunaCliente.setText(cliente.getString(7));
                 
                 tfCorreoCliente.setDisable(false);
                 tfDireccionCliente.setDisable(false);
                 tfTelefonoCliente.setDisable(false);
                 tfNombreCliente.setDisable(false);
                 tfGeneroCliente.setDisable(false);
+                tfComunaCliente.setDisable(false);
                 
                 tfCorreoCliente.setEditable(true);
                 tfDireccionCliente.setEditable(true);
                 tfTelefonoCliente.setEditable(true);
                 tfNombreCliente.setEditable(true);
                 tfGeneroCliente.setEditable(true);
+                tfComunaCliente.setEditable(true);
                 
                 conexion.close();
             }
@@ -256,11 +262,12 @@ public class ControladorCotizaciones implements Initializable {
     private void modificarCliente(ActionEvent event) 
     {
         boolean ordenInvalida = tfCorreoCliente.getText().equals("") || tfDireccionCliente.getText().equals("") 
-                             || tfTelefonoCliente.getText().equals("") || tfNombreCliente.getText().equals("");
+                             || tfTelefonoCliente.getText().equals("") || tfNombreCliente.getText().equals("")
+                             || tfComunaCliente.getText().equals("");
         
         if (ordenInvalida)
         {
-            JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos.");
+            JOptionPane.showMessageDialog(null, "Por favor rellene los campos.");
         }
         else 
         {
@@ -272,6 +279,7 @@ public class ControladorCotizaciones implements Initializable {
             String nombre = tfNombreCliente.getText();
             String genero = tfGeneroCliente.getText();
             String cedula = tfCedula.getText();
+            String comuna = tfComunaCliente.getText();
 
             limpiarCampos();
 
@@ -289,7 +297,8 @@ public class ControladorCotizaciones implements Initializable {
                                    + "SET nombre_cliente = '" + nombre + "', direccion_cliente = '" + direccion + "', telefono_cliente = " + telefono
                                    + ", correo_electronico = '" + correo
                                    + "', genero_cliente = '" + genero
-                                   + "' WHERE cedula_cliente = " + cedula + ";";
+                                   + "', comuna_cliente = " + comuna
+                                   + " WHERE cedula_cliente = " + cedula + ";";
                         System.out.println(sql);
                         int result = st.executeUpdate(sql);
 
@@ -302,12 +311,14 @@ public class ControladorCotizaciones implements Initializable {
                             tfTelefonoCliente.setDisable(true);
                             tfNombreCliente.setDisable(true);
                             tfGeneroCliente.setDisable(true);
+                            tfComunaCliente.setDisable(true);
                 
                             tfCorreoCliente.setEditable(false);
                             tfDireccionCliente.setEditable(false);
                             tfTelefonoCliente.setEditable(false);
                             tfNombreCliente.setEditable(false);
                             tfGeneroCliente.setEditable(false);
+                            tfComunaCliente.setEditable(false);
                             limpiarCampos();
                             
                         } 
