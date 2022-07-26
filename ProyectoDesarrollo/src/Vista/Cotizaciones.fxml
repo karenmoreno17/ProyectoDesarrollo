@@ -123,7 +123,7 @@
                         <Separator layoutX="646.0" layoutY="105.0" prefHeight="2.0" prefWidth="175.0" />
                         <Separator layoutX="593.0" layoutY="130.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="0.0" />
                         <Button fx:id="button_resumen_cotizacion" layoutX="646.0" layoutY="138.0" mnemonicParsing="false" onAction="#generar_resumen" text="Generar Resumen" />
-                        <Button fx:id="button_confirmar_cotizacion" layoutX="672.0" layoutY="451.0" mnemonicParsing="false" onAction="#contirmar_cotizacion" prefHeight="46.0" prefWidth="101.0" text="Confirmar" />
+                        <Button fx:id="button_confirmar_cotizacion" layoutX="672.0" layoutY="451.0" mnemonicParsing="false" onAction="#confirmar_cotizacion" prefHeight="46.0" prefWidth="101.0" text="Confirmar" />
                      </children>
                   </AnchorPane>
                </content>
