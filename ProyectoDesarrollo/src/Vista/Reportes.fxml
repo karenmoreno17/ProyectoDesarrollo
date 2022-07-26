@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
@@ -18,7 +24,7 @@
         <tabs>
             <Tab text="Inventario">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
                      <children>
                         <TableView fx:id="tabla_vehiculos_reporte" layoutX="23.0" layoutY="31.0" prefHeight="249.0" prefWidth="400.0" stylesheets="@estiloTabla.css">
                           <columns>
@@ -100,7 +106,7 @@
             </Tab>
           <Tab text="Empleados ">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
                      <children>
                         <TableView fx:id="tabla_empleados_reporte" layoutX="153.0" layoutY="14.0" prefHeight="272.0" prefWidth="500.0" stylesheets="@estiloTabla.css">
                           <columns>
@@ -115,6 +121,34 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="Clientes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
+                     <children>
+                        <TableView fx:id="tablaClientes" layoutX="63.0" layoutY="56.0" prefHeight="200.0" prefWidth="680.0">
+                          <columns>
+                            <TableColumn fx:id="columnaNombreCliente" prefWidth="173.0" text="Nombre" />
+                            <TableColumn fx:id="columnaDireccionCliente" prefWidth="236.0" text="Dirección" />
+                              <TableColumn fx:id="columnaGeneroCliente" prefWidth="150.0" text="Género" />
+                              <TableColumn fx:id="columnaComunaCliente" maxWidth="600.0" prefWidth="120.0" text="Comuna" />
+                          </columns>
+                        </TableView>
+                        <PieChart fx:id="graGeneroClientes" layoutX="397.0" layoutY="279.0" prefHeight="274.0" prefWidth="355.0" title="Comparación de género" />
+                        <PieChart fx:id="graComunasClientes" layoutX="42.0" layoutY="279.0" prefHeight="274.0" prefWidth="355.0" title="Comunas" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Cotizaciones">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;" />
+              </content>
+            </Tab>
+            <Tab text="Órdenes de trabajo">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
