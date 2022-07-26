@@ -69,6 +69,22 @@ public class ControladorCotizaciones implements Initializable {
     private TableColumn<?, ?> concepto;
     @FXML
     private TableColumn<?, ?> valor;
+    @FXML
+    private Button bBuscarCliente;
+    @FXML
+    private ComboBox<?> cbCedula;
+    @FXML
+    private TextField tfCorreoCliente;
+    @FXML
+    private TextField tfDireccionCliente;
+    @FXML
+    private TextField tfTelefonoCliente;
+    @FXML
+    private TextField tfNombreCliente;
+    @FXML
+    private Button bLimpiarCampos;
+    @FXML
+    private Button bModificarCliente;
 
     /**
      * Initializes the controller class.
@@ -146,6 +162,27 @@ public class ControladorCotizaciones implements Initializable {
             Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
        
+    }
+
+    @FXML
+    private void buscarCliente(ActionEvent event) 
+    {
+        
+    }
+
+    @FXML
+    private void limpiarCampos(ActionEvent event) 
+    {
+        tfCorreoCliente.setText("");
+        tfDireccionCliente.setText("");
+        tfTelefonoCliente.setText("");
+        tfNombreCliente.setText("");
+    }
+
+    @FXML
+    private void modificarCliente(ActionEvent event) 
+    {
+        
     }
     
 }
