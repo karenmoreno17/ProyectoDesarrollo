@@ -9,6 +9,8 @@ import Modelo.Fachada;
 import java.sql.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.*;
@@ -21,6 +23,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -71,8 +75,7 @@ public class ControladorCotizaciones implements Initializable {
     private TableColumn<?, ?> valor;
     @FXML
     private Button bBuscarCliente;
-    @FXML
-    private ComboBox<?> cbCedula;
+    private ComboBox<String> cbCedula;
     @FXML
     private TextField tfCorreoCliente;
     @FXML
@@ -85,6 +88,10 @@ public class ControladorCotizaciones implements Initializable {
     private Button bLimpiarCampos;
     @FXML
     private Button bModificarCliente;
+    @FXML
+    private TextField tfCedula;
+    @FXML
+    private TextField tfGeneroCliente;
 
     /**
      * Initializes the controller class.
@@ -136,7 +143,7 @@ public class ControladorCotizaciones implements Initializable {
     }
 
     @FXML
-    private void contirmar_cotizacion(ActionEvent event) {
+    private void confirmar_cotizacion(ActionEvent event) {
         
         
         Fachada con = new Fachada();
@@ -148,14 +155,12 @@ public class ControladorCotizaciones implements Initializable {
                     + Integer.parseInt(txt_IDautomovil_cotizacion.getText())+","+Integer.parseInt(txt_cedula_cotizacion.getText())+","+Integer.parseInt(txt_IDvendedor_cotizacion.getText())+");";
             Statement stCotizacion= conexion.createStatement();
             ResultSet rstCotizacion = stCotizacion.executeQuery(sql_cotizacion);
-            System.out.println("llegur a cliente");
             String sql_cliente="INSERT INTO cliente (cedula_cliente, nombre_cliente,direccion_cliente,telefono_cliente,genero_cliente,correo_electronico) VALUES ("
                     + Integer.parseInt(txt_cedula_cotizacion.getText())+",'"+txt_nombre_cotizacion.getText()+"','"+txt_direccion_cotizacion.getText()+"',"+Integer.parseInt(txt_telefono_cotizacion.getText())+",'"+txt_genero_cotizacion.getText()+"','"+txt_correo_cotizacion.getText()+"');";
             System.out.println(sql_cliente);
             
             Statement stCliente= conexion.createStatement();
             ResultSet rstCliente = stCliente.executeQuery(sql_cliente);
-            System.out.println("llegur a cerrar");
             conexion.close();  
             
         } catch (SQLException ex) {
@@ -165,24 +170,155 @@ public class ControladorCotizaciones implements Initializable {
     }
 
     @FXML
-    private void buscarCliente(ActionEvent event) 
+    private void limpiarCampos() 
     {
-        
-    }
-
-    @FXML
-    private void limpiarCampos(ActionEvent event) 
-    {
+        tfCedula.setText("");
         tfCorreoCliente.setText("");
         tfDireccionCliente.setText("");
         tfTelefonoCliente.setText("");
         tfNombreCliente.setText("");
+        tfGeneroCliente.setText("");
     }
 
     @FXML
-    private void modificarCliente(ActionEvent event) 
+    private void buscarCliente(ActionEvent event) 
     {
-        
+        String sqlBuscarCliente;
+        if(!(tfCedula.getText().isEmpty()))
+        {
+            Fachada con = new Fachada();
+            Connection conexion = con.getConnection();
+            try
+            {
+                sqlBuscarCliente = "SELECT * FROM cliente WHERE cedula_cliente = " + tfCedula.getText();
+                Statement st = conexion.createStatement();
+                ResultSet cliente = st.executeQuery(sqlBuscarCliente);
+                
+                if(cliente.next() == false)
+                {
+                    cliente.beforeFirst();
+                    conexion.close();
+                    return;
+                }
+                
+                        
+                tfNombreCliente.setText(cliente.getString(2));
+                tfDireccionCliente.setText(cliente.getString(3));
+                tfTelefonoCliente.setText(cliente.getString(4));
+                tfGeneroCliente.setText(cliente.getString(5));
+                tfCorreoCliente.setText(cliente.getString(6));
+                
+                tfCorreoCliente.setDisable(false);
+                tfDireccionCliente.setDisable(false);
+                tfTelefonoCliente.setDisable(false);
+                tfNombreCliente.setDisable(false);
+                tfGeneroCliente.setDisable(false);
+                
+                tfCorreoCliente.setEditable(true);
+                tfDireccionCliente.setEditable(true);
+                tfTelefonoCliente.setEditable(true);
+                tfNombreCliente.setEditable(true);
+                tfGeneroCliente.setEditable(true);
+                
+                conexion.close();
+            }
+            catch(SQLException sqle)
+            {
+                JOptionPane.showMessageDialog(null, "El cliente no existe, no pudo conectarse");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Por favor ingrese la cédula del cliente");
+        }
+    
     }
     
+    @FXML
+    private void modificarCliente(ActionEvent event) 
+    {
+        boolean ordenInvalida = tfCorreoCliente.getText().equals("") || tfDireccionCliente.getText().equals("") 
+                             || tfTelefonoCliente.getText().equals("") || tfNombreCliente.getText().equals("");
+        
+        if (ordenInvalida)
+        {
+            JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos.");
+        }
+        else 
+        {
+            Fachada con = new Fachada();
+            Connection conexion = con.getConnection();
+            String correo = tfCorreoCliente.getText();
+            String direccion = tfDireccionCliente.getText();
+            String telefono = tfTelefonoCliente.getText();
+            String nombre = tfNombreCliente.getText();
+            String genero = tfGeneroCliente.getText();
+            String cedula = tfCedula.getText();
+
+            limpiarCampos();
+
+            Timer temporizador = new Timer();
+            TimerTask tarea = new TimerTask() 
+            {
+                @Override
+                public void run() 
+                {
+                    try 
+                    {
+                        
+                        Statement st = conexion.createStatement();
+                        String sql = "UPDATE cliente "
+                                   + "SET nombre_cliente = '" + nombre + "', direccion_cliente = '" + direccion + "', telefono_cliente = " + telefono
+                                   + ", correo_electronico = '" + correo
+                                   + "', genero_cliente = '" + genero
+                                   + "' WHERE cedula_cliente = " + cedula + ";";
+                        System.out.println(sql);
+                        int result = st.executeUpdate(sql);
+
+                        if (result == 1) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Los datos del cliente fueron modificados con éxito.");
+                            
+                            tfCorreoCliente.setDisable(true);
+                            tfDireccionCliente.setDisable(true);
+                            tfTelefonoCliente.setDisable(true);
+                            tfNombreCliente.setDisable(true);
+                            tfGeneroCliente.setDisable(true);
+                
+                            tfCorreoCliente.setEditable(false);
+                            tfDireccionCliente.setEditable(false);
+                            tfTelefonoCliente.setEditable(false);
+                            tfNombreCliente.setEditable(false);
+                            tfGeneroCliente.setEditable(false);
+                            limpiarCampos();
+                            
+                        } 
+                        else 
+                        {
+                            JOptionPane.showMessageDialog(null, "Ocurrió un error al modificar los datos del cliente.");
+                        }
+
+                        st.close();
+                        conexion.close();
+                    } 
+                    catch (SQLException ex) 
+                    {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    } 
+                    finally 
+                    {
+                        cancel();
+                        temporizador.cancel();
+                    }
+                }
+            };
+            temporizador.schedule(tarea, 0);
+        }
+    }
+
+
+
+
 }
+    
+
