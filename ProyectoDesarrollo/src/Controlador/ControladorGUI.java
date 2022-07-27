@@ -307,7 +307,7 @@ public class ControladorGUI implements Initializable
         try
         {
             Statement st = conexion.createStatement();
-            String sql = "SELECT contrasena, rol, nombre_empleado, id_sede FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ", estado = 'Activo';";
+            String sql = "SELECT contrasena, rol, nombre_empleado, id_sede FROM empleado WHERE cedula_empleado = " + tCedula.getText() + ";";
 
             ResultSet rs = st.executeQuery(sql);
 
