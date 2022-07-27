@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorSedes">
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="806.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ControladorSedes">
    <children>
       <TabPane prefHeight="617.0" prefWidth="806.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -127,6 +133,23 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab style="-fx-background-color: C1C3C4;" text="Registros Sedes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tabla_sedes" layoutX="239.0" layoutY="65.0" prefHeight="200.0" prefWidth="327.0">
+                          <columns>
+                            <TableColumn fx:id="colum_id" prefWidth="61.333335876464844" text="ID" />
+                            <TableColumn fx:id="colum_nombre" prefWidth="85.33332824707031" text="Nombre" />
+                              <TableColumn fx:id="colum_ubicacion" prefWidth="94.66668701171875" text="Ubicacion" />
+                              <TableColumn fx:id="colum" prefWidth="84.66668701171875" text="Telefono" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="button_registro_sede" layoutX="54.0" layoutY="65.0" mnemonicParsing="false" onAction="#Refrescar" prefHeight="55.0" prefWidth="96.0" text="Actualizar" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
