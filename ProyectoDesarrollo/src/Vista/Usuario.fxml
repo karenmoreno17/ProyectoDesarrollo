@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -193,6 +195,39 @@
                      </children>
                   </AnchorPane>
                </content>
+            </Tab>
+            <Tab style="-fx-background-color: C1C2C4;" text=" Registro Usuarios">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="table_usuarios_registro" layoutX="66.0" layoutY="120.0" prefHeight="200.0" prefWidth="680.0">
+                          <columns>
+                            <TableColumn fx:id="colum_Cedula" prefWidth="75.0" text="Cedula" />
+                            <TableColumn fx:id="colum_Nombre" prefWidth="102.66667175292969" text="Nombre" />
+                              <TableColumn fx:id="colum_Correo" prefWidth="100.66668701171875" text="Correo" />
+                              <TableColumn fx:id="colum_Direccion" prefWidth="83.33334350585938" text="Direccion" />
+                              <TableColumn fx:id="colum_Telefono" prefWidth="84.6666259765625" text="Telefono" />
+                              <TableColumn fx:id="colum_Rol" prefWidth="82.00003051757812" text="Rol" />
+                              <TableColumn fx:id="colum_Estado" prefWidth="74.66668701171875" text="Estado" />
+                              <TableColumn fx:id="colum_Sede" prefWidth="72.00006103515625" text="Sede" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="button_aplicar" layoutX="66.0" layoutY="70.0" mnemonicParsing="false" onAction="#filtrar" prefHeight="33.0" prefWidth="102.0" text="Aplicar Cambios" />
+                        <ComboBox fx:id="cb_Rol_Registro" layoutX="106.0" layoutY="21.0" prefWidth="150.0" promptText="Seleccione" />
+                        <ComboBox fx:id="cb_Estado_Registro" layoutX="350.0" layoutY="21.0" prefWidth="150.0" promptText="Selecciones" />
+                        <Label layoutX="66.0" layoutY="19.0" prefHeight="29.0" prefWidth="40.0" text="Rol:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="285.0" layoutY="19.0" prefHeight="29.0" prefWidth="65.0" text="Estado:">
+                           <font>
+                              <Font name="Verdana" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
             </Tab>
         </tabs>
       </TabPane>
