@@ -125,16 +125,15 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
                      <children>
-                        <TableView fx:id="tablaClientes" layoutX="63.0" layoutY="56.0" prefHeight="200.0" prefWidth="680.0" stylesheets="@estiloTabla.css">
+                        <TableView fx:id="tablaClientes" layoutX="38.0" layoutY="40.0" prefHeight="260.0" prefWidth="730.0" stylesheets="@estiloTabla.css">
                           <columns>
-                            <TableColumn fx:id="columnaNombreCliente" prefWidth="173.0" text="Nombre" />
-                            <TableColumn fx:id="columnaDireccionCliente" prefWidth="236.0" text="Dirección" />
-                              <TableColumn fx:id="columnaGeneroCliente" prefWidth="150.0" text="Género" />
-                              <TableColumn fx:id="columnaComunaCliente" maxWidth="600.0" prefWidth="120.0" text="Comuna" />
+                            <TableColumn fx:id="columnaNombreCliente" prefWidth="167.0" text="Nombre" />
+                            <TableColumn fx:id="columnaDireccionCliente" prefWidth="271.0" text="Dirección" />
+                              <TableColumn fx:id="columnaGeneroCliente" prefWidth="154.0" text="Género" />
+                              <TableColumn fx:id="columnaComunaCliente" maxWidth="600.0" prefWidth="137.0" text="Comuna" />
                           </columns>
                         </TableView>
-                        <PieChart fx:id="graGeneroClientes" layoutX="397.0" layoutY="279.0" prefHeight="274.0" prefWidth="355.0" title="Comparación de género" />
-                        <PieChart fx:id="graComunasClientes" layoutX="42.0" layoutY="279.0" prefHeight="274.0" prefWidth="355.0" title="Comunas" />
+                        <PieChart fx:id="graGeneroClientes" layoutX="248.0" layoutY="308.0" prefHeight="249.0" prefWidth="310.0" title="Estadística de Género" />
                      </children>
                   </AnchorPane>
               </content>
@@ -143,20 +142,14 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
                      <children>
-                        <TableView fx:id="tablaCotizaciones" layoutX="63.0" layoutY="55.0" prefHeight="200.0" prefWidth="680.0" stylesheets="@estiloTabla.css">
+                        <TableView fx:id="tablaCotizaciones" layoutX="35.0" layoutY="37.0" prefHeight="514.0" prefWidth="736.0" stylesheets="@estiloTabla.css">
                            <columns>
                               <TableColumn fx:id="columnaClienteNombre" prefWidth="186.0" text="Nombre del Cliente" />
                               <TableColumn fx:id="columnaVehiculo" prefWidth="306.0" text="Vehículo cotizado" />
-                              <TableColumn fx:id="columnaVendedor" prefWidth="187.0" text="Vendedor encargado" />
+                              <TableColumn fx:id="columnaVendedor" prefWidth="199.0" text="Vendedor encargado" />
                            </columns>
                         </TableView>
-                        <PieChart layoutX="271.0" layoutY="294.0" prefHeight="238.0" prefWidth="289.0" title="Gráfica de no sé qué" />
                      </children></AnchorPane>
-              </content>
-            </Tab>
-            <Tab style="-fx-background-color: C1C3C4;" text="Órdenes de trabajo">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;" />
               </content>
             </Tab>
         </tabs>
