@@ -118,8 +118,10 @@ public class ControladorInventario implements Initializable
         ObservableList<String> items = FXCollections.observableArrayList();
         ObservableList<String> itemsModificacion = FXCollections.observableArrayList();
 
+        items.add("---");
         items.add("Vehículo");
         items.add("Repuesto");
+        itemsModificacion.add("---");
         itemsModificacion.add("Vehículo");
         itemsModificacion.add("Repuesto");
         categoria.setItems(items);
@@ -269,9 +271,9 @@ public class ControladorInventario implements Initializable
         {
             try
             {
-                sql_guardar = "INSERT INTO vehiculo (marca, linea, modelo, precio, cantidad_vehiculo) VALUES ('"+
+                sql_guardar = "INSERT INTO vehiculo (marca, linea, modelo, precio, cantidad_vehiculo, id_Sede) VALUES ('"+
                 textfield_marca.getText()+ "', '"+ textfield_linea.getText()+"', '" + textfield_modelo.getText() 
-                +"', '" + Integer.parseInt(textfield_precio.getText().trim()) + "', "+ Integer.parseInt(textfield_cantidad.getText().trim())+ ")";
+                +"', '" + Integer.parseInt(textfield_precio.getText().trim()) + "', "+ Integer.parseInt(textfield_cantidad.getText().trim())+ ", " + sede +")";
                 
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
@@ -305,7 +307,7 @@ public class ControladorInventario implements Initializable
             {
                 sql_guardar = "INSERT INTO repuesto (marca, linea, modelo, precio, cantidad_repuesto) VALUES ('"+
                 textfield_marca.getText()+ "', '"+ textfield_linea.getText()+"', '" + textfield_modelo.getText() 
-                +"', '" + Integer.parseInt(textfield_precio.getText().trim()) + "', "+ Integer.parseInt(textfield_cantidad.getText().trim())+ ")";
+                +"', '" + Integer.parseInt(textfield_precio.getText().trim()) + "', "+ Integer.parseInt(textfield_cantidad.getText().trim())+ ", " + sede +")";
                 
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
