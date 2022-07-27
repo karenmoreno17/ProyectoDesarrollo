@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Cliente;
+import Modelo.Cotizacion;
 import Modelo.Empleado;
 import Modelo.Fachada;
 import Modelo.Repuesto;
@@ -23,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -39,6 +41,8 @@ public class ControladorReportes implements Initializable
     private ObservableList<PieChart.Data> datos_empleados_pieChart = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> datos_vehiculos_pieChart_auxiliar = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> datos_repuestos_pieChart_auxiliar = FXCollections.observableArrayList();
+    private ObservableList<PieChart.Data> datosClientesComunaGrafica = FXCollections.observableArrayList();
+    private ObservableList<PieChart.Data> datosClientesGeneroGrafica = FXCollections.observableArrayList();
     private ObservableList<Empleado> datos_empleados_tabla;
     private ObservableList<Vehiculo> datos_vehiculos_tabla;
     private ObservableList<Repuesto> datos_repuestos_tabla;
@@ -107,6 +111,16 @@ public class ControladorReportes implements Initializable
     private TableColumn<Cliente, String> columnaGeneroCliente;
     @FXML
     private TableColumn<Cliente, Integer> columnaComunaCliente;
+    
+    @FXML
+    private TableColumn<Cliente, String> columnaClienteNombre;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaVehiculo;
+    @FXML
+    private TableColumn<Empleado, String> columnaVendedor;
+    @FXML
+    private TableView<Cotizacion> tablaCotizaciones;
+    
 
     /**
      * Initializes the controller class.
@@ -142,6 +156,7 @@ public class ControladorReportes implements Initializable
         reporte_empleados();
         reporte_inventario();
         reporteClientes();
+        reporteCotizaciones();
     }    
     
     
@@ -250,8 +265,9 @@ public class ControladorReportes implements Initializable
     
     private void reporteClientes()
     {
+        datosClientesComunaGrafica.clear();
+        datosClientesGeneroGrafica.clear();
         datosClientesTabla.clear();
-        double clientes = 0.0;
         
         Timer temporizador = new Timer();
         TimerTask tarea; 
@@ -267,13 +283,28 @@ public class ControladorReportes implements Initializable
                     String sql = "SELECT * FROM cliente;";
                     Statement sentencia = conexion.createStatement();
                     ResultSet rs = sentencia.executeQuery(sql);
+                    int hombres = 0;
+                    int mujeres = 0;
                     
                     while(rs.next())
                     {
                         datosClientesTabla.add(new Cliente(rs.getString(2), rs.getString(3), rs.getString(5), rs.getInt(7)));
+                        datosClientesComunaGrafica.add(new PieChart.Data(rs.getString("comuna_cliente"), rs.getInt(7)));
+                        
+                        
+                        if(rs.getString(5).equals("Masculino"))
+                        {
+                            hombres += 1;
+                        }
+                        mujeres += 1;
+                        
+                        datosClientesGeneroGrafica.add(new PieChart.Data(rs.getString("genero_cliente"), hombres));
+                        datosClientesGeneroGrafica.add(new PieChart.Data(rs.getString("genero_cliente"), mujeres));
                         
                     }
- 
+                    
+                    graComunasClientes.setData(datosClientesComunaGrafica);
+                    graGeneroClientes.setData(datosClientesGeneroGrafica);
                     tablaClientes.setItems(datosClientesTabla);
                     conexion.close();
                 }
@@ -289,6 +320,11 @@ public class ControladorReportes implements Initializable
             }
         };
             temporizador.schedule(tarea, 0);
+        
+    }
+    
+    private void reporteCotizaciones()
+    {
         
     }
 
