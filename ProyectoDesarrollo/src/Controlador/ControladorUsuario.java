@@ -8,9 +8,12 @@ package Controlador;
 import Modelo.Fachada;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,7 +54,6 @@ public class ControladorUsuario implements Initializable {
     private Button bModificarUsuario;
     @FXML
     private TextField tCorreoUsuarioM;
-    @FXML
     private TextField tApellidoUsuarioM;
     @FXML
     private TextField tRolUsuarioM;
@@ -74,8 +76,6 @@ public class ControladorUsuario implements Initializable {
     @FXML
     private ComboBox<String> cbEstado;
     @FXML
-    private Button bLimpiarCamposM;
-    @FXML
     private ComboBox<Integer> cbCedula;
 
     /**
@@ -87,6 +87,23 @@ public class ControladorUsuario implements Initializable {
         // TODO
         tCedulaUsuario.setContextMenu(new ContextMenu());
         tTelefonoUsuario.setContextMenu(new ContextMenu());
+        Fachada con = new Fachada();
+            Connection conexion = con.getConnection();
+            
+            try {
+            String sql_buscar_cedula = "SELECT cedula_empleado FROM empleado;";                                 
+            Statement sentenciaCedulasM = conexion.createStatement();
+            ResultSet rst_buscar_cedula =sentenciaCedulasM.executeQuery(sql_buscar_cedula);
+            
+            while(rst_buscar_cedula.next()){
+                
+                cbCedula.getItems().add(Integer.parseInt(rst_buscar_cedula.getString(1)));
+                
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
@@ -137,25 +154,45 @@ public class ControladorUsuario implements Initializable {
 
     @FXML
     private void buscarUsuario(ActionEvent event) {
+        
+         Fachada con = new Fachada();
+            Connection conexion = con.getConnection();
+            
+            try {
+            String sql_buscar_Usuario = "SELECT * FROM empleado WHERE cedula_empleado=" + cbCedula.getValue()+";";            
+            Statement sentenciaUsuarioM = conexion.createStatement();
+            ResultSet rst_buscar_usuario =sentenciaUsuarioM.executeQuery(sql_buscar_Usuario);
+            rst_buscar_usuario.next();
+            tContrasenaUsuarioM.setText(rst_buscar_usuario.getString(2));
+            tRolUsuarioM.setText(rst_buscar_usuario.getString(3));
+            tNombreUsuarioM.setText(rst_buscar_usuario.getString(4));
+            tCorreoUsuarioM.setText(rst_buscar_usuario.getString(5));
+            tDireccionUsuarioM.setText(rst_buscar_usuario.getString(6));
+            tTelefonoUsuarioM.setText(rst_buscar_usuario.getString(7)); 
+            tSedeUsuarioM.setText(rst_buscar_usuario.getString(8));            
+            cbEstado.setValue(rst_buscar_usuario.getString(9));
+            conexion.close();       
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
     private void modificarUsuario(ActionEvent event) 
     {
-        //Erick completa lo de la modificación de usuario, trayendo de la Base de Datos las cédulas de los usuarios a la combobox, etc
-        //Junto con la modificación del resto de datos aparte del estado
+        System.out.println("entro a modificar");
         String sql_guardar;
         
-        if(cbEstado.getValue().equals("Inactivo"))
-        {
+        
             try
             {
-                sql_guardar = "UPDATE empleado SET estado = " + "'" + cbEstado.getValue() + "'" + "WHERE cedula_empleado = " + cbCedula.getValue();
-                
+                sql_guardar = "UPDATE empleado SET estado = '" + cbEstado.getValue() + "',contrasena= '" +tContrasenaUsuarioM.getText()+ "', rol ='" +tRolUsuarioM.getText()+"', nombre_empleado='"+ tNombreUsuarioM.getText() +"',correo_empleado='" + tCorreoUsuarioM.getText()+"',direccion_empleado='"+ tDireccionUsuarioM.getText()+"',telefono_empleado="+Integer.parseInt(tTelefonoUsuarioM.getText())+",id_sede="+ Integer.parseInt(tSedeUsuarioM.getText())+"WHERE cedula_empleado = " + cbCedula.getValue();
+                System.out.println(sql_guardar);
                 Fachada con = new Fachada();
                 Connection conexion = con.getConnection();
                 Statement sentencia = conexion.createStatement();
-                int num = sentencia.executeUpdate(sql_guardar);
+                sentencia.executeUpdate(sql_guardar);
                 conexion.close();
                 JOptionPane.showMessageDialog(null,"Estado modificado exitosamente");
                 limpiarCamposM();
@@ -168,7 +205,7 @@ public class ControladorUsuario implements Initializable {
             {
                 JOptionPane.showMessageDialog(null, "Lo escrito en los campos no coincide con el tipo de dato");
             }
-        }
+        
         
     }
     
@@ -219,7 +256,6 @@ public class ControladorUsuario implements Initializable {
         
     }
 
-    @FXML
     private void limpiarCamposM() {
         tCedulaM.setText("");
         tCorreoUsuarioM.setText("");
