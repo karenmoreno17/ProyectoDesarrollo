@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Fachada;
+import Modelo.Sede;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,13 +15,20 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -50,6 +58,20 @@ public class ControladorSedes implements Initializable
     private Button bCrearSede;
     @FXML
     private Button bLimpiarCamposSede;
+    @FXML
+    private TableView<Sede> tabla_sedes;
+    @FXML
+    private TableColumn<Sede, String> colum_id;
+    @FXML
+    private TableColumn<Sede, String> colum_nombre;
+    @FXML
+    private TableColumn<Sede, String> colum_ubicacion;
+    @FXML
+    private TableColumn<Sede, String> colum;
+    
+    ObservableList<Sede> obsSedes;
+    @FXML
+    private Button button_registro_sede;
 
 
     /**
@@ -67,6 +89,14 @@ public class ControladorSedes implements Initializable
         bModificar.setOnAction((event) -> {});
         
         cargarIds();
+        
+        this.colum_id.setCellValueFactory(new PropertyValueFactory("ID"));
+        this.colum_nombre.setCellValueFactory(new PropertyValueFactory("Nombre"));
+        this.colum_ubicacion.setCellValueFactory(new PropertyValueFactory("Ubicacion"));
+        this.colum.setCellValueFactory(new PropertyValueFactory("Telefono"));
+        
+        obsSedes=getSedes();
+        this.tabla_sedes.setItems(obsSedes);
     }
 
     @FXML
@@ -388,4 +418,36 @@ public class ControladorSedes implements Initializable
         tDireccionSede.setText("");
         tTelefonoSede.setText("");
     }
+    
+    public ObservableList<Sede> getSedes(){
+        ObservableList<Sede> obsSedes = FXCollections.observableArrayList();
+        Fachada con = new Fachada();
+        Connection conexion = con.getConnection();
+        try{
+            String sql_usuarios_registro = "SELECT * FROM sede;";
+            Statement sentenciaUsuariosS=conexion.createStatement();
+            ResultSet rstS = sentenciaUsuariosS.executeQuery(sql_usuarios_registro);
+            
+            while(rstS.next()){
+                Sede sede_= new Sede(rstS.getInt(1), rstS.getString(2), rstS.getString(3), rstS.getInt(4));                
+                
+                obsSedes.add(sede_);    
+            }
+            
+            conexion.close(); 
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return obsSedes;
+    }
+
+    @FXML
+    private void Refrescar(ActionEvent event) {
+        obsSedes=getSedes();
+        tabla_sedes.setItems(obsSedes);
+    }
+    
 }
+
