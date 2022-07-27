@@ -125,7 +125,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
                      <children>
-                        <TableView fx:id="tablaClientes" layoutX="63.0" layoutY="56.0" prefHeight="200.0" prefWidth="680.0">
+                        <TableView fx:id="tablaClientes" layoutX="63.0" layoutY="56.0" prefHeight="200.0" prefWidth="680.0" stylesheets="@estiloTabla.css">
                           <columns>
                             <TableColumn fx:id="columnaNombreCliente" prefWidth="173.0" text="Nombre" />
                             <TableColumn fx:id="columnaDireccionCliente" prefWidth="236.0" text="Dirección" />
@@ -141,7 +141,17 @@
             </Tab>
             <Tab text="Cotizaciones">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: C4DCF2;">
+                     <children>
+                        <TableView fx:id="tablaCotizaciones" layoutX="63.0" layoutY="55.0" prefHeight="200.0" prefWidth="680.0" stylesheets="@estiloTabla.css">
+                           <columns>
+                              <TableColumn fx:id="columnaClienteNombre" prefWidth="186.0" text="Nombre del Cliente" />
+                              <TableColumn fx:id="columnaVehiculo" prefWidth="306.0" text="Vehículo cotizado" />
+                              <TableColumn fx:id="columnaVendedor" prefWidth="187.0" text="Vendedor encargado" />
+                           </columns>
+                        </TableView>
+                        <PieChart layoutX="271.0" layoutY="294.0" prefHeight="238.0" prefWidth="289.0" title="Gráfica de no sé qué" />
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="Órdenes de trabajo">
