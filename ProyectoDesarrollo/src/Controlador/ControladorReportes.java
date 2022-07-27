@@ -43,10 +43,12 @@ public class ControladorReportes implements Initializable
     private ObservableList<PieChart.Data> datos_repuestos_pieChart_auxiliar = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> datosClientesComunaGrafica = FXCollections.observableArrayList();
     private ObservableList<PieChart.Data> datosClientesGeneroGrafica = FXCollections.observableArrayList();
+    private ObservableList<PieChart.Data> datosCotizaciones = FXCollections.observableArrayList();
     private ObservableList<Empleado> datos_empleados_tabla;
     private ObservableList<Vehiculo> datos_vehiculos_tabla;
     private ObservableList<Repuesto> datos_repuestos_tabla;
     private ObservableList<Cliente> datosClientesTabla;
+    private ObservableList<Cotizacion> datosCotizacionesTabla;
     
     
     @FXML
@@ -100,8 +102,6 @@ public class ControladorReportes implements Initializable
     @FXML
     private PieChart graGeneroClientes;
     @FXML
-    private PieChart graComunasClientes;
-    @FXML
     private TableView<Cliente> tablaClientes;
     @FXML
     private TableColumn<Cliente, String> columnaNombreCliente;
@@ -132,6 +132,7 @@ public class ControladorReportes implements Initializable
         datos_vehiculos_tabla = FXCollections.observableArrayList();
         datos_repuestos_tabla = FXCollections.observableArrayList();
         datosClientesTabla = FXCollections.observableArrayList();
+        datosCotizacionesTabla = FXCollections.observableArrayList();
         
         nombre_empleado_reporte.setCellValueFactory( new PropertyValueFactory("nombre"));
         cargo_empleado_reporte.setCellValueFactory( new PropertyValueFactory("cargo"));
@@ -152,6 +153,10 @@ public class ControladorReportes implements Initializable
         columnaDireccionCliente.setCellValueFactory( new PropertyValueFactory("direccion"));
         columnaGeneroCliente.setCellValueFactory( new PropertyValueFactory("genero"));
         columnaComunaCliente.setCellValueFactory( new PropertyValueFactory("comuna"));
+        
+        columnaClienteNombre.setCellValueFactory( new PropertyValueFactory("nombreCliente"));
+        columnaVehiculo.setCellValueFactory( new PropertyValueFactory("vehiculoCotizado"));
+        columnaVendedor.setCellValueFactory( new PropertyValueFactory("nombreVendedor"));
                 
         reporte_empleados();
         reporte_inventario();
@@ -210,8 +215,7 @@ public class ControladorReportes implements Initializable
             conexion.close();
         } catch (SQLException sqle) 
         {
-            JOptionPane.showMessageDialog(null,"Error: " + 
-                    sqle.getMessage());
+            JOptionPane.showMessageDialog(null,"Error: " + sqle.getMessage());
         }
     }
     
@@ -283,29 +287,31 @@ public class ControladorReportes implements Initializable
                     String sql = "SELECT * FROM cliente;";
                     Statement sentencia = conexion.createStatement();
                     ResultSet rs = sentencia.executeQuery(sql);
-                    int hombres = 0;
-                    int mujeres = 0;
                     
                     while(rs.next())
                     {
                         datosClientesTabla.add(new Cliente(rs.getString(2), rs.getString(3), rs.getString(5), rs.getInt(7)));
-                        datosClientesComunaGrafica.add(new PieChart.Data(rs.getString("comuna_cliente"), rs.getInt(7)));
-                        
-                        
-                        if(rs.getString(5).equals("Masculino"))
-                        {
-                            hombres += 1;
-                        }
-                        mujeres += 1;
-                        
-                        datosClientesGeneroGrafica.add(new PieChart.Data(rs.getString("genero_cliente"), hombres));
-                        datosClientesGeneroGrafica.add(new PieChart.Data(rs.getString("genero_cliente"), mujeres));
-                        
                     }
-                    
-                    graComunasClientes.setData(datosClientesComunaGrafica);
-                    graGeneroClientes.setData(datosClientesGeneroGrafica);
                     tablaClientes.setItems(datosClientesTabla);
+                    
+                                    
+                    sql = "SELECT count(genero_cliente) FROM cliente WHERE genero_cliente = 'Masculino';";
+                    Statement sentencia1 = conexion.createStatement();
+                    ResultSet rs1 = sentencia1.executeQuery(sql);
+                    
+                    sql = "SELECT count(genero_cliente) FROM cliente WHERE genero_cliente = 'Femenino';";
+                    Statement sentencia2 = conexion.createStatement();
+                    ResultSet rs2 = sentencia2.executeQuery(sql);
+                    
+                    rs1.next();
+                    rs2.next();
+                    
+                    datosClientesGeneroGrafica.add(new PieChart.Data("Masculino", rs1.getInt(1)));
+                    datosClientesGeneroGrafica.add(new PieChart.Data("Femenino", rs2.getInt(1)));
+                    graGeneroClientes.setData(datosClientesGeneroGrafica);
+                    
+                    sentencia1.close();
+                    sentencia2.close();
                     conexion.close();
                 }
                 catch (SQLException sqle)
@@ -326,8 +332,71 @@ public class ControladorReportes implements Initializable
     private void reporteCotizaciones()
     {
         
+        datosCotizacionesTabla.clear();
+        
+        Timer temporizador = new Timer();
+        TimerTask tarea; 
+        tarea = new TimerTask() 
+        {
+            @Override
+            public void run()
+            {
+                try 
+                {
+                    Fachada con = new Fachada();
+                    Connection conexion = con.getConnection();
+                    String sqlAuxCotizacion = "SELECT * FROM cotizacion";
+                    Statement sentencia = conexion.createStatement();
+                    ResultSet rs = sentencia.executeQuery(sqlAuxCotizacion);
+            
+                    while (rs.next())
+                    {
+
+                        String sqlNombreCliente = "SELECT * FROM cliente WHERE cedula_cliente = " + rs.getInt(3);
+                        Statement sentencia1 = conexion.createStatement();
+                        ResultSet rs1 = sentencia1.executeQuery(sqlNombreCliente); 
+
+                        String sqlVehiculoCotizado = "SELECT * FROM vehiculo WHERE id_vehiculo = " + rs.getInt(2);
+                        Statement sentencia2 = conexion.createStatement();
+                        ResultSet rs2 = sentencia2.executeQuery(sqlVehiculoCotizado);
+
+                        String sqlVendedorEncargado = "SELECT * FROM empleado WHERE cedula_empleado = " + rs.getInt(4);
+                        Statement sentencia3 = conexion.createStatement();
+                        ResultSet rs3 = sentencia3.executeQuery(sqlVendedorEncargado);
+
+                        if(rs1.next() && rs2.next() && rs3.next())
+                        {
+                            datosCotizacionesTabla.add(new Cotizacion(rs1.getString(2), rs2.getString(3), rs3.getString(4)));
+                        }
+                        sentencia1.close();
+                        sentencia2.close();
+                        sentencia3.close();
+                    }
+                    tablaCotizaciones.setItems(datosCotizacionesTabla);
+
+                    sentencia.close();
+                   
+                    
+                    conexion.close();
+                    } catch (SQLException sqle) 
+                    {
+                        JOptionPane.showMessageDialog(null,"Error: " + 
+                                sqle.getMessage());
+                    }
+                    finally
+                    {
+                        cancel();
+                        temporizador.cancel();
+                    }
+            }
+        };
+        temporizador.schedule(tarea, 0);
+
+        
     }
 
+    
+    
     @FXML
     private void mostrar_grafico_vehiculo(ActionEvent event) 
     {
