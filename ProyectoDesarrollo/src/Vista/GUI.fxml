@@ -216,7 +216,7 @@
                               </ImageView>
                               <Label fx:id="nombre_usuario_inicio" alignment="CENTER" layoutX="61.0" layoutY="8.0" prefHeight="39.0" prefWidth="126.0" textAlignment="CENTER" textFill="WHITE" />
                               <Label fx:id="rol_usuario_inicio" alignment="CENTER" layoutX="80.0" layoutY="47.0" prefHeight="17.0" prefWidth="89.0" textAlignment="CENTER" textFill="WHITE" />
-                              <Button fx:id="boton_notificacion" layoutX="-5.0" layoutY="30.0" mnemonicParsing="false" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #808080;">
+                              <Button fx:id="boton_notificacion" layoutX="-5.0" layoutY="30.0" mnemonicParsing="false" onMouseEntered="#cambiarColor" onMouseExited="#resetearColor" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #808080;" visible="false" >
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
