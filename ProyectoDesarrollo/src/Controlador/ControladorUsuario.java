@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Fachada;
+import Modelo.usuario;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,13 +15,19 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -77,7 +84,33 @@ public class ControladorUsuario implements Initializable {
     private ComboBox<String> cbEstado;
     @FXML
     private ComboBox<Integer> cbCedula;
-
+    @FXML
+    private TableView<usuario> table_usuarios_registro;
+    @FXML
+    private Button button_aplicar;
+    @FXML
+    private ComboBox<String> cb_Rol_Registro;
+    @FXML
+    private ComboBox<String> cb_Estado_Registro;
+    private TextField txt_sede_registro;
+    @FXML
+    private TableColumn<usuario, String> colum_Cedula;
+    @FXML
+    private TableColumn<usuario, String> colum_Nombre;
+    @FXML
+    private TableColumn<usuario, String> colum_Correo;
+    @FXML
+    private TableColumn<usuario, String> colum_Direccion;
+    @FXML
+    private TableColumn<usuario, String> colum_Telefono;
+    @FXML
+    private TableColumn<usuario, String> colum_Rol;
+    @FXML
+    private TableColumn<usuario, String> colum_Estado;
+    @FXML
+    private TableColumn<usuario, String> colum_Sede;
+     ObservableList<usuario> obsUsuarios;
+   
     /**
      * Initializes the controller class.
      */
@@ -88,7 +121,7 @@ public class ControladorUsuario implements Initializable {
         tCedulaUsuario.setContextMenu(new ContextMenu());
         tTelefonoUsuario.setContextMenu(new ContextMenu());
         Fachada con = new Fachada();
-            Connection conexion = con.getConnection();
+        Connection conexion = con.getConnection();
             
             try {
             String sql_buscar_cedula = "SELECT cedula_empleado FROM empleado;";                                 
@@ -99,11 +132,38 @@ public class ControladorUsuario implements Initializable {
                 
                 cbCedula.getItems().add(Integer.parseInt(rst_buscar_cedula.getString(1)));
                 
-            }
+            }           
             
             } catch (SQLException ex) {
             Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        cb_Estado_Registro.getItems().add("Seleccione");
+        cb_Estado_Registro.getItems().add("Activo");
+        cb_Estado_Registro.getItems().add("Inactivo");
+        cb_Estado_Registro.setValue("Seleccione");
+        
+        cb_Rol_Registro.getItems().add("Seleccione");
+        cb_Rol_Registro.getItems().add("Jefe de taller");
+        cb_Rol_Registro.getItems().add("vendedor");
+        cb_Rol_Registro.getItems().add("Gerente");
+        cb_Rol_Registro.setValue("Seleccione");
+        
+        
+        
+            
+        this.colum_Cedula.setCellValueFactory(new PropertyValueFactory("Cedula"));
+        this.colum_Nombre.setCellValueFactory(new PropertyValueFactory("Nombre"));
+        this.colum_Correo.setCellValueFactory(new PropertyValueFactory("Correo"));
+        this.colum_Direccion.setCellValueFactory(new PropertyValueFactory("Direccion"));
+        this.colum_Telefono.setCellValueFactory(new PropertyValueFactory("Telefono"));
+        this.colum_Rol.setCellValueFactory(new PropertyValueFactory("Rol"));
+        this.colum_Estado.setCellValueFactory(new PropertyValueFactory("Estado"));
+        this.colum_Sede.setCellValueFactory(new PropertyValueFactory("Sede")); 
+        
+         obsUsuarios=getUsuarios();
+        this.table_usuarios_registro.setItems(obsUsuarios);   
+            
     }    
 
     @FXML
@@ -268,5 +328,132 @@ public class ControladorUsuario implements Initializable {
         tContrasenaUsuarioM.setText("");
         cbEstado.setValue("Elija el estado de su empleado");
     }
+
+    @FXML
+    private void filtrar(ActionEvent event) {
+        
+        obsUsuarios=filtrarLista();
+        
+        System.out.println(obsUsuarios.get(0).getCedula());
+        
+        
+        table_usuarios_registro.setItems(obsUsuarios);
+    }
     
+    public ObservableList<usuario> getUsuarios(){
+        ObservableList<usuario> obsUsuarios = FXCollections.observableArrayList();
+        Fachada con = new Fachada();
+        Connection conexion = con.getConnection();
+        try{
+            String sql_usuarios_registro = "SELECT * FROM empleado;";
+            Statement sentenciaUsuariosR=conexion.createStatement();
+            ResultSet rstU = sentenciaUsuariosR.executeQuery(sql_usuarios_registro);
+            
+            while(rstU.next()){
+                usuario Usuario_ = new usuario(rstU.getInt(1), rstU.getString(4), rstU.getString(5), rstU.getString(6), 
+                                                rstU.getInt(7), rstU.getString(3),rstU.getString(9),rstU.getInt(8));
+                
+                System.out.println(rstU.getInt(1));
+                
+                obsUsuarios.add(Usuario_);
+                
+                
+            }
+            
+            conexion.close();
+            
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(obsUsuarios.get(0).getCedula());
+        System.out.println(obsUsuarios.get(2).getCedula());
+        System.out.println(obsUsuarios.get(3).getCedula());
+        return obsUsuarios;
+    }
+    
+    public ObservableList<usuario> filtrarLista(){
+        Fachada con = new Fachada();
+        Connection conexion = con.getConnection();
+        obsUsuarios.clear();
+        
+        if(cb_Rol_Registro.getValue()=="Seleccione" && cb_Estado_Registro.getValue()=="Seleccione"){
+            
+             try{
+            String sql_usuarios_registro = "SELECT * FROM empleado;";
+            Statement sentenciaUsuariosR=conexion.createStatement();
+            ResultSet rstU = sentenciaUsuariosR.executeQuery(sql_usuarios_registro);
+            
+            while(rstU.next()){
+                usuario Usuario_ = new usuario(rstU.getInt(1), rstU.getString(4), rstU.getString(5), rstU.getString(6), 
+                                                rstU.getInt(7), rstU.getString(3),rstU.getString(9),rstU.getInt(8));               
+               
+                obsUsuarios.add(Usuario_);
+                               
+            }            
+            conexion.close();            
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }else if(cb_Rol_Registro.getValue()!="Seleccione" && cb_Estado_Registro.getValue()=="Seleccione" ){
+            try{
+            String sql_usuarios_registro = "SELECT * FROM empleado WHERE rol ='"+cb_Rol_Registro.getValue()+"';";
+            Statement sentenciaUsuariosR=conexion.createStatement();
+            ResultSet rstU = sentenciaUsuariosR.executeQuery(sql_usuarios_registro);
+            
+            while(rstU.next()){
+                usuario Usuario_ = new usuario(rstU.getInt(1), rstU.getString(4), rstU.getString(5), rstU.getString(6), 
+                                                rstU.getInt(7), rstU.getString(3),rstU.getString(9),rstU.getInt(8));               
+               
+                obsUsuarios.add(Usuario_);
+                               
+            }            
+            conexion.close();            
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else if(cb_Rol_Registro.getValue()!="Seleccione" && cb_Estado_Registro.getValue()!="Seleccione" ){
+            try{
+            String sql_usuarios_registro = "SELECT * FROM empleado WHERE rol ='"+cb_Rol_Registro.getValue()+"' and estado ='"+cb_Estado_Registro.getValue()+"';";
+            Statement sentenciaUsuariosR=conexion.createStatement();
+            ResultSet rstU = sentenciaUsuariosR.executeQuery(sql_usuarios_registro);
+            
+            while(rstU.next()){
+                usuario Usuario_ = new usuario(rstU.getInt(1), rstU.getString(4), rstU.getString(5), rstU.getString(6), 
+                                                rstU.getInt(7), rstU.getString(3),rstU.getString(9),rstU.getInt(8));               
+               
+                obsUsuarios.add(Usuario_);
+                               
+            }            
+            conexion.close();            
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else if(cb_Rol_Registro.getValue()=="Seleccione" && cb_Estado_Registro.getValue()!="Seleccione" ){
+             try{
+            String sql_usuarios_registro = "SELECT * FROM empleado WHERE estado ='"+cb_Estado_Registro.getValue()+"';";
+            Statement sentenciaUsuariosR=conexion.createStatement();
+            ResultSet rstU = sentenciaUsuariosR.executeQuery(sql_usuarios_registro);
+            
+            while(rstU.next()){
+                usuario Usuario_ = new usuario(rstU.getInt(1), rstU.getString(4), rstU.getString(5), rstU.getString(6), 
+                                                rstU.getInt(7), rstU.getString(3),rstU.getString(9),rstU.getInt(8));               
+               
+                obsUsuarios.add(Usuario_);
+                               
+            }            
+            conexion.close();            
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(ControladorCotizaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        
+        
+        return obsUsuarios;
+    }
 }
